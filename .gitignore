@@ -1,1 +1,38 @@
+// filepath: /home/rxnjith/test/.gitignore
+# Dependencies
+node_modules/
+package-lock.json
 
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Blockchain artifacts (can be regenerated)
+blockchain/cache/
+blockchain/artifacts/
+
+# Data files (local development only)
+backend/src/data/*.json
+backend/src/generated-consents/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build outputs
+dist/
+build/
+
+# Hardhat
+blockchain/typechain-types/
