@@ -240,6 +240,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 | 🧑‍💻 | **Varun** | [@Varun-ai07](https://github.com/Varun-ai07) |
 | 🧑‍💻 | **Surya Prakash** | [@v-suryaprakash](https://github.com/v-suryaprakash) |
 
+*And Thanks to Our beloved friend K.GOBINATH for the Beautiful Landing Page!!*
+
 
 ##  Acknowledgments
 
