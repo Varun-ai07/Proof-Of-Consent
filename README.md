@@ -232,11 +232,16 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Author
 
-**VARUN P & SURYA PRAKASH V**
+## 👨‍💻 Authors
 
-## 🙏 Acknowledgments
+| | Name | GitHub |
+|---|------|--------|
+| 🧑‍💻 | **Varun** | [@Varun-ai07](https://github.com/Varun-ai07) |
+| 🧑‍💻 | **Surya Prakash** | [@v-suryaprakash](https://github.com/v-suryaprakash) |
+
+
+##  Acknowledgments
 
 - [OpenRouter](https://openrouter.ai/) for LLM API access
 - [Hardhat](https://hardhat.org/) for Ethereum development
