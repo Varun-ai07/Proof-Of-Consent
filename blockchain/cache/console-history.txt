@@ -1,0 +1,75 @@
+.exit
+console.log('Timestamp:', Number(record[3]))
+console.log('Doctor:', record[1])
+console.log('Hash:', record[0])
+ console.log('Signature record:', record)
+const record = await c.getConsentById('CNS_works_SIGNED')
+const c = await ethers.getContractAt('ConsentRegistry', '0x5FbDB2315678afecb367f032d93F642f64180aa3')
+.exit
+console.log('Hash:', record[0])
+const record = await c.getConsentById('CNS_works_SIGNED')
+.exit
+console.log(record)
+const record = await c.getConsentById('CNS_works_SIGNED')
+const c = await ethers.getContractAt('ConsentRegistry', '0x5FbDB2315678afecb367f032d93F642f64180aa3')
+new Date(Number(record[3]) * 1000).toISOString()
+console.log('Consent ID:', record[6])
+console.log('Has patient wallet:', record[2] !== '0x0000000000000000000000000000000000000000')
+console.log('Emergency:', record[5])
+new Date(record[3].toNumber() * 1000).toISOString()
+console.log('All hashes:', allHashes)
+const allHashes = await c.getAllConsentHashes()
+console.log('Consent hash:', record[0])
+console.log('Consent record:', record)
+const record = await c.getConsentById('CNS_works')
+console.log('Total consents:', total.toString())
+const total = await c.getTotalConsents()
+const c = await ethers.getContractAt('ConsentRegistry', '0x5FbDB2315678afecb367f032d93F642f64180aa3')
+.exit
+console.log('Total consents:', total.toString());
+const total = await contract.getTotalConsents();
+const contract = await ethers.getContractAt('ConsentRegistry', '0x5FbDB2315678afecb367f032d93F642f64180aa3');
+.exit
+ const key = account0.privateKey || await account0.signingKey?.privateKey;
+const account0 = accounts[0];
+console.log(key);
+const key = await accounts[0].privateKey;
+const accounts = await ethers.getSigners();
+.exit
+console.log('Key:', account0.privateKey);
+console.log('Address:', account0.address);
+const account0 = hdnode.derivePath("m/44'/60'/0'/0/0");
+const hdnode = ethers.HDNodeWallet.fromMnemonic(ethers.Mnemonic.fromPhrase(mnemonic));
+const mnemonic = 'test test test test test test test test test test test junk';
+console.log(w.address);
+const w = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb476cff72540778e980dac5d0f7b');
+.exit
+console.log(privateKey);
+const privateKey = await ethers.provider.send('hardhat_exportAccount', ['0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266']);
+console.log(key);
+const key = await ethers.provider.send('hardhat_exportAccount', ['0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266']);
+console.log(key);
+const key = await ethers.provider.send('hardhat_exportAccount', [accounts[INDEX].address]);
+for(let i = 0; i < 5; i++) { console.log(i, accounts[i].address); }
+const accounts = await ethers.getSigners();
+.exit
+console.log(wallet.address);
+const wallet = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb476cff72540778e980dac5d0f7b');
+.exit
+console.log('Current signer balance:', ethers.formatEther(balance));
+const balance = await provider.getBalance(signerUsed);
+const signerUsed = '0xA67AbD312F70b6d16c11547Dc91aa95F174bACE7';
+console.log('Account #0:', ethers.formatEther(balance0));
+const balance0 = await provider.getBalance('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266');
+const provider = await ethers.provider;
+console.log('Total consents:', total.toString());
+const total = await contract.getTotalConsents();
+console.log(hashes);
+const hashes = await contract.getAllConsentHashes();
+const contract = await ethers.getContractAt('ConsentRegistry', '0x5FbDB2315678afecb367f032d93F642f64180aa3');
+ console.log(consents);
+const consents = await contract.getAllConsents();
+const contract = await ethers.getContractAt('ConsentRegistry', '0x5FbDB2315678afecb367f032d93F642f64180aa3');
+.exit
+exit
+await ethers.provider.send('hardhat_mine', ['1']);

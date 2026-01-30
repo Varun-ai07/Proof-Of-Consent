@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Consent Form - Proof of Consent</title>
+    <link rel="stylesheet" href="patient.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-4xl mx-auto px-6 py-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-teal-600 rounded-lg flex items-center justify-center">
+                    <iconify-icon icon="solar:shield-check-bold" class="text-white" width="20"></iconify-icon>
+                </div>
+                <div>
+                    <h1 class="text-lg font-semibold text-slate-900 font-manrope">Digital Consent Form</h1>
+                    <p class="text-xs text-slate-500 font-inter" id="consentIdDisplay">Loading...</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-12">
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="text-center py-12">
+            <div class="inline-block">
+                <div class="w-10 h-10 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin"></div>
+                <p class="text-slate-600 mt-4 font-inter">Loading consent form...</p>
+            </div>
+        </div>
+
+        <!-- Success Banner (Hidden Initially) -->
+        <div id="successBanner" class="hidden mb-8 bg-emerald-50 border border-emerald-200 rounded-xl p-6">
+            <div class="flex items-start gap-4">
+                <div class="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center shrink-0">
+                    <iconify-icon icon="solar:verified-check-bold" class="text-white" width="32"></iconify-icon>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-2xl font-semibold text-emerald-900 mb-2 font-manrope">✅ Your consent is securely recorded.</h2>
+                    <p class="text-emerald-800 mb-2 font-inter">Your digital signature has been verified and stored.</p>
+                    <div class="bg-white rounded-lg p-3 mt-4 border border-emerald-200">
+                        <p class="text-xs text-slate-600 font-mono font-inter" id="signatureHashDisplay">Hash: </p>
+                        <p class="text-xs text-slate-500 mt-1 font-inter">Your consent record is securely stored.</p>
+                    </div>
+                    <div class="flex gap-3 mt-4">
+                        <button onclick="window.print()" class="px-4 py-2 bg-white border border-emerald-600 text-emerald-700 rounded-lg hover:bg-emerald-50 transition-colors text-sm font-semibold font-inter">
+                            <iconify-icon icon="solar:printer-bold" width="16" class="inline mr-2"></iconify-icon>
+                            Print Copy
+                        </button>
+                        <button onclick="window.location.href='patient.html'" class="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm font-semibold font-inter">
+                            Back to Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OTP Guard -->
+        <div id="otpAlert" class="hidden mb-6 bg-red-50 border border-red-200 text-red-800 rounded-lg p-4 text-sm font-inter">
+            <div class="flex items-start gap-3">
+                <iconify-icon icon="solar:shield-warning-bold" class="text-red-500 mt-0.5" width="18"></iconify-icon>
+                <div>
+                    <p class="font-semibold">OTP verification required</p>
+                    <p id="otpAlertText" class="mt-1">Please open the secure link sent by your doctor and include the 6-digit OTP.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Consent Form Card -->
+        <div id="consentForm" class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden">
+            <!-- Form Header -->
+            <div class="bg-gradient-to-r from-teal-600 to-emerald-600 text-white p-8">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h2 class="text-2xl font-semibold mb-1 font-manrope">Informed Consent for Medical Procedure</h2>
+                        <p class="text-teal-100 text-sm font-inter">Please review and sign below to provide your consent</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-teal-100 font-inter">Date</p>
+                        <p class="text-lg font-semibold font-mono" id="currentDate"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Content -->
+            <div class="p-8 space-y-6">
+                <!-- Hospital & Patient Information -->
+                <div class="grid md:grid-cols-2 gap-6 pb-6 border-b border-slate-200">
+                    <div>
+                        <h3 class="text-sm font-semibold text-slate-600 mb-3 font-manrope">Hospital Information</h3>
+                        <div class="space-y-2 text-sm font-inter">
+                            <p><strong>Hospital:</strong> <span id="hospitalName">-</span></p>
+                            <p><strong>Department:</strong> <span id="department">-</span></p>
+                            <p><strong>Location:</strong> <span id="location">-</span></p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-slate-600 mb-3 font-manrope">Patient Information</h3>
+                        <div class="space-y-2 text-sm font-inter">
+                            <p><strong>Patient Name:</strong> <span id="patientDisplayName">-</span></p>
+                            <p><strong>Patient ID:</strong> <span id="patientId">-</span></p>
+                            <p><strong>Age:</strong> <span id="patientAge">-</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Procedure Details -->
+                <div class="pb-6 border-b border-slate-200">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-4 font-manrope">Procedure Details</h3>
+                    <div class="bg-slate-50 rounded-lg p-4 space-y-2 text-sm font-inter">
+                        <p><strong>Procedure Name:</strong> <span id="procedureName">-</span></p>
+                        <p><strong>Scheduled Date:</strong> <span id="scheduledDate">-</span></p>
+                        <p><strong>Scheduled Time:</strong> <span id="scheduledTime">-</span></p>
+                        <p><strong>Surgeon:</strong> <span id="surgeon">-</span></p>
+                        <p><strong>Anesthesiologist:</strong> <span id="anesthesiologist">-</span></p>
+                    </div>
+                </div>
+
+                <!-- Consent Overview -->
+                <div class="space-y-4 text-sm text-slate-700 leading-relaxed font-inter">
+                    <h3 class="text-lg font-semibold text-slate-900 font-manrope">Informed Consent Statement</h3>
+                    <div id="consentOverview" class="bg-slate-50 rounded-lg p-4 text-sm">
+                        <p class="text-slate-500">Loading consent information...</p>
+                    </div>
+                </div>
+
+                <!-- Procedure Steps (if available) -->
+                <div id="stepsSection" class="hidden space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-900 font-manrope">Procedure Steps</h3>
+                    <ol id="procedureSteps" class="space-y-2 list-decimal list-outside ml-6 text-sm text-slate-700">
+                    </ol>
+                </div>
+
+                <!-- Risks (if available) -->
+                <div id="risksSection" class="hidden space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-900 font-manrope">Potential Risks</h3>
+                    <ul id="risksList" class="space-y-2 list-disc list-outside ml-6 text-sm text-slate-700">
+                    </ul>
+                </div>
+
+                <!-- Alternatives (if available) -->
+                <div id="alternativesSection" class="hidden space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-900 font-manrope">Alternative Treatments</h3>
+                    <ul id="alternativesList" class="space-y-2 list-disc list-outside ml-6 text-sm text-slate-700">
+                    </ul>
+                </div>
+
+                <!-- Declaration Checkboxes -->
+                <div class="space-y-4 bg-slate-50 rounded-lg p-6">
+                    <p class="font-semibold text-slate-900 font-manrope">I confirm that:</p>
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" id="declaration1" class="mt-1 w-5 h-5 text-teal-600 rounded focus:ring-2 focus:ring-teal-500" required>
+                        <label for="declaration1" class="text-sm text-slate-700 font-inter cursor-pointer">
+                            I have been informed about the nature, purpose, risks, benefits, and alternatives of the proposed procedure, and all my questions have been answered to my satisfaction.
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" id="declaration2" class="mt-1 w-5 h-5 text-teal-600 rounded focus:ring-2 focus:ring-teal-500" required>
+                        <label for="declaration2" class="text-sm text-slate-700 font-inter cursor-pointer">
+                            I have had adequate time to consider my decision and have not been pressured or coerced into providing this consent.
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" id="declaration3" class="mt-1 w-5 h-5 text-teal-600 rounded focus:ring-2 focus:ring-teal-500" required>
+                        <label for="declaration3" class="text-sm text-slate-700 font-inter cursor-pointer">
+                            I agree to proceed with this procedure voluntarily and understand that I can withdraw my consent at any time before the procedure begins.
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" id="declaration4" class="mt-1 w-5 h-5 text-teal-600 rounded focus:ring-2 focus:ring-teal-500" required>
+                        <label for="declaration4" class="text-sm text-slate-700 font-inter cursor-pointer">
+                            I consent to the administration of anesthesia and understand the associated risks.
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Digital Signature Section -->
+                <div class="pt-6 border-t border-slate-200">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-4 font-manrope">Digital Signature</h3>
+                    
+                    <div class="space-y-4">
+                        <!-- Name Field -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2 font-inter">Patient Name (Type to confirm)</label>
+                            <input 
+                                type="text" 
+                                id="patientName" 
+                                title="Patient Name"
+                                placeholder="Enter your full name" 
+                                class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent font-inter" 
+                                required
+                            >
+                        </div>
+
+                        <!-- Signature Canvas -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2 font-inter">Draw Your Signature</label>
+                            <div class="border-2 border-slate-300 rounded-lg bg-white">
+                                <canvas id="signatureCanvas" width="700" height="200" class="w-full cursor-crosshair"></canvas>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <p class="text-xs text-slate-500 font-inter">Sign using your mouse or touch screen</p>
+                                <button type="button" id="clearSignature" class="text-sm text-teal-600 hover:text-teal-700 font-inter">Clear</button>
+                            </div>
+                        </div>
+
+                        <!-- Alternative: Type Signature -->
+                        <div class="flex items-center gap-4 pt-2">
+                            <div class="h-px bg-slate-200 flex-1"></div>
+                            <span class="text-xs text-slate-400 font-inter">OR</span>
+                            <div class="h-px bg-slate-200 flex-1"></div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2 font-inter">Type Your Signature</label>
+                            <input 
+                                type="text" 
+                                id="typedSignature" 
+                                title="Type Your Signature"
+                                placeholder="Type your full name as signature" 
+                                class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent font-inter"
+                            >
+                        </div>
+
+                        <!-- Date (Auto-filled) -->
+                        <div>
+                            <label for="consentDate" class="block text-sm font-medium text-slate-700 mb-2 font-inter">Date of Consent</label>
+                            <input
+                                type="text"
+                                id="consentDate"
+                                name="consentDate"
+                                title="Date of Consent"
+                                placeholder="Date of Consent"
+                                class="w-full px-4 py-3 border border-slate-300 rounded-lg bg-slate-50 font-inter"
+                                readonly
+                        >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legal Notice -->
+                <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                    <div class="flex gap-3">
+                        <iconify-icon icon="solar:info-circle-bold" class="text-amber-600 shrink-0 mt-1" width="20"></iconify-icon>
+                        <div class="text-sm text-amber-900 font-inter">
+                            <p class="font-semibold mb-1">Legal Notice:</p>
+                            <p>
+                                By signing this document, you are providing legally binding consent for the medical procedure described above. Your signature is securely stored and verifiable.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button id="submitConsent" class="w-full py-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors shadow-lg text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed font-inter">
+                    Submit Digital Consent
+                </button>
+
+                <p id="errorMessage" class="text-red-600 text-sm text-center hidden font-inter"></p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const CONFIG = {
+            API_BASE_URL: (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+                ? 'http://localhost:4000/api'
+                : '/api',
+            REQUEST_TIMEOUT: 10000
+        };
+
+        let consentData = null;
+        let currentConsentId = null;
+        let hasSignature = false;
+
+        const elements = {
+            loadingSpinner: document.getElementById('loadingSpinner'),
+            consentForm: document.getElementById('consentForm'),
+            successBanner: document.getElementById('successBanner'),
+            consentIdDisplay: document.getElementById('consentIdDisplay'),
+            otpAlert: document.getElementById('otpAlert'),
+            otpAlertText: document.getElementById('otpAlertText'),
+            submitButton: document.getElementById('submitConsent'),
+            errorMessage: document.getElementById('errorMessage'),
+            patientName: document.getElementById('patientName'),
+            typedSignature: document.getElementById('typedSignature')
+        };
+
+        function getConsentId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('consentId') || sessionStorage.getItem('currentConsentId') || null;
+        }
+
+        function getOtpParam() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('otp') || null;
+        }
+
+        async function fetchWithTimeout(url, options = {}, timeout = CONFIG.REQUEST_TIMEOUT) {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), timeout);
+            try {
+                const response = await fetch(url, { ...options, signal: controller.signal });
+                clearTimeout(timer);
+                return response;
+            } catch (error) {
+                clearTimeout(timer);
+                if (error.name === 'AbortError') throw new Error('Request timed out. Please try again.');
+                throw error;
+            }
+        }
+
+        async function loadConsentData() {
+            currentConsentId = getConsentId();
+            elements.consentForm.classList.add('hidden');
+
+            if (!currentConsentId) {
+                showError('No consent ID provided. Returning to patient dashboard.');
+                setTimeout(() => window.location.href = 'patient.html', 2000);
+                return;
+            }
+
+            try {
+                // Try localStorage first (same-origin data from patient.html)
+                const localData = localStorage.getItem(`consent_${currentConsentId}`);
+                if (localData) {
+                    consentData = JSON.parse(localData);
+                    console.log('✅ Loaded consent from localStorage');
+                } else {
+                    // Fallback to API
+                    console.log('⚠️ Not found in localStorage, trying API...');
+                    const response = await fetchWithTimeout(`${CONFIG.API_BASE_URL}/consent/${currentConsentId}`);
+                    if (!response.ok) {
+                        showError(response.status === 404 ? 'Consent form not found.' : 'Failed to load consent form.');
+                        return;
+                    }
+                    const data = await response.json();
+                    consentData = data.success ? data : { ...data };
+                    console.log('✅ Loaded consent from API');
+                }
+                
+                populateForm();
+                const otpOk = validateOtpRequirement();
+                if (otpOk) {
+                    elements.consentForm.classList.remove('hidden');
+                }
+
+            } catch (err) {
+                console.error('Error loading consent:', err);
+                showError(err.message || 'Error loading consent form. Please try again.');
+            } finally {
+                elements.loadingSpinner.classList.add('hidden');
+            }
+        }
+
+        function validateOtpRequirement() {
+            const expectedOtp = consentData?.otp || sessionStorage.getItem(`consentOtp:${currentConsentId}`) || null;
+            const providedOtp = getOtpParam();
+
+            if (!expectedOtp) {
+                hideOtpAlert();
+                toggleFormDisabled(false);
+                return true;
+            }
+
+            if (!providedOtp) {
+                showOtpAlert('This consent requires OTP verification. Please open the secure link that includes your 6-digit OTP.');
+                toggleFormDisabled(true);
+                return false;
+            }
+
+            if (String(providedOtp) !== String(expectedOtp)) {
+                showOtpAlert('Invalid OTP. Please double-check the 6-digit code sent by your doctor.');
+                toggleFormDisabled(true);
+                return false;
+            }
+
+            hideOtpAlert();
+            toggleFormDisabled(false);
+            return true;
+        }
+
+        function showOtpAlert(message) {
+            elements.otpAlertText.textContent = message;
+            elements.otpAlert.classList.remove('hidden');
+        }
+
+        function hideOtpAlert() {
+            elements.otpAlert.classList.add('hidden');
+        }
+
+        function toggleFormDisabled(disabled) {
+            const controls = elements.consentForm.querySelectorAll('input, textarea, button, canvas');
+            controls.forEach(ctrl => { ctrl.disabled = disabled; });
+            elements.submitButton.disabled = disabled;
+        }
+
+        function populateForm() {
+            if (!consentData) return;
+
+            elements.consentIdDisplay.textContent = `Consent ID: ${currentConsentId}`;
+
+            document.getElementById('hospitalName').textContent = consentData.hospital || '-';
+            document.getElementById('department').textContent = consentData.department || '-';
+            document.getElementById('location').textContent = consentData.location || '-';
+            document.getElementById('patientDisplayName').textContent = consentData.patientName || '-';
+            document.getElementById('patientId').textContent = consentData.patientId || '-';
+            document.getElementById('patientAge').textContent = consentData.age || '-';
+
+            document.getElementById('procedureName').textContent = consentData.procedure || '-';
+            document.getElementById('scheduledDate').textContent = consentData.scheduledDate || '-';
+            document.getElementById('scheduledTime').textContent = consentData.scheduledTime || '-';
+            document.getElementById('surgeon').textContent = consentData.surgeon || '-';
+            document.getElementById('anesthesiologist').textContent = consentData.anesthesiologist || '-';
+
+            if (consentData.patientName) {
+                elements.patientName.placeholder = consentData.patientName;
+            }
+
+            const overviewEl = document.getElementById('consentOverview');
+            if (consentData.aiSummary) {
+                overviewEl.innerHTML = `<p>${escapeHtml(consentData.aiSummary)}</p>`;
+            } else if (consentData.overview) {
+                overviewEl.innerHTML = `<p>${escapeHtml(consentData.overview)}</p>`;
+            }
+
+            if (consentData.steps?.length) {
+                document.getElementById('stepsSection').classList.remove('hidden');
+                document.getElementById('procedureSteps').innerHTML = consentData.steps
+                    .map(step => `<li><strong>${escapeHtml(step.title || '')}</strong> — ${escapeHtml(step.description || '')}</li>`)
+                    .join('');
+            }
+
+            if (consentData.risks?.length) {
+                document.getElementById('risksSection').classList.remove('hidden');
+                document.getElementById('risksList').innerHTML = consentData.risks
+                    .map(risk => `<li><strong>${escapeHtml(risk.title || '')}</strong> (${escapeHtml(risk.likelihood || 'n/a')}): ${escapeHtml(risk.description || '')}</li>`)
+                    .join('');
+            }
+
+            if (consentData.alternatives?.length) {
+                document.getElementById('alternativesSection').classList.remove('hidden');
+                document.getElementById('alternativesList').innerHTML = consentData.alternatives
+                    .map(alt => `<li><strong>${escapeHtml(alt.title || '')}</strong> — ${escapeHtml(alt.description || '')}</li>`)
+                    .join('');
+            }
+        }
+
+        function escapeHtml(str = '') {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function showError(msg) {
+            elements.errorMessage.textContent = msg;
+            elements.errorMessage.classList.remove('hidden');
+        }
+
+        function hideError() {
+            elements.errorMessage.classList.add('hidden');
+        }
+
+        function initDate() {
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('currentDate').textContent = formattedDate;
+            document.getElementById('consentDate').value = formattedDate;
+        }
+
+        function initSignatureCanvas() {
+            const canvas = document.getElementById('signatureCanvas');
+            const ctx = canvas.getContext('2d');
+            const scale = window.devicePixelRatio || 1;
+            canvas.width = 700 * scale;
+            canvas.height = 200 * scale;
+            canvas.style.width = '100%';
+            canvas.style.height = '200px';
+            ctx.scale(scale, scale);
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            let isDrawing = false;
+
+            canvas.addEventListener('mousedown', (e) => {
+                isDrawing = true;
+                const { x, y } = getCanvasPos(canvas, e);
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            });
+
+            canvas.addEventListener('mousemove', (e) => {
+                if (!isDrawing) return;
+                const { x, y } = getCanvasPos(canvas, e);
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = '#0f172a';
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+                hasSignature = true;
+            });
+
+            ['mouseup', 'mouseout'].forEach(evt => {
+                canvas.addEventListener(evt, () => { isDrawing = false; });
+            });
+
+            // Touch support
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const { x, y } = getCanvasPos(canvas, touch);
+                isDrawing = true;
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            });
+
+            canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                if (!isDrawing) return;
+                const touch = e.touches[0];
+                const { x, y } = getCanvasPos(canvas, touch);
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = '#0f172a';
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+                hasSignature = true;
+            });
+
+            ['touchend', 'touchcancel'].forEach(evt => {
+                canvas.addEventListener(evt, (e) => {
+                    e.preventDefault();
+                    isDrawing = false;
+                });
+            });
+
+            document.getElementById('clearSignature').addEventListener('click', () => {
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                hasSignature = false;
+                elements.typedSignature.value = '';
+            });
+        }
+
+        function getCanvasPos(canvas, evt) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: (evt.clientX - rect.left),
+                y: (evt.clientY - rect.top)
+            };
+        }
+
+        function hasDrawnSignature(canvas) {
+            const ctx = canvas.getContext('2d');
+            const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < data.length; i += 4) {
+                if (!(data[i] === 255 && data[i + 1] === 255 && data[i + 2] === 255 && data[i + 3] === 255)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        document.getElementById('typedSignature').addEventListener('input', (e) => {
+            hasSignature = e.target.value.trim().length > 0;
+        });
+
+        document.getElementById('submitConsent').addEventListener('click', async () => {
+            hideError();
+            if (!validateOtpRequirement()) return;
+
+            const checkboxes = [
+                document.getElementById('declaration1'),
+                document.getElementById('declaration2'),
+                document.getElementById('declaration3'),
+                document.getElementById('declaration4')
+            ];
+
+            const allChecked = checkboxes.every(cb => cb.checked);
+            const nameValue = elements.patientName.value.trim();
+            const typedSig = elements.typedSignature.value.trim();
+            const canvas = document.getElementById('signatureCanvas');
+            const hasCanvasSignature = hasDrawnSignature(canvas);
+
+            if (!allChecked) {
+                showError('Please check all declaration boxes to confirm your understanding.');
+                return;
+            }
+
+            if (!nameValue) {
+                showError('Please confirm your name.');
+                return;
+            }
+
+            if (!typedSig && !hasCanvasSignature) {
+                showError('Please provide a signature (draw or type).');
+                return;
+            }
+
+            setButtonState(true);
+
+            try {
+                const canvas = document.getElementById('signatureCanvas');
+                const hasCanvasSignature = hasDrawnSignature(canvas);
+                
+                // Generate signature hash
+                const sigString = (typedSig || 'drawn-signature') + (hasCanvasSignature ? canvas.toDataURL().slice(0, 50) : '');
+                const signatureHash = await generateHash(sigString);
+                
+                // Store signature in localStorage
+                const signedConsent = {
+                    ...consentData,
+                    patientSignature: typedSig || 'drawn-signature',
+                    signatureCanvas: hasCanvasSignature ? canvas.toDataURL() : null,
+                    signedAt: new Date().toISOString(),
+                    signedBy: nameValue,
+                    signatureHash: signatureHash
+                };
+                localStorage.setItem(`consent_${currentConsentId}`, JSON.stringify(signedConsent));
+                console.log('✅ Consent signed and stored locally');
+
+                // Record signature on blockchain
+                console.log('📝 Recording signature on blockchain...');
+                const blockchainResponse = await fetch('http://localhost:4000/api/blockchain/sign-consent', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        consentId: currentConsentId,
+                        signatureHash: signatureHash.replace('0x', ''),
+                        patientName: nameValue,
+                        patientWallet: null
+                    })
+                });
+
+                const blockchainData = await blockchainResponse.json();
+                
+                if (!blockchainResponse.ok || !blockchainData.success) {
+                    throw new Error(blockchainData.error || 'Failed to record signature on blockchain');
+                }
+
+                console.log('✅ Signature recorded on blockchain!');
+                console.log('   Transaction:', blockchainData.transactionHash);
+                console.log('   Block:', blockchainData.blockNumber);
+
+                // Store signature blockchain data in the consent
+                signedConsent.signatureBlockchainData = {
+                    transactionHash: blockchainData.transactionHash,
+                    blockNumber: blockchainData.blockNumber,
+                    gasUsed: blockchainData.gasUsed,  //  Backend now returns this correctly
+                    recordedAt: new Date().toISOString(),
+                    status: blockchainData.status
+                };
+                localStorage.setItem(`consent_${currentConsentId}`, JSON.stringify(signedConsent));
+
+                // Update success banner with blockchain details
+                document.getElementById('signatureHashDisplay').innerHTML = `
+                    <p class="font-semibold mb-2">Blockchain Confirmation:</p>
+                    <p class="text-xs text-slate-600 font-mono mb-1">Signature Hash: ${signatureHash.substring(0, 32)}...</p>
+                    <p class="text-xs text-slate-600 font-mono mb-1">Transaction: <a href="#" class="text-teal-600 underline">${blockchainData.transactionHash.substring(0, 18)}...</a></p>
+                    <p class="text-xs text-slate-600 font-mono">Block: ${blockchainData.blockNumber}</p>
+                    <p class="text-xs text-emerald-600 mt-2">✅ Securely recorded on blockchain</p>
+                `;
+
+                elements.consentForm.classList.add('hidden');
+                elements.successBanner.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (err) {
+                console.error('Submission error:', err);
+                showError(err.message || 'Error submitting consent. Please try again.');
+            } finally {
+                setButtonState(false);
+            }
+        });
+
+        async function generateHash(str) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(str);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return '0x' + hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        function setButtonState(isLoading) {
+            if (isLoading) {
+                elements.submitButton.textContent = 'Submitting...';
+                elements.submitButton.disabled = true;
+            } else {
+                elements.submitButton.textContent = 'Submit Digital Consent';
+                elements.submitButton.disabled = false;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initDate();
+            initSignatureCanvas();
+            loadConsentData();
+        });
+    </script>
+</body>
+</html>

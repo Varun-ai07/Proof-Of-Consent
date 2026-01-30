@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Medical Consent</title>
+  <meta charset="UTF-8" />
+</head>
+<body>
+  <h1>Informed Consent</h1>
+
+  <p><strong>Patient:</strong> Varun</p>
+  <p><strong>Procedure:</strong> Hip Replacement</p>
+
+  <hr />
+  <div>Hip Replacement is a surgical procedure where a damaged or diseased hip joint is replaced with an artificial one. This is typically done to relieve pain and improve mobility when the natural joint is no longer functioning well.<br/><br/>### Why it is done:<br/>Hip Replacement is usually recommended for people who have severe hip pain that limits their daily activities, and whose hip joint is damaged due to conditions like arthritis. The procedure helps to restore the joint's ability to move smoothly, reducing pain and improving the quality of life.<br/><br/>### Common Risks:<br/>- **Infection:** Although rare, there is a small chance of infection at the surgical site.<br/>- **Blood Clots:** These can form in the legs and travel to the lungs, causing a potentially serious condition called pulmonary embolism.<br/>- **Nerve or Blood Vessel Damage:** During surgery, there is a small risk of injury to nearby nerves or blood vessels.<br/>- **Dislocation:** The artificial joint may come out of place, which can be painful and may require another surgery to fix.<br/>- **Pain:** Some patients may experience persistent pain after the surgery, which can be difficult to manage.<br/><br/>### Recovery Overview:<br/>Recovery from a Hip Replacement typically takes several months. Here’s what you can expect:<br/><br/>- **Initial Post-Surgery:** You will be in the hospital for a few days. You will be given pain medication and physical therapy to help you move around.<br/>- **Physical Therapy:** This is crucial for regaining strength and mobility. You will start with gentle exercises and gradually increase the intensity.<br/>- **Return to Daily Activities:** Most people can walk with a walker or crutches within a few weeks. Full recovery, including returning to more strenuous activities, can take several months.<br/>- **Long-term Care:** Regular follow-ups with your doctor are important to monitor the health of the new joint and to address any issues that may arise.<br/><br/>Remember, recovery times and outcomes can vary from person to person. Always follow your doctor's instructions closely.</div>
+
+  <hr />
+
+  <label>
+    <input type="checkbox" id="understand" />
+    I confirm that I have read and understood the above.
+  </label>
+
+  <br /><br />
+
+  <label>
+    Type your full name as signature:
+    <input type="text" id="signature" />
+  </label>
+
+  <br /><br />
+
+  <button onclick="submitConsent()">Submit Digital Consent</button>
+
+  <script>
+    async function submitConsent() {
+      const checked = document.getElementById('understand').checked;
+      const signature = document.getElementById('signature').value.trim();
+
+      if (!checked || !signature) {
+        alert('Please confirm understanding and sign.');
+        return;
+      }
+
+      const consentId = location.pathname.split('/').pop().replace('.html', '');
+
+      const res = await fetch('/api/consent/sign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          consentId,
+          patientSignature: signature,
+          timestamp: new Date().toISOString()
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || 'Failed to sign consent');
+        return;
+      }
+
+      document.body.innerHTML = `
+        <h2>✅ Consent Signed</h2>
+        <p>Your consent has been recorded.</p>
+        <p>Status: ${data.status}</p>
+      `;
+    }
+  </script>
+</body>
+</html>

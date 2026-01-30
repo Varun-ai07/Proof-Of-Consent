@@ -1,0 +1,22 @@
+[
+  {
+    "username": "john@gmail.com",
+    "password": "$2b$10$rrJmPmZgIJpN2PuzqUimk.T04JOZIzsxIU8Z92lu5GNAgiEDUzlQa"
+  },
+  {
+    "username": "varun@gmail.com",
+    "password": "$2b$10$oBDiWx/yIfJX.eq/wiD8v.vkuGlk3Xdy8TP/UPITWHqDs4/B86dNy"
+  },
+  {
+    "id": "DOC_1769411408179",
+    "username": "gobinath@gmail.com",
+    "email": "gobinath@gmail.com",
+    "name": "Gobinath",
+    "fullName": "Gobinath",
+    "hospital": "Coimbatore Medical College",
+    "department": "neurology",
+    "license": "TEST654321",
+    "password": "$2b$10$7hn3O//ZGUGOsSzyoJPdke8XGad7D9R3/vFA9WGwU.eapFI1QOOdi",
+    "createdAt": "2026-01-26T07:10:08.179Z"
+  }
+]

@@ -1,0 +1,438 @@
+[
+  {
+    "consentId": "CNS_1769110501175",
+    "patientName": "John",
+    "procedure": "Appendectomy",
+    "doctorId": "DOC_001",
+    "status": "PENDING_PATIENT",
+    "patientSigned": false,
+    "doctorVerified": false,
+    "blockchainTx": null,
+    "createdAt": "2026-01-22T19:35:03.697Z"
+  },
+  {
+    "consentId": "CNS_1769111612444",
+    "patientName": "Varun",
+    "procedure": "Hip Replacement",
+    "doctorId": "DOC_001",
+    "status": "PENDING_PATIENT",
+    "patientSigned": false,
+    "doctorVerified": false,
+    "blockchainTx": null,
+    "createdAt": "2026-01-22T19:53:35.872Z"
+  },
+  {
+    "consentId": "CNS_1769807590012",
+    "patientName": "Mani",
+    "procedure": "Prostatectomy",
+    "doctorId": "DOC_001",
+    "doctorName": "Gobinath",
+    "otp": "177992",
+    "consentHash": "70c60d5eb4293f1d6d07458e3116801513810ae7f1eb61593b31ad3d110d9453",
+    "status": "PENDING_PATIENT",
+    "patientSigned": false,
+    "doctorVerified": false,
+    "blockchainTx": null,
+    "blockchainStatus": "PENDING",
+    "createdAt": "2026-01-30T21:13:33.783Z",
+    "aiSummary": "Prostatectomy: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
+    "steps": [
+      {
+        "title": "Anesthesia",
+        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
+      },
+      {
+        "title": "Small Incisions",
+        "description": "Small surgical incisions are made to allow access for the instruments needed."
+      },
+      {
+        "title": "Procedure",
+        "description": "The main surgical steps are performed carefully by your experienced surgical team."
+      },
+      {
+        "title": "Closure",
+        "description": "Incisions are closed with dissolvable stitches or surgical glue."
+      },
+      {
+        "title": "Recovery Start",
+        "description": "You begin recovery with monitoring and pain management in the recovery room."
+      }
+    ],
+    "risks": [
+      {
+        "title": "Infection",
+        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
+        "likelihood": "2-5%"
+      },
+      {
+        "title": "Bleeding",
+        "description": "Rare internal bleeding that may require monitoring or additional care.",
+        "likelihood": "1-2%"
+      },
+      {
+        "title": "Anesthesia Reaction",
+        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
+        "likelihood": "less than 1%"
+      }
+    ],
+    "alternatives": [
+      {
+        "title": "Open Surgery",
+        "description": "Traditional surgical approach with one larger incision instead of small ones.",
+        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
+      },
+      {
+        "title": "Medical Management",
+        "description": "Medication-focused approach to manage the condition without surgery.",
+        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
+      }
+    ],
+    "recovery": {
+      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
+      "timeline": [
+        {
+          "label": "Day 0",
+          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
+        },
+        {
+          "label": "Day 1",
+          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
+        },
+        {
+          "label": "Day 2-3",
+          "description": "Often ready for discharge. Follow wound care instructions carefully."
+        },
+        {
+          "label": "Week 1",
+          "description": "Most routine activities can resume. Continue following medical restrictions."
+        }
+      ],
+      "do": [
+        "Take all prescribed medications as directed",
+        "Walk lightly as advised by your medical team",
+        "Keep incisions clean and dry",
+        "Attend all follow-up appointments",
+        "Rest and get adequate sleep"
+      ],
+      "dont": [
+        "Lift heavy objects (more than 10 lbs)",
+        "Do strenuous exercise or sports",
+        "Submerge incisions in water until cleared",
+        "Drive until approved by your doctor",
+        "Ignore signs of infection or complications"
+      ]
+    },
+    "quiz": {
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Will you be awake during the Prostatectomy?",
+          "correctOption": "A",
+          "options": {
+            "A": "No, you will be under anesthesia",
+            "B": "Yes, you will be fully awake"
+          }
+        },
+        {
+          "id": "q2",
+          "question": "What is a common risk of this procedure?",
+          "correctOption": "A",
+          "options": {
+            "A": "Minor infection at incision site",
+            "B": "Catching a common cold"
+          }
+        },
+        {
+          "id": "q3",
+          "question": "How long is typical recovery?",
+          "correctOption": "A",
+          "options": {
+            "A": "About 1-2 weeks",
+            "B": "About 3-4 months"
+          }
+        },
+        {
+          "id": "q4",
+          "question": "In your own words, what did you understand about this procedure?",
+          "minWords": 20
+        }
+      ]
+    }
+  },
+  {
+    "consentId": "CNS_1769808041256",
+    "patientName": "Thivin",
+    "procedure": "Prostatectomy",
+    "doctorId": "DOC_001",
+    "doctorName": "Gobinath",
+    "otp": "417690",
+    "consentHash": "3cd06029edb672f774f2267f96f002be3e1d43a0e3cf1d46b44d66ed1de2cac1",
+    "status": "PENDING_PATIENT",
+    "patientSigned": false,
+    "doctorVerified": false,
+    "blockchainTx": null,
+    "blockchainStatus": "PENDING",
+    "createdAt": "2026-01-30T21:20:42.727Z",
+    "aiSummary": "Prostatectomy: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
+    "steps": [
+      {
+        "title": "Anesthesia",
+        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
+      },
+      {
+        "title": "Small Incisions",
+        "description": "Small surgical incisions are made to allow access for the instruments needed."
+      },
+      {
+        "title": "Procedure",
+        "description": "The main surgical steps are performed carefully by your experienced surgical team."
+      },
+      {
+        "title": "Closure",
+        "description": "Incisions are closed with dissolvable stitches or surgical glue."
+      },
+      {
+        "title": "Recovery Start",
+        "description": "You begin recovery with monitoring and pain management in the recovery room."
+      }
+    ],
+    "risks": [
+      {
+        "title": "Infection",
+        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
+        "likelihood": "2-5%"
+      },
+      {
+        "title": "Bleeding",
+        "description": "Rare internal bleeding that may require monitoring or additional care.",
+        "likelihood": "1-2%"
+      },
+      {
+        "title": "Anesthesia Reaction",
+        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
+        "likelihood": "less than 1%"
+      }
+    ],
+    "alternatives": [
+      {
+        "title": "Open Surgery",
+        "description": "Traditional surgical approach with one larger incision instead of small ones.",
+        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
+      },
+      {
+        "title": "Medical Management",
+        "description": "Medication-focused approach to manage the condition without surgery.",
+        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
+      }
+    ],
+    "recovery": {
+      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
+      "timeline": [
+        {
+          "label": "Day 0",
+          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
+        },
+        {
+          "label": "Day 1",
+          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
+        },
+        {
+          "label": "Day 2-3",
+          "description": "Often ready for discharge. Follow wound care instructions carefully."
+        },
+        {
+          "label": "Week 1",
+          "description": "Most routine activities can resume. Continue following medical restrictions."
+        }
+      ],
+      "do": [
+        "Take all prescribed medications as directed",
+        "Walk lightly as advised by your medical team",
+        "Keep incisions clean and dry",
+        "Attend all follow-up appointments",
+        "Rest and get adequate sleep"
+      ],
+      "dont": [
+        "Lift heavy objects (more than 10 lbs)",
+        "Do strenuous exercise or sports",
+        "Submerge incisions in water until cleared",
+        "Drive until approved by your doctor",
+        "Ignore signs of infection or complications"
+      ]
+    },
+    "quiz": {
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Will you be awake during the Prostatectomy?",
+          "correctOption": "A",
+          "options": {
+            "A": "No, you will be under anesthesia",
+            "B": "Yes, you will be fully awake"
+          }
+        },
+        {
+          "id": "q2",
+          "question": "What is a common risk of this procedure?",
+          "correctOption": "A",
+          "options": {
+            "A": "Minor infection at incision site",
+            "B": "Catching a common cold"
+          }
+        },
+        {
+          "id": "q3",
+          "question": "How long is typical recovery?",
+          "correctOption": "A",
+          "options": {
+            "A": "About 1-2 weeks",
+            "B": "About 3-4 months"
+          }
+        },
+        {
+          "id": "q4",
+          "question": "In your own words, what did you understand about this procedure?",
+          "minWords": 20
+        }
+      ]
+    }
+  },
+  {
+    "consentId": "CNS_1769808161416",
+    "patientName": "Nigilan",
+    "procedure": "Hernia Repair",
+    "doctorId": "DOC_001",
+    "doctorName": "Gobinath",
+    "otp": "252899",
+    "consentHash": "222b60d077487ac5748a101d1341bfd88b069188a76e2be17d8a6ab0a0e47461",
+    "status": "PENDING_PATIENT",
+    "patientSigned": false,
+    "doctorVerified": false,
+    "blockchainTx": null,
+    "blockchainStatus": "PENDING",
+    "createdAt": "2026-01-30T21:22:42.847Z",
+    "aiSummary": "Hernia Repair: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
+    "steps": [
+      {
+        "title": "Anesthesia",
+        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
+      },
+      {
+        "title": "Small Incisions",
+        "description": "Small surgical incisions are made to allow access for the instruments needed."
+      },
+      {
+        "title": "Procedure",
+        "description": "The main surgical steps are performed carefully by your experienced surgical team."
+      },
+      {
+        "title": "Closure",
+        "description": "Incisions are closed with dissolvable stitches or surgical glue."
+      },
+      {
+        "title": "Recovery Start",
+        "description": "You begin recovery with monitoring and pain management in the recovery room."
+      }
+    ],
+    "risks": [
+      {
+        "title": "Infection",
+        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
+        "likelihood": "2-5%"
+      },
+      {
+        "title": "Bleeding",
+        "description": "Rare internal bleeding that may require monitoring or additional care.",
+        "likelihood": "1-2%"
+      },
+      {
+        "title": "Anesthesia Reaction",
+        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
+        "likelihood": "less than 1%"
+      }
+    ],
+    "alternatives": [
+      {
+        "title": "Open Surgery",
+        "description": "Traditional surgical approach with one larger incision instead of small ones.",
+        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
+      },
+      {
+        "title": "Medical Management",
+        "description": "Medication-focused approach to manage the condition without surgery.",
+        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
+      }
+    ],
+    "recovery": {
+      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
+      "timeline": [
+        {
+          "label": "Day 0",
+          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
+        },
+        {
+          "label": "Day 1",
+          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
+        },
+        {
+          "label": "Day 2-3",
+          "description": "Often ready for discharge. Follow wound care instructions carefully."
+        },
+        {
+          "label": "Week 1",
+          "description": "Most routine activities can resume. Continue following medical restrictions."
+        }
+      ],
+      "do": [
+        "Take all prescribed medications as directed",
+        "Walk lightly as advised by your medical team",
+        "Keep incisions clean and dry",
+        "Attend all follow-up appointments",
+        "Rest and get adequate sleep"
+      ],
+      "dont": [
+        "Lift heavy objects (more than 10 lbs)",
+        "Do strenuous exercise or sports",
+        "Submerge incisions in water until cleared",
+        "Drive until approved by your doctor",
+        "Ignore signs of infection or complications"
+      ]
+    },
+    "quiz": {
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Will you be awake during the Hernia Repair?",
+          "correctOption": "A",
+          "options": {
+            "A": "No, you will be under anesthesia",
+            "B": "Yes, you will be fully awake"
+          }
+        },
+        {
+          "id": "q2",
+          "question": "What is a common risk of this procedure?",
+          "correctOption": "A",
+          "options": {
+            "A": "Minor infection at incision site",
+            "B": "Catching a common cold"
+          }
+        },
+        {
+          "id": "q3",
+          "question": "How long is typical recovery?",
+          "correctOption": "A",
+          "options": {
+            "A": "About 1-2 weeks",
+            "B": "About 3-4 months"
+          }
+        },
+        {
+          "id": "q4",
+          "question": "In your own words, what did you understand about this procedure?",
+          "minWords": 20
+        }
+      ]
+    }
+  }
+]

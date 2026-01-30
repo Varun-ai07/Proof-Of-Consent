@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Proof of Consent - AI-explained, doctor-approved medical consent with cryptographic proof. Designed for patients, trusted by doctors, verifiable by law.">
+    <title>Proof of Consent - Medical Ethics Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏥</text></svg>">
+</head>
+
+<body>
+    <!-- 3D Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Scroll Menu Overlay (Independent from Navbar) -->
+    <div id="scroll-menu-overlay" class="scroll-menu-overlay">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#why-matters">Why It Matters</a>
+        <a href="#security">Security</a>
+        <a href="doctor/land.html" class="doctor-link">Doctor Portal</a>
+    </div>
+
+    <!-- Scroll Hamburger Menu (OUTSIDE page-container for pure fixed positioning) -->
+    <button class="scroll-menu-btn" id="scrollMenuBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6"></line>
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="18" x2="20" y2="18"></line>
+        </svg>
+    </button>
+
+    <div class="page-container">
+
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-wrapper-outer">
+                <div class="nav-main-container">
+                    <!-- Downward Arrow Indicator (shows when sliding down) -->
+                    <div class="slide-indicator">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+
+                    <div class="nav-container">
+                        <a href="/" class="logo">
+                            <div class="logo-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                                    <path d="m9 12 2 2 4-4" />
+                                </svg>
+                            </div>
+                            <span>Proof of Consent</span>
+                        </a>
+
+                        <div class="nav-links">
+                            <a href="#how-it-works">How It Works</a>
+                            <a href="#why-matters">Why It Matters</a>
+                            <a href="#security">Security</a>
+                        </div>
+
+                        <div class="nav-actions">
+                            <a href="doctor/land.html" class="doctor-portal-link">Doctor Portal</a>
+                            <button class="primary-btn" id="doctorLoginBtn">Doctor Login</button>
+                        </div>
+
+                        <!-- Mobile Menu Button -->
+                        <button class="mobile-menu-btn" id="mobileMenuBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <line x1="3" y1="12" x2="21" y2="12"></line>
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <line x1="3" y1="18" x2="21" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <!-- Left Column -->
+                <div class="hero-content">
+                    <div class="badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                            <path d="m9 12 2 2 4-4" />
+                        </svg>
+                        <span>Medical Ethics Platform</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        Understand Before You Consent.
+                    </h1>
+
+                    <p class="hero-description">
+                        AI-explained, doctor-approved medical consent with cryptographic proof.
+                    </p>
+
+                    <p class="hero-subtitle">
+                        Designed for patients, trusted by doctors, verifiable by law.
+                    </p>
+
+                    <!-- Trust Indicators -->
+                    <div class="trust-indicators">
+                        <div class="trust-item">
+                            <div class="trust-icon primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <polyline points="16 11 18 13 22 9" />
+                                </svg>
+                            </div>
+                            <span>Doctor-Reviewed</span>
+                        </div>
+                        <div class="trust-item">
+                            <div class="trust-icon teal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                                </svg>
+                            </div>
+                            <span>Patient-First Design</span>
+                        </div>
+                        <div class="trust-item">
+                            <div class="trust-icon gray">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                                </svg>
+                            </div>
+                            <span>Secure & Verified</span>
+                        </div>
+                        <div class="trust-item">
+                            <div class="trust-icon gray">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                </svg>
+                            </div>
+                            <span>Privacy-Safe</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Patient Access Card -->
+                <div class="hero-card">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">Patient Consent Access</h3>
+                            <p class="card-description">Access and review your medical consent provided by your doctor
+                                or hospital.</p>
+
+                            <div class="form-group">
+                                <label>CONSENT LINK OR ID</label>
+                                <input type="text" id="consentInput" placeholder="Paste your secure consent link or Consent ID">
+                                <p class="form-error" id="consentError"></p>
+                            </div>
+
+                            <div class="form-group">
+                                <label>OTP FROM YOUR DOCTOR</label>
+                                <input type="text" id="otpInput" inputmode="numeric" autocomplete="one-time-code"
+                                    placeholder="Enter the OTP that came with your link">
+                                <p class="form-error" id="otpError"></p>
+                                <p class="form-hint">Used only to unlock your consent. Never share passwords.</p>
+                            </div>
+
+                            <button class="access-btn" id="accessConsentBtn">Access My Consent</button>
+
+                            <div class="divider">
+                                <span>OR</span>
+                            </div>
+
+                            <button class="qr-btn" id="qrCodeBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect width="5" height="5" x="3" y="3" rx="1" />
+                                    <rect width="5" height="5" x="16" y="3" rx="1" />
+                                    <rect width="5" height="5" x="3" y="16" rx="1" />
+                                    <path d="M21 16h-3a2 2 0 0 0-2 2v3" />
+                                    <path d="M21 21v.01" />
+                                    <path d="M12 7v3a2 2 0 0 1-2 2H7" />
+                                    <path d="M3 12h.01" />
+                                    <path d="M12 3h.01" />
+                                    <path d="M12 16v.01" />
+                                    <path d="M16 12h1" />
+                                    <path d="M21 12v.01" />
+                                    <path d="M12 21v-1" />
+                                </svg>
+                                <span>Scan QR Code</span>
+                            </button>
+
+                            <p id="prefillNotice" class="prefill-notice">We prefilled your details from the secure link.</p>
+                            <p class="card-footer">Consent access is provided by your doctor or hospital.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scroll Down Indicator -->
+                <div class="scroll-down">
+                    <a href="#how-it-works" class="scroll-down-btn">
+                        <span>Scroll Discovery</span>
+                        <div class="mouse">
+                            <div class="wheel"></div>
+                        </div>
+                        <div class="arrow">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="how-it-works">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>How It Works</h2>
+                    <p>A simple, transparent process that ensures true informed consent.</p>
+                </div>
+
+                <div class="steps-grid">
+                    <!-- Step 1 -->
+                    <div class="step-card">
+                        <div class="step-icon primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="12" y1="18" x2="12" y2="12" />
+                                <line x1="9" y1="15" x2="15" y2="15" />
+                            </svg>
+                        </div>
+                        <div class="step-meta">
+                            <span class="step-number primary">STEP 01</span>
+                            <div class="step-line"></div>
+                        </div>
+                        <h3>Doctor Creates Consent</h3>
+                        <p>Doctor selects procedure and reviews AI-generated explanation for accuracy and completeness.
+                        </p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="step-card">
+                        <div class="step-icon teal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z" />
+                                <path d="m14 7 3 3" />
+                                <path d="M5 6v4" />
+                                <path d="M19 14v4" />
+                                <path d="M10 2v2" />
+                                <path d="M7 8H3" />
+                                <path d="M21 16h-4" />
+                                <path d="M11 3H9" />
+                            </svg>
+                        </div>
+                        <div class="step-meta">
+                            <span class="step-number teal">STEP 02</span>
+                            <div class="step-line"></div>
+                        </div>
+                        <h3>AI Explains Clearly</h3>
+                        <p>Medical procedure explained in simple, understandable language tailored to patient
+                            comprehension level.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="step-card">
+                        <div class="step-icon indigo">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M12 19l7-7 3 3-7 7-3-3z" />
+                                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+                                <path d="M2 2l7.586 7.586" />
+                                <circle cx="11" cy="11" r="2" />
+                            </svg>
+                        </div>
+                        <div class="step-meta">
+                            <span class="step-number indigo">STEP 03</span>
+                            <div class="step-line"></div>
+                        </div>
+                        <h3>Patient Understands & Signs</h3>
+                        <p>Understanding is verified before digital consent is recorded with cryptographic proof.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why This Matters Section -->
+        <section id="why-matters" class="why-matters">
+            <div class="section-container">
+                <div class="why-grid">
+                    <div class="why-header">
+                        <h2>Why Informed Consent Matters</h2>
+                        <p>True informed consent is the foundation of ethical medical care. Our platform ensures
+                            patients genuinely understand their treatment decisions.</p>
+                    </div>
+
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                                    <path d="M12 8v4" />
+                                    <path d="M12 16h.01" />
+                                </svg>
+                            </div>
+                            <div class="benefit-content">
+                                <h3>Prevents patients from signing what they don't understand</h3>
+                                <p>AI-powered explanations ensure clarity before any signature, reducing confusion and
+                                    anxiety.</p>
+                            </div>
+                        </div>
+
+                        <div class="benefit-item">
+                            <div class="benefit-icon teal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                    <line x1="16" y1="17" x2="8" y2="17" />
+                                    <line x1="10" y1="9" x2="8" y2="9" />
+                                </svg>
+                            </div>
+                            <div class="benefit-content">
+                                <h3>Protects doctors with verifiable proof</h3>
+                                <p>Secure records create immutable evidence that protect medical professionals.</p>
+                            </div>
+                        </div>
+
+                        <div class="benefit-item">
+                            <div class="benefit-icon indigo">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+                                    <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+                                    <path d="M7 21h10" />
+                                    <path d="M12 3v18" />
+                                    <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
+                                </svg>
+                            </div>
+                            <div class="benefit-content">
+                                <h3>Reduces ethical and legal disputes</h3>
+                                <p>Clear documentation and verified understanding minimize misunderstandings and
+                                    conflicts.</p>
+                            </div>
+                        </div>
+
+                        <div class="benefit-item">
+                            <div class="benefit-icon purple">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16" />
+                                    <path
+                                        d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" />
+                                    <path d="m2 15 6 6" />
+                                    <path
+                                        d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z" />
+                                </svg>
+                            </div>
+                            <div class="benefit-content">
+                                <h3>Builds trust in digital healthcare</h3>
+                                <p>Transparent, ethical processes strengthen the patient-doctor relationship in modern
+                                    medicine.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Section -->
+        <section id="security" class="security">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Security, Privacy & Ethics</h2>
+                    <p>Built on principles of patient privacy, medical ethics, and technical security.</p>
+                </div>
+
+                <div class="security-grid">
+                    <div class="security-card">
+                        <div class="security-icon primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="7.5" cy="15.5" r="5.5" />
+                                <path d="m21 2-9.6 9.6" />
+                                <path d="m15.5 7.5 3 3L22 7l-3-3" />
+                            </svg>
+                        </div>
+                        <h3>HIPAA & GDPR Compliant</h3>
+                        <p>Your medical information stays private. Only proof of consent is recorded, ensuring complete
+                            data privacy.</p>
+                    </div>
+
+                    <div class="security-card">
+                        <div class="security-icon teal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                                <path d="m9 12 2 2 4-4" />
+                            </svg>
+                        </div>
+                        <h3>Immutable Records</h3>
+                        <p>Cryptographic proof ensures consent cannot be disputed or altered once recorded.</p>
+                    </div>
+
+                    <div class="security-card">
+                        <div class="security-icon indigo">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <polyline points="16 11 18 13 22 9" />
+                            </svg>
+                        </div>
+                        <h3>Doctor-Controlled</h3>
+                        <p>AI assists but doctors always review. Every consent is physician-approved before patient
+                            access.</p>
+                    </div>
+
+                    <div class="security-card">
+                        <div class="security-icon purple">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="3" y="5" width="6" height="6" rx="1" />
+                                <path d="m3 17 2 2 4-4" />
+                                <path d="M13 6h8" />
+                                <path d="M13 12h8" />
+                                <path d="M13 18h8" />
+                            </svg>
+                        </div>
+                        <h3>Audit-Ready</h3>
+                        <p>Complete compliance with medical legal standards. Ready for regulatory review and court
+                            proceedings.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-top">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                                <path d="m9 12 2 2 4-4" />
+                            </svg>
+                        </div>
+                        <span>Proof of Consent</span>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Use</a>
+                        <a href="#">Contact</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2026 Proof of Consent. Enabling ethical medical care through transparent consent.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // MOBILE MENU TOGGLE
+        // ============================================
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn?.addEventListener('click', () => {
+            navLinks?.classList.toggle('active');
+        });
+
+        // ============================================
+        // SCROLL HAMBURGER MENU TOGGLE
+        // ============================================
+        const scrollMenuBtn = document.getElementById('scrollMenuBtn');
+
+        scrollMenuBtn?.addEventListener('click', () => {
+            const overlay = document.getElementById('scroll-menu-overlay');
+            overlay?.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const overlay = document.getElementById('scroll-menu-overlay');
+            if (overlay && !scrollMenuBtn?.contains(e.target) && !overlay.contains(e.target)) {
+                overlay.classList.remove('active');
+            }
+
+            // Close menu when a link is clicked
+            if (overlay?.contains(e.target) && e.target.tagName === 'A') {
+                overlay.classList.remove('active');
+            }
+        });
+
+        // ============================================
+        // SMOOTH SCROLLING WITH OFFSET
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
+
+                if (target) {
+                    const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 80;
+                    const targetPosition = target.getBoundingClientRect().top + window.scrollY - navbarHeight - 20;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    navLinks?.classList.remove('active');
+                }
+            });
+        });
+
+        // ============================================
+        // SCROLL REVEAL ANIMATIONS (Enhanced)
+        // ============================================
+        const scrollObserverOptions = {
+            root: null,
+            rootMargin: '-80px',
+            threshold: [0, 0.1, 0.2, 0.5]
+        };
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.1) {
+                    entry.target.classList.add('visible');
+                    entry.target.classList.remove('animate-out');
+                } else if (!entry.isIntersecting && entry.target.classList.contains('visible')) {
+                    entry.target.classList.add('animate-out');
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, scrollObserverOptions);
+
+        function initScrollAnimations() {
+            document.querySelectorAll('.section-header').forEach(el => {
+                el.classList.add('scroll-animate-scale');
+                scrollObserver.observe(el);
+            });
+
+            document.querySelectorAll('.step-card').forEach((el, index) => {
+                el.classList.add('scroll-animate');
+                el.classList.add('animate-out');
+                el.setAttribute('data-delay', (index + 1).toString());
+                scrollObserver.observe(el);
+            });
+
+            document.querySelectorAll('.benefit-item').forEach((el, index) => {
+                if (index % 2 === 0) {
+                    el.classList.add('scroll-animate-left');
+                } else {
+                    el.classList.add('scroll-animate-right');
+                }
+                el.classList.add('animate-out');
+                el.setAttribute('data-delay', (index + 1).toString());
+                scrollObserver.observe(el);
+            });
+
+            document.querySelectorAll('.security-card').forEach((el, index) => {
+                el.classList.add('scroll-animate');
+                el.classList.add('animate-out');
+                el.setAttribute('data-delay', (index + 1).toString());
+                scrollObserver.observe(el);
+            });
+
+            document.querySelectorAll('.why-header').forEach(el => {
+                el.classList.add('scroll-animate-scale');
+                scrollObserver.observe(el);
+            });
+        }
+
+        // ============================================
+        // SPOTLIGHT CURSOR EFFECT
+        // ============================================
+        function initSpotlightEffect() {
+            const spotlightCards = document.querySelectorAll('.step-card, .security-card, .card');
+
+            spotlightCards.forEach(card => {
+                card.classList.add('spotlight-card');
+
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.setProperty('--mouse-x', '50%');
+                    card.style.setProperty('--mouse-y', '50%');
+                });
+            });
+        }
+
+        // ============================================
+        // PARALLAX EFFECT ON HERO CARD
+        // ============================================
+        function initParallaxEffect() {
+            const heroCard = document.querySelector('.hero-card .card');
+
+            if (heroCard) {
+                document.addEventListener('mousemove', (e) => {
+                    const x = (e.clientX / window.innerWidth - 0.5) * 10;
+                    const y = (e.clientY / window.innerHeight - 0.5) * 10;
+
+                    heroCard.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg) translateY(-4px)`;
+                });
+
+                document.addEventListener('mouseleave', () => {
+                    heroCard.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) translateY(0)';
+                });
+            }
+        }
+
+        // ============================================
+        // SMART NAVBAR SCROLL EFFECT
+        // ============================================
+        function initNavbarScrollEffect() {
+            const navbar = document.querySelector('.navbar');
+            const scrollMenuBtn = document.getElementById('scrollMenuBtn');
+            let lastScrollY = window.scrollY;
+            let hideTimeout = null;
+
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.scrollY;
+                const scrollDelta = Math.abs(currentScroll - lastScrollY);
+
+                const scrollDown = document.querySelector('.scroll-down');
+                if (scrollDown) {
+                    scrollDown.style.opacity = currentScroll > 100 ? '0' : '1';
+                    scrollDown.style.pointerEvents = currentScroll > 100 ? 'none' : 'auto';
+                }
+
+                if (currentScroll <= 50) {
+                    clearTimeout(hideTimeout);
+                    hideTimeout = null;
+                    navbar?.classList.remove('nav-hidden');
+                    navbar?.classList.remove('slide-down');
+                    navbar?.classList.remove('scrolled');
+                    scrollMenuBtn?.classList.remove('visible');
+                    lastScrollY = currentScroll;
+                } else {
+                    navbar?.classList.add('scrolled');
+
+                    if (scrollDelta > 10) {
+                        if (currentScroll > lastScrollY) {
+                            if (!navbar?.classList.contains('nav-hidden') && !hideTimeout) {
+                                hideTimeout = setTimeout(() => {
+                                    navbar?.classList.add('nav-hidden');
+                                    navbar?.classList.remove('slide-down');
+                                    scrollMenuBtn?.classList.add('visible');
+                                    hideTimeout = null;
+                                }, 300);
+                            }
+                        } else {
+                            clearTimeout(hideTimeout);
+                            hideTimeout = null;
+
+                            if (navbar?.classList.contains('nav-hidden')) {
+                                navbar?.classList.remove('nav-hidden');
+                                navbar?.classList.add('slide-down');
+                                scrollMenuBtn?.classList.remove('visible');
+                            }
+                        }
+                        lastScrollY = currentScroll;
+                    }
+                }
+            }, { passive: true });
+        }
+
+        // ============================================
+        // FORM INPUT ANIMATIONS
+        // ============================================
+        function initFormAnimations() {
+            const inputs = document.querySelectorAll('.form-group input');
+
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    input.closest('.form-group')?.classList.add('focused');
+                });
+
+                input.addEventListener('blur', () => {
+                    input.closest('.form-group')?.classList.remove('focused');
+                });
+            });
+        }
+
+        // ============================================
+        // WORD-BY-WORD ANIMATION
+        // ============================================
+        function initWordAnimations() {
+            const headingsToAnimate = document.querySelectorAll('.section-header h2, .why-header h2');
+
+            headingsToAnimate.forEach(heading => {
+                const text = heading.textContent;
+                const words = text.split(' ');
+
+                heading.innerHTML = '';
+                heading.classList.add('animate-words');
+
+                words.forEach((word, index) => {
+                    const wordSpan = document.createElement('span');
+                    wordSpan.classList.add('word');
+                    wordSpan.textContent = word;
+                    wordSpan.style.transitionDelay = `${(index + 1) * 0.1}s`;
+                    heading.appendChild(wordSpan);
+
+                    if (index < words.length - 1) {
+                        heading.appendChild(document.createTextNode(' '));
+                    }
+                });
+            });
+
+            const wordObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.2, rootMargin: '-50px' });
+
+            document.querySelectorAll('.animate-words').forEach(el => {
+                wordObserver.observe(el);
+            });
+        }
+
+        // ============================================
+        // TEXT PARAGRAPH ANIMATIONS
+        // ============================================
+        function initTextAnimations() {
+            const sectionsToAnimate = document.querySelectorAll('.section-header, .why-header');
+
+            sectionsToAnimate.forEach(section => {
+                const paragraphs = section.querySelectorAll('p');
+                paragraphs.forEach((p, index) => {
+                    p.classList.add('scroll-animate');
+                    p.setAttribute('data-delay', (index + 2).toString());
+                    scrollObserver.observe(p);
+                });
+            });
+        }
+
+        // ============================================
+        // CONSENT ACCESS FUNCTIONALITY (BACKEND INTEGRATION)
+        // ============================================
+        function initConsentAccess() {
+            const consentInput = document.getElementById('consentInput');
+            const otpInput = document.getElementById('otpInput');
+            const accessConsentBtn = document.getElementById('accessConsentBtn');
+            const qrCodeBtn = document.getElementById('qrCodeBtn');
+            const consentError = document.getElementById('consentError');
+            const otpError = document.getElementById('otpError');
+            const prefillNotice = document.getElementById('prefillNotice');
+
+            // Check for URL parameters (prefill from link)
+            const queryConsent = getQueryParam('consentId');
+            const queryOtp = getQueryParam('otp');
+
+            if (queryConsent) consentInput.value = queryConsent;
+            if (queryOtp) otpInput.value = queryOtp;
+            if (queryConsent && queryOtp && prefillNotice) {
+                prefillNotice.classList.add('show');
+                disableButton(accessConsentBtn, 'Opening…');
+                setTimeout(() => handleAccess(queryConsent, queryOtp), 400);
+            }
+
+            accessConsentBtn.addEventListener('click', () => {
+                handleAccess(consentInput.value.trim(), otpInput.value.trim());
+            });
+
+            consentInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') accessConsentBtn.click();
+            });
+            otpInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') accessConsentBtn.click();
+            });
+
+            consentInput.addEventListener('input', () => hideConsentError(consentError));
+            otpInput.addEventListener('input', () => hideConsentError(otpError));
+
+            qrCodeBtn.addEventListener('click', () => {
+                alert('QR Code scanning would open your secure consent link and OTP from the doctor.');
+            });
+
+            function handleAccess(rawConsent, rawOtp) {
+                hideConsentError(consentError);
+                hideConsentError(otpError);
+
+                const parsed = parseConsentValue(rawConsent);
+                const consentId = parsed.consentId || rawConsent;
+                const otp = rawOtp || parsed.otp;
+
+                if (!consentId) {
+                    showConsentError(consentError, 'Enter a Consent ID or paste the link you received.');
+                    return;
+                }
+
+                if (!isValidConsentId(consentId)) {
+                    showConsentError(consentError, 'Invalid Consent ID format.');
+                    return;
+                }
+
+                if (!otp) {
+                    showConsentError(otpError, 'Enter the OTP from your doctor.');
+                    return;
+                }
+
+                if (!isValidOtp(otp)) {
+                    showConsentError(otpError, 'OTP should be 4-8 digits.');
+                    return;
+                }
+
+                // Store in session for patient dashboard
+                sessionStorage.setItem('patientConsentId', consentId);
+                sessionStorage.setItem('patientOtp', otp);
+                navigateToConsent(consentId, otp);
+            }
+        }
+
+        function parseConsentValue(raw) {
+            if (!raw) return {};
+            let consentId = '';
+            let otp = '';
+
+            try {
+                const url = new URL(raw);
+                consentId = url.searchParams.get('consentId') || url.searchParams.get('id') || '';
+                otp = url.searchParams.get('otp') || url.searchParams.get('code') || '';
+                if (!consentId) {
+                    const pathMatch = url.pathname.match(/CNS_[0-9]+/i);
+                    consentId = pathMatch ? pathMatch[0] : '';
+                }
+            } catch (err) {
+                const idMatch = raw.match(/CNS_[0-9]+/i);
+                const otpMatch = raw.match(/otp=([A-Za-z0-9]+)/i);
+                consentId = idMatch ? idMatch[0] : raw;
+                otp = otpMatch ? otpMatch[1] : '';
+            }
+
+            return { consentId, otp };
+        }
+
+        function isValidConsentId(id) {
+            return /^[A-Za-z0-9_\-]{5,}$/.test(id) || /^CNS_\d+$/.test(id);
+        }
+
+        function isValidOtp(otp) {
+            return /^\d{4,8}$/.test(otp);
+        }
+
+        function navigateToConsent(consentId, otp) {
+            const search = new URLSearchParams({ consentId, otp }).toString();
+            window.location.href = `patient_dashboard/patient.html?${search}`;
+        }
+
+        function showConsentError(el, message) {
+            if (!el) return;
+            el.textContent = message;
+            el.classList.add('show');
+        }
+
+        function hideConsentError(el) {
+            if (!el) return;
+            el.classList.remove('show');
+        }
+
+        function getQueryParam(key) {
+            return new URLSearchParams(window.location.search).get(key) || '';
+        }
+
+        function disableButton(btn, text) {
+            if (!btn) return;
+            btn.disabled = true;
+            btn.textContent = text;
+            btn.classList.add('disabled');
+        }
+
+        // ============================================
+        // NAVIGATION HANDLERS (DOCTOR PORTAL)
+        // ============================================
+        function initNavigation() {
+            const doctorLoginBtn = document.getElementById('doctorLoginBtn');
+            doctorLoginBtn?.addEventListener('click', () => {
+                window.location.href = 'doctor/land.html';
+            });
+        }
+
+        // ============================================
+        // KEYBOARD SHORTCUTS
+        // ============================================
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('consentInput')?.focus();
+            }
+        });
+
+        // ============================================
+        // INITIALIZE ALL
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            initScrollAnimations();
+            initWordAnimations();
+            initTextAnimations();
+            initSpotlightEffect();
+            initParallaxEffect();
+            initNavbarScrollEffect();
+            initFormAnimations();
+            initConsentAccess();
+            initNavigation();
+            init3DBackground();
+        });
+
+        // ============================================
+        // 3D BACKGROUND VISUALIZATION - NEURAL WAVE
+        // ============================================
+        function init3DBackground() {
+            const canvas = document.getElementById('bg-canvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+            let mouseX = width / 2;
+            let mouseY = height / 2;
+            let targetMouseX = width / 2;
+            let targetMouseY = height / 2;
+            let time = 0;
+            let scrollY = 0;
+            let targetScrollY = 0;
+
+            window.addEventListener('scroll', () => {
+                targetScrollY = window.scrollY;
+            });
+
+            const gradientColors = {
+                primary: { h: 70, s: 35, l: 35 },
+                secondary: { h: 170, s: 55, l: 45 },
+                accent: { h: 230, s: 65, l: 55 },
+                warm: { h: 35, s: 60, l: 65 },
+                purple: { h: 280, s: 50, l: 55 }
+            };
+
+            class ShootingStar {
+                constructor() { this.reset(); }
+
+                reset() {
+                    this.x = Math.random() * width * 1.5;
+                    this.y = -50;
+                    this.length = 80 + Math.random() * 120;
+                    this.speed = 8 + Math.random() * 12;
+                    this.angle = Math.PI / 4 + (Math.random() - 0.5) * 0.3;
+                    this.opacity = 0;
+                    this.maxOpacity = 0.3 + Math.random() * 0.4;
+                    this.fadeIn = true;
+                    this.active = false;
+                    this.delay = Math.random() * 500;
+                    this.colorIndex = Math.floor(Math.random() * 5);
+                }
+
+                update() {
+                    if (!this.active) {
+                        this.delay--;
+                        if (this.delay <= 0) this.active = true;
+                        return;
+                    }
+                    this.x += Math.cos(this.angle) * this.speed;
+                    this.y += Math.sin(this.angle) * this.speed;
+                    if (this.fadeIn) {
+                        this.opacity += 0.05;
+                        if (this.opacity >= this.maxOpacity) this.fadeIn = false;
+                    }
+                    if (this.y > height + 100 || this.x > width + 200) {
+                        this.opacity -= 0.02;
+                        if (this.opacity <= 0) this.reset();
+                    }
+                }
+
+                draw() {
+                    if (!this.active || this.opacity <= 0) return;
+                    const colors = Object.values(gradientColors);
+                    const color = colors[this.colorIndex];
+                    const tailX = this.x - Math.cos(this.angle) * this.length;
+                    const tailY = this.y - Math.sin(this.angle) * this.length;
+                    const gradient = ctx.createLinearGradient(tailX, tailY, this.x, this.y);
+                    gradient.addColorStop(0, 'transparent');
+                    gradient.addColorStop(0.8, `hsla(${color.h}, ${color.s}%, ${color.l + 20}%, ${this.opacity * 0.5})`);
+                    gradient.addColorStop(1, `hsla(${color.h}, ${color.s}%, ${color.l + 40}%, ${this.opacity})`);
+                    ctx.beginPath();
+                    ctx.moveTo(tailX, tailY);
+                    ctx.lineTo(this.x, this.y);
+                    ctx.strokeStyle = gradient;
+                    ctx.lineWidth = 2;
+                    ctx.lineCap = 'round';
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsla(40, 80%, 95%, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            function drawAuroraWaves(time, scrollOffset) {
+                const waveCount = 3;
+                for (let w = 0; w < waveCount; w++) {
+                    const baseY = height * 0.3 + w * 80 - scrollOffset * 0.1;
+                    const colors = Object.values(gradientColors);
+                    const color = colors[w % colors.length];
+                    ctx.beginPath();
+                    ctx.moveTo(0, baseY);
+                    for (let x = 0; x <= width; x += 10) {
+                        const wave1 = Math.sin(x * 0.005 + time * 0.5 + w) * 30;
+                        const wave2 = Math.sin(x * 0.01 + time * 0.3 + w * 2) * 20;
+                        const wave3 = Math.cos(x * 0.003 + time * 0.2) * 40;
+                        const y = baseY + wave1 + wave2 + wave3;
+                        ctx.lineTo(x, y);
+                    }
+                    ctx.lineTo(width, height);
+                    ctx.lineTo(0, height);
+                    ctx.closePath();
+                    const gradient = ctx.createLinearGradient(0, baseY - 50, 0, baseY + 150);
+                    gradient.addColorStop(0, 'transparent');
+                    gradient.addColorStop(0.3, `hsla(${color.h}, ${color.s}%, ${color.l}%, 0.03)`);
+                    gradient.addColorStop(0.5, `hsla(${color.h}, ${color.s}%, ${color.l}%, 0.05)`);
+                    gradient.addColorStop(1, 'transparent');
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                }
+            }
+
+            class WaveParticle {
+                constructor(index, total) {
+                    this.index = index;
+                    this.total = total;
+                    this.reset();
+                }
+
+                reset() {
+                    const cols = Math.ceil(Math.sqrt(this.total * 1.5));
+                    const rows = Math.ceil(this.total / cols);
+                    const col = this.index % cols;
+                    const row = Math.floor(this.index / cols);
+                    this.baseX = (col / cols) * width * 1.2 - width * 0.1;
+                    this.baseY = (row / rows) * height * 1.2 - height * 0.1;
+                    this.baseZ = Math.random() * 600 + 200;
+                    this.x = this.baseX;
+                    this.y = this.baseY;
+                    this.z = this.baseZ;
+                    this.phaseX = Math.random() * Math.PI * 2;
+                    this.phaseY = Math.random() * Math.PI * 2;
+                    this.phaseZ = Math.random() * Math.PI * 2;
+                    this.amplitudeX = 30 + Math.random() * 50;
+                    this.amplitudeY = 20 + Math.random() * 40;
+                    this.amplitudeZ = 100 + Math.random() * 150;
+                    this.speedX = 0.5 + Math.random() * 0.5;
+                    this.speedY = 0.3 + Math.random() * 0.4;
+                    this.speedZ = 0.2 + Math.random() * 0.3;
+                    this.size = 2 + Math.random() * 3;
+                    this.colorType = Math.floor(Math.random() * 5);
+                    this.pulsePhase = Math.random() * Math.PI * 2;
+                }
+
+                update(time) {
+                    const waveX = Math.sin(time * this.speedX + this.phaseX) * this.amplitudeX;
+                    const waveY = Math.cos(time * this.speedY + this.phaseY) * this.amplitudeY;
+                    const waveZ = Math.sin(time * this.speedZ + this.phaseZ) * this.amplitudeZ;
+                    const dx = (mouseX - width / 2) / width;
+                    const dy = (mouseY - height / 2) / height;
+                    this.x = this.baseX + waveX + dx * 80 * (1 - this.z / 1000);
+                    this.y = this.baseY + waveY + dy * 80 * (1 - this.z / 1000);
+                    this.z = this.baseZ + waveZ;
+                }
+
+                getScreenPosition() {
+                    const perspective = 800;
+                    const scale = perspective / (perspective + this.z);
+                    return {
+                        x: width / 2 + (this.x - width / 2) * scale,
+                        y: height / 2 + (this.y - height / 2) * scale,
+                        scale: scale
+                    };
+                }
+
+                draw() {
+                    const pos = this.getScreenPosition();
+                    const pulse = 0.7 + 0.3 * Math.sin(time * 2 + this.pulsePhase);
+                    const size = this.size * pos.scale * pulse;
+                    const opacity = Math.min(1, pos.scale * 1.5) * 0.6;
+                    const colors = Object.values(gradientColors);
+                    const color = colors[this.colorType];
+                    const gradient = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, size * 4);
+                    gradient.addColorStop(0, `hsla(${color.h}, ${color.s}%, ${color.l}%, ${opacity * 0.8})`);
+                    gradient.addColorStop(0.3, `hsla(${color.h}, ${color.s}%, ${color.l}%, ${opacity * 0.3})`);
+                    gradient.addColorStop(1, `hsla(${color.h}, ${color.s}%, ${color.l}%, 0)`);
+                    ctx.beginPath();
+                    ctx.arc(pos.x, pos.y, size * 4, 0, Math.PI * 2);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                    const coreGradient = ctx.createRadialGradient(pos.x - size * 0.3, pos.y - size * 0.3, 0, pos.x, pos.y, size);
+                    coreGradient.addColorStop(0, `hsla(${color.h}, ${color.s - 10}%, ${color.l + 30}%, ${opacity})`);
+                    coreGradient.addColorStop(1, `hsla(${color.h}, ${color.s}%, ${color.l}%, ${opacity * 0.8})`);
+                    ctx.beginPath();
+                    ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2);
+                    ctx.fillStyle = coreGradient;
+                    ctx.fill();
+                }
+            }
+
+            class FloatingOrb {
+                constructor() { this.reset(); }
+
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.z = 200 + Math.random() * 600;
+                    this.baseSize = 80 + Math.random() * 120;
+                    this.phase = Math.random() * Math.PI * 2;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.speedY = (Math.random() - 0.5) * 0.2;
+                    this.colorIndex = Math.floor(Math.random() * 5);
+                    this.morphPhase = Math.random() * Math.PI * 2;
+                    this.morphSpeed = 0.5 + Math.random() * 0.5;
+                }
+
+                update(time) {
+                    this.x += this.speedX + Math.sin(time * 0.5 + this.phase) * 0.5;
+                    this.y += this.speedY + Math.cos(time * 0.3 + this.phase) * 0.3;
+                    const dx = this.x - mouseX;
+                    const dy = this.y - mouseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 200) {
+                        const force = (200 - dist) / 200 * 2;
+                        this.x += (dx / dist) * force;
+                        this.y += (dy / dist) * force;
+                    }
+                    if (this.x < -this.baseSize) this.x = width + this.baseSize;
+                    if (this.x > width + this.baseSize) this.x = -this.baseSize;
+                    if (this.y < -this.baseSize) this.y = height + this.baseSize;
+                    if (this.y > height + this.baseSize) this.y = -this.baseSize;
+                }
+
+                draw(time) {
+                    const perspective = 800;
+                    const scale = perspective / (perspective + this.z);
+                    const screenX = width / 2 + (this.x - width / 2) * scale;
+                    const screenY = height / 2 + (this.y - height / 2) * scale;
+                    const morphOffset = Math.sin(time * this.morphSpeed + this.morphPhase) * 0.15;
+                    const size = this.baseSize * scale * (1 + morphOffset);
+                    const opacity = scale * 0.15;
+                    const colors = Object.values(gradientColors);
+                    const color = colors[this.colorIndex];
+                    for (let layer = 3; layer >= 0; layer--) {
+                        const layerSize = size * (1 + layer * 0.5);
+                        const layerOpacity = opacity / (layer + 1);
+                        const gradient = ctx.createRadialGradient(screenX, screenY, 0, screenX, screenY, layerSize);
+                        gradient.addColorStop(0, `hsla(${color.h}, ${color.s}%, ${color.l + 20}%, ${layerOpacity * 0.5})`);
+                        gradient.addColorStop(0.4, `hsla(${color.h}, ${color.s}%, ${color.l}%, ${layerOpacity * 0.3})`);
+                        gradient.addColorStop(0.7, `hsla(${color.h}, ${color.s - 10}%, ${color.l - 10}%, ${layerOpacity * 0.1})`);
+                        gradient.addColorStop(1, 'transparent');
+                        ctx.beginPath();
+                        ctx.arc(screenX, screenY, layerSize, 0, Math.PI * 2);
+                        ctx.fillStyle = gradient;
+                        ctx.fill();
+                    }
+                    const highlightGradient = ctx.createRadialGradient(screenX - size * 0.25, screenY - size * 0.25, 0, screenX, screenY, size * 0.6);
+                    highlightGradient.addColorStop(0, `hsla(40, 60%, 98%, ${opacity * 0.4})`);
+                    highlightGradient.addColorStop(1, 'transparent');
+                    ctx.beginPath();
+                    ctx.arc(screenX, screenY, size * 0.6, 0, Math.PI * 2);
+                    ctx.fillStyle = highlightGradient;
+                    ctx.fill();
+                }
+            }
+
+            class DNAHelix {
+                constructor() {
+                    this.points = [];
+                    this.numPoints = 50;
+                    this.radius = 120;
+                    this.offsetX = width * 0.85;
+                    this.offsetY = height / 2;
+                    this.currentX = 0;
+                    this.currentRotateY = 0;
+                    this.currentRotateZ = 0;
+                    this.currentScale = 1.1;
+                    this.currentOpacity = 0.9;
+                }
+
+                update(time, scrollPos) {
+                    this.points = [];
+                    const scrollNorm = Math.min(1000, scrollPos) / 1000;
+                    this.currentX = -50 + (scrollNorm * 100);
+                    this.currentRotateY = -0.35 + (scrollNorm * 0.7);
+                    this.currentRotateZ = -0.09 + (scrollNorm * 0.18);
+                    this.currentScale = 1.1 + (scrollNorm * 0.15);
+                    this.currentOpacity = 0.9 - (Math.min(500, scrollPos) / 500 * 0.4);
+                    const mouseNormX = (mouseX - width / 2) / width;
+                    const mouseNormY = (mouseY - height / 2) / height;
+                    for (let i = 0; i < this.numPoints; i++) {
+                        const t = i / this.numPoints;
+                        const angle = t * Math.PI * 8 + time * 0.4;
+                        let x1 = Math.cos(angle) * this.radius;
+                        let z1 = Math.sin(angle) * this.radius;
+                        let y1 = (t - 0.5) * height * 1.2;
+                        let x2 = Math.cos(angle + Math.PI) * this.radius;
+                        let z2 = Math.sin(angle + Math.PI) * this.radius;
+                        let y2 = y1;
+                        const cosY = Math.cos(this.currentRotateY + mouseNormX * 0.4);
+                        const sinY = Math.sin(this.currentRotateY + mouseNormX * 0.4);
+                        let rx1 = x1 * cosY - z1 * sinY;
+                        let rz1 = x1 * sinY + z1 * cosY;
+                        let rx2 = x2 * cosY - z2 * sinY;
+                        let rz2 = x2 * sinY + z2 * cosY;
+                        rx1 = rx1 * this.currentScale + this.currentX;
+                        rx2 = rx2 * this.currentScale + this.currentX;
+                        this.points.push({
+                            strand1: { x: rx1 + this.offsetX, y: y1 + this.offsetY + mouseNormY * 50, z: rz1 + 400 },
+                            strand2: { x: rx2 + this.offsetX, y: y2 + this.offsetY + mouseNormY * 50, z: rz2 + 400 },
+                            connection: i % 3 === 0
+                        });
+                    }
+                }
+
+                draw() {
+                    const perspective = 1000;
+                    const sortedPoints = [...this.points].sort((a, b) => (b.strand1.z + b.strand2.z) - (a.strand1.z + a.strand2.z));
+                    sortedPoints.forEach((point) => {
+                        const scale1 = perspective / (perspective + point.strand1.z);
+                        const scale2 = perspective / (perspective + point.strand2.z);
+                        const sX1 = width / 2 + (point.strand1.x - width / 2) * scale1;
+                        const sY1 = height / 2 + (point.strand1.y - height / 2) * scale1;
+                        const sX2 = width / 2 + (point.strand2.x - width / 2) * scale2;
+                        const sY2 = height / 2 + (point.strand2.y - height / 2) * scale2;
+                        const op = this.currentOpacity * (perspective / (perspective + 400));
+                        if (point.connection) {
+                            ctx.beginPath();
+                            ctx.moveTo(sX1, sY1);
+                            ctx.lineTo(sX2, sY2);
+                            ctx.strokeStyle = `hsla(170, 50%, 50%, ${op * 0.25 * scale1})`;
+                            ctx.lineWidth = 1.5 * scale1;
+                            ctx.stroke();
+                        }
+                        [
+                            { x: sX1, y: sY1, sc: scale1, clr: gradientColors.secondary },
+                            { x: sX2, y: sY2, sc: scale2, clr: gradientColors.primary }
+                        ].forEach(p => {
+                            const size = 5 * p.sc;
+                            ctx.beginPath();
+                            ctx.arc(p.x, p.y, size * 2, 0, Math.PI * 2);
+                            ctx.fillStyle = `hsla(${p.clr.h}, ${p.clr.s}%, ${p.clr.l}%, ${op * 0.3 * p.sc})`;
+                            ctx.fill();
+                            ctx.beginPath();
+                            ctx.arc(p.x, p.y, size * 0.8, 0, Math.PI * 2);
+                            ctx.fillStyle = `hsla(${p.clr.h}, ${p.clr.s}%, ${p.clr.l + 20}%, ${op * 0.8 * p.sc})`;
+                            ctx.fill();
+                        });
+                    });
+                }
+            }
+
+            function drawConnections(particles) {
+                const maxDist = 150;
+                for (let i = 0; i < particles.length; i++) {
+                    const p1 = particles[i].getScreenPosition();
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const p2 = particles[j].getScreenPosition();
+                        const dx = p1.x - p2.x;
+                        const dy = p1.y - p2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < maxDist) {
+                            const opacity = (1 - dist / maxDist) * Math.min(p1.scale, p2.scale) * 0.3;
+                            const gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+                            gradient.addColorStop(0, `hsla(170, 50%, 50%, ${opacity})`);
+                            gradient.addColorStop(0.5, `hsla(70, 35%, 40%, ${opacity * 0.5})`);
+                            gradient.addColorStop(1, `hsla(230, 60%, 55%, ${opacity})`);
+                            ctx.beginPath();
+                            ctx.moveTo(p1.x, p1.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = gradient;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function drawGeometricGrid(time) {
+                const gridSize = 80;
+                const rows = Math.ceil(height / gridSize) + 2;
+                const cols = Math.ceil(width / gridSize) + 2;
+                ctx.strokeStyle = 'hsla(70, 20%, 70%, 0.05)';
+                ctx.lineWidth = 0.5;
+                for (let i = -1; i < rows; i++) {
+                    for (let j = -1; j < cols; j++) {
+                        const x = j * gridSize + Math.sin(time * 0.3 + i * 0.2) * 5;
+                        const y = i * gridSize + Math.cos(time * 0.2 + j * 0.2) * 5;
+                        const hexRadius = gridSize * 0.3;
+                        ctx.beginPath();
+                        for (let k = 0; k < 6; k++) {
+                            const angle = (k / 6) * Math.PI * 2 + time * 0.1;
+                            const hx = x + Math.cos(angle) * hexRadius;
+                            const hy = y + Math.sin(angle) * hexRadius;
+                            if (k === 0) ctx.moveTo(hx, hy);
+                            else ctx.lineTo(hx, hy);
+                        }
+                        ctx.closePath();
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            const numParticles = 60;
+            const particles = [];
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new WaveParticle(i, numParticles));
+            }
+
+            const orbs = [];
+            for (let i = 0; i < 6; i++) {
+                orbs.push(new FloatingOrb());
+            }
+
+            const dnaHelix = new DNAHelix();
+
+            const shootingStars = [];
+            for (let i = 0; i < 5; i++) {
+                shootingStars.push(new ShootingStar());
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                targetMouseX = e.clientX;
+                targetMouseY = e.clientY;
+            });
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                dnaHelix.offsetX = width * 0.85;
+                dnaHelix.offsetY = height / 2;
+                particles.forEach((p, i) => {
+                    p.total = numParticles;
+                    p.reset();
+                });
+            });
+
+            function animate() {
+                time += 0.016;
+                mouseX += (targetMouseX - mouseX) * 0.08;
+                mouseY += (targetMouseY - mouseY) * 0.08;
+                scrollY += (targetScrollY - scrollY) * 0.1;
+                const scrollHue = 40 + Math.sin(scrollY * 0.001) * 5;
+                const bgGradient = ctx.createRadialGradient(
+                    width * 0.3 + scrollY * 0.05, height * 0.3, 0,
+                    width / 2, height / 2, width * 0.8
+                );
+                bgGradient.addColorStop(0, `hsl(${scrollHue}, 55%, 99%)`);
+                bgGradient.addColorStop(0.5, `hsl(${scrollHue}, 50%, 98%)`);
+                bgGradient.addColorStop(1, `hsl(${scrollHue - 2}, 45%, 96%)`);
+                ctx.fillStyle = bgGradient;
+                ctx.fillRect(0, 0, width, height);
+                drawAuroraWaves(time, scrollY);
+                ctx.save();
+                ctx.translate(0, -scrollY * 0.02);
+                drawGeometricGrid(time);
+                ctx.restore();
+                orbs.forEach(orb => {
+                    orb.update(time);
+                    ctx.save();
+                    ctx.translate(0, -scrollY * 0.05 * (1 - orb.z / 800));
+                    orb.draw(time);
+                    ctx.restore();
+                });
+                shootingStars.forEach(star => {
+                    star.update();
+                    star.draw();
+                });
+                dnaHelix.update(time, scrollY);
+                dnaHelix.draw();
+                particles.forEach(p => {
+                    p.update(time);
+                    p.y -= scrollY * 0.03 * (1 - p.z / 1000);
+                });
+                particles.sort((a, b) => b.z - a.z);
+                drawConnections(particles);
+                particles.forEach(p => p.draw());
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+    </script>
+</body>
+
+</html>

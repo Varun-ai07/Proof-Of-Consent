@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Medical Consent | Prostatectomy</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; line-height: 1.6; color: #111827; }
+    h1, h2, h3 { color: #0f172a; }
+    section { margin-bottom: 24px; }
+    .card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; background: #fff; }
+    .actions { margin-top: 20px; }
+    button { padding: 10px 14px; border: none; border-radius: 6px; background: #0ea5e9; color: #fff; cursor: pointer; }
+    button:disabled { background: #94a3b8; cursor: not-allowed; }
+    input[type="text"] { padding: 8px; width: 100%; max-width: 320px; border: 1px solid #e5e7eb; border-radius: 6px; }
+    label { display: flex; align-items: center; gap: 8px; }
+    ul { padding-left: 20px; }
+    .muted { color: #6b7280; font-size: 0.95em; }
+  </style>
+</head>
+<body>
+  <h1>Informed Consent</h1>
+  <p><strong>Patient:</strong> Thivin</p>
+  <p><strong>Procedure:</strong> Prostatectomy</p>
+  <p><strong>Doctor:</strong> Gobinath</p>
+  <hr />
+
+  <section class="card">
+    <h2>Overview</h2>
+    <p>Prostatectomy is a procedure performed to address a specific medical need. It is explained in simple steps so you can feel informed and comfortable.</p>
+  </section>
+
+  <section class="card">
+    <h2>Procedure Steps</h2>
+    <ul>
+      <li><strong>Step 1: Anesthesia</strong> — You will receive anesthesia to keep you comfortable and pain-free during the procedure.</li>
+    
+      <li><strong>Step 2: Small Incisions</strong> — Small surgical incisions are made to allow access for the instruments needed.</li>
+    
+      <li><strong>Step 3: Procedure</strong> — The main surgical steps are performed carefully by your experienced surgical team.</li>
+    
+      <li><strong>Step 4: Closure</strong> — Incisions are closed with dissolvable stitches or surgical glue.</li>
+    
+      <li><strong>Step 5: Recovery Start</strong> — You begin recovery with monitoring and pain management in the recovery room.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Risks</h2>
+    <ul>
+      <li><strong>Infection</strong> (2-5%): Minor infection at the incision sites can occur but is treatable with antibiotics.</li>
+    
+      <li><strong>Bleeding</strong> (1-2%): Rare internal bleeding that may require monitoring or additional care.</li>
+    
+      <li><strong>Anesthesia Reaction</strong> (less than 1%): Very rare allergic or adverse reaction to anesthesia medications.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Alternatives</h2>
+    <ul>
+      <li><strong>Open Surgery</strong> — Traditional surgical approach with one larger incision instead of small ones. <em>When minimally invasive approach is not suitable for your condition</em></li>
+    
+      <li><strong>Medical Management</strong> — Medication-focused approach to manage the condition without surgery. <em>Only for select cases where surgery can be deferred or avoided</em></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Recovery</h2>
+    <p>Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.</p>
+    <h3>Timeline</h3>
+    <ul>
+      <li><strong>Day 0:</strong> Surgery day with monitoring in recovery room. Rest and pain management.</li>
+    
+      <li><strong>Day 1:</strong> Light walking encouraged. Soft diet. Pain control medications as prescribed.</li>
+    
+      <li><strong>Day 2-3:</strong> Often ready for discharge. Follow wound care instructions carefully.</li>
+    
+      <li><strong>Week 1:</strong> Most routine activities can resume. Continue following medical restrictions.</li>
+    </ul>
+    <div style="display:flex; gap:24px; flex-wrap:wrap;">
+      <div>
+        <h4>Do</h4>
+        <ul><li>Take all prescribed medications as directed</li><li>Walk lightly as advised by your medical team</li><li>Keep incisions clean and dry</li><li>Attend all follow-up appointments</li><li>Rest and get adequate sleep</li></ul>
+      </div>
+      <div>
+        <h4>Don't</h4>
+        <ul><li>Lift heavy objects (more than 10 lbs)</li><li>Do strenuous exercise or sports</li><li>Submerge incisions in water until cleared</li><li>Drive until approved by your doctor</li><li>Ignore signs of infection or complications</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Check Your Understanding</h2>
+    <div class="muted">Review these before signing.</div>
+    
+          <div style="margin-bottom:12px;">
+            <p><strong>Will you be awake during the Prostatectomy?</strong></p>
+            <ul>
+              <li>A. No, you will be under anesthesia</li><li>B. Yes, you will be fully awake</li>
+            </ul>
+          </div>
+        
+          <div style="margin-bottom:12px;">
+            <p><strong>What is a common risk of this procedure?</strong></p>
+            <ul>
+              <li>A. Minor infection at incision site</li><li>B. Catching a common cold</li>
+            </ul>
+          </div>
+        
+          <div style="margin-bottom:12px;">
+            <p><strong>How long is typical recovery?</strong></p>
+            <ul>
+              <li>A. About 1-2 weeks</li><li>B. About 3-4 months</li>
+            </ul>
+          </div>
+        
+        <div style="margin-bottom:12px;">
+          <p><strong>In your own words, what did you understand about this procedure?</strong></p>
+          <p>Min words: 20</p>
+        </div>
+      
+  </section>
+
+  <section class="card">
+    <h2>Consent & Signature</h2>
+    <label><input type="checkbox" id="understand" /> I confirm that I have read and understood the information above.</label>
+    <div style="margin-top:12px;">
+      <label for="signature">Type your full name as signature:</label>
+      <input type="text" id="signature" />
+    </div>
+    <div class="actions">
+      <button id="submitBtn" onclick="submitConsent()">Submit Digital Consent</button>
+    </div>
+    <p id="statusMsg" class="muted"></p>
+  </section>
+
+  <script>
+    async function submitConsent() {
+      const checked = document.getElementById('understand').checked;
+      const signature = document.getElementById('signature').value.trim();
+      const statusEl = document.getElementById('statusMsg');
+      const btn = document.getElementById('submitBtn');
+
+      if (!checked || !signature) {
+        alert('Please confirm understanding and sign.');
+        return;
+      }
+
+      btn.disabled = true;
+      statusEl.textContent = 'Submitting...';
+
+      const consentId = location.pathname.split('/').pop().replace('.html', '');
+      const res = await fetch('/api/consent/sign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          consentId,
+          patientSignature: signature,
+          timestamp: new Date().toISOString()
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        statusEl.textContent = data.error || 'Failed to sign consent';
+        btn.disabled = false;
+        return;
+      }
+
+      document.body.innerHTML = `
+        <h2>✅ Consent Signed</h2>
+        <p>Your consent has been recorded.</p>
+        <p>Status: ${data.status}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
