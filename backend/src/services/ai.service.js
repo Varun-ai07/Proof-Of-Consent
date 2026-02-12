@@ -1,8 +1,8 @@
 import fetch from 'node-fetch';
 
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
-const MODEL = 'mistralai/mistral-small-3.1-24b-instruct:free';
-const TEMPERATURE = 0.85;
+const MODEL = 'google/gemma-3-12b-it:free';
+const TEMPERATURE = 0.7;
 const TOP_P = 0.9;
 
 /**
@@ -63,106 +63,113 @@ export async function generatePatientConsentContent({
 
   console.log(`🤖 Generating AI content for: ${procedure}`);
 
-  const prompt = `You are a medical consent assistant. Explain the procedure "${procedure}" for a patient named ${patientName}.
-
-OVERVIEW:
-Write 2-3 clear sentences explaining what ${procedure} is and why it's performed.
-
-STEPS:
-1. Preparation - describe pre-operative preparation
-2. Anesthesia - describe the anesthesia process
-3. Procedure - describe the main surgical steps specific to ${procedure}
-4. Closure - describe how the surgery is completed
-5. Recovery Room - describe immediate post-op care
-
-RISKS (specific to ${procedure}):
-1. [Risk name] - [description] - [percentage like 2-5%]
-2. [Risk name] - [description] - [percentage]
-3. [Risk name] - [description] - [percentage]
-4. [Risk name] - [description] - [percentage]
-
-RECOVERY:
-Write 2-3 sentences about the recovery timeline specific to ${procedure}.
-
-DO (after ${procedure}):
-1. [specific instruction]
-2. [specific instruction]
-3. [specific instruction]
-4. [specific instruction]
-5. [specific instruction]
-
-DONT (after ${procedure}):
-1. [specific restriction]
-2. [specific restriction]
-3. [specific restriction]
-4. [specific restriction]
-5. [specific restriction]
-
-Use plain text only. No markdown. No asterisks. Be specific to ${procedure}.`;
+  const prompt = `You are an expert medical consent assistant. Create a detailed consent form for "${procedure}" for a patient named "${patientName}".
+  
+  Output MUST be valid JSON only, without markdown formatting or code blocks. The JSON must match this structure:
+  {
+    "overview": "2-3 sentences explaining the procedure effectively and why it is done.",
+    "steps": [
+      {"title": "Step Title", "description": "Detailed explanation of this step."}
+    ],
+    "risks": [
+      {"title": "Risk Title", "description": "Explanation of risk.", "likelihood": "Percentage (e.g. 1-2%)"}
+    ],
+    "alternatives": [
+      {"title": "Alternative Title", "description": "Description of alternative.", "whenRecommended": "When this is recommended over the procedure."}
+    ],
+    "recovery": {
+      "summary": "2-3 sentences about recovery timeline.",
+      "timeline": [
+        {"label": "Day 1-2", "description": "Initial recovery steps."},
+        {"label": "Week 1", "description": "What to expect in the first week."}
+      ]
+    },
+    "do": ["Post-op instruction 1", "Post-op instruction 2"],
+    "dont": ["Post-op restriction 1", "Post-op restriction 2"],
+    "quiz": {
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Question text?",
+          "correctOption": "A",
+          "options": {"A": "Correct Answer", "B": "Wrong Answer"}
+        }
+      ]
+    }
+  }
+  
+  Requirements:
+  1. "steps": Include at least 4 detailed steps (Preparation, Anesthesia, Procedure details, Closure).
+  2. "risks": Include at least 4 specific risks with likelihoods.
+  3. "alternatives": Include at least 2 common alternatives (e.g. medical management, different surgical approach).
+  4. "do" and "dont": Include at least 4 items each specific to this procedure.
+  5. "quiz": Include 3-4 multiple choice questions to test understanding.
+  6. Use simple, clear language suitable for a general patient.
+  7. DO NOT include any text outside the JSON object.
+  `;
 
   const payload = {
     model: MODEL,
     messages: [{ role: 'user', content: prompt }],
     temperature: TEMPERATURE,
     top_p: TOP_P,
-    max_tokens: 1500,
   };
 
   try {
     console.log('📡 Calling OpenRouter API...');
     const data = await callOpenRouter(payload);
     const content = data.choices?.[0]?.message?.content || '';
-    
+
     console.log('📥 AI Response received, length:', content.length);
-    
-    if (!content || content.length < 100) {
+
+    if (!content || content.length < 50) {
       console.warn('⚠️ AI response too short, using fallback');
       return buildFallbackContent(procedure, patientName, doctorName);
     }
 
     // Parse the response
-    const parsed = parseEnhancedResponse(content, procedure);
-    
-    console.log('✅ Parsed content:', {
-      overviewLength: parsed.overview?.length,
-      stepsCount: parsed.steps?.length,
-      risksCount: parsed.risks?.length,
-      dosCount: parsed.do?.length,
-      dontsCount: parsed.dont?.length
-    });
+    let parsed;
+    try {
+      // Clean up potential markdown code blocks if the model adds them
+      const jsonStr = content.replace(/```json\n?|```/g, '').trim();
+      parsed = JSON.parse(jsonStr);
+    } catch (parseError) {
+      console.error('❌ JSON Parse Error:', parseError.message);
+      console.log('Raw output:', content);
+      // Try to fallback to the old parser in case it returned text? 
+      // Or just fail to fallback content.
+      return buildFallbackContent(procedure, patientName, doctorName);
+    }
+
+    console.log('✅ Parsed content successfully');
 
     return {
       overview: parsed.overview || `${procedure} is a surgical procedure performed to treat your condition.`,
-      steps: parsed.steps.length >= 3 ? parsed.steps : buildFallbackContent(procedure).steps,
-      risks: parsed.risks.length >= 2 ? parsed.risks : buildFallbackContent(procedure).risks,
-      alternatives: [
-        { 
-          title: 'Open Surgery', 
-          description: 'Traditional surgical approach with a larger incision.', 
-          whenRecommended: 'When minimally invasive approach is not suitable' 
-        },
-        { 
-          title: 'Medical Management', 
-          description: 'Medication-based treatment without surgery.', 
-          whenRecommended: 'When surgery can be safely deferred' 
-        },
+      steps: Array.isArray(parsed.steps) && parsed.steps.length > 0 ? parsed.steps : buildFallbackContent(procedure).steps,
+      risks: Array.isArray(parsed.risks) && parsed.risks.length > 0 ? parsed.risks : buildFallbackContent(procedure).risks,
+      alternatives: Array.isArray(parsed.alternatives) && parsed.alternatives.length > 0 ? parsed.alternatives : [
+        {
+          title: 'Medical Management',
+          description: 'Medication-based treatment without surgery.',
+          whenRecommended: 'When surgery can be safely deferred'
+        }
       ],
       recovery: {
-        summary: parsed.recovery || `Recovery from ${procedure} typically takes 4-6 weeks with proper care.`,
-        timeline: [
+        summary: parsed.recovery?.summary || (typeof parsed.recovery === 'string' ? parsed.recovery : `Recovery from ${procedure} typically takes 4-6 weeks with proper care.`),
+        timeline: (parsed.recovery?.timeline && Array.isArray(parsed.recovery.timeline)) ? parsed.recovery.timeline : [
           { label: 'Day 1', description: 'Hospital recovery with monitoring and pain management.' },
           { label: 'Day 2-3', description: 'Begin light walking. May be discharged home.' },
           { label: 'Week 1-2', description: 'Rest at home. Light activities only. Follow-up appointment.' },
           { label: 'Week 4-6', description: 'Gradual return to normal activities as approved by doctor.' },
         ],
-        do: parsed.do.length >= 3 ? parsed.do : [
+        do: Array.isArray(parsed.do) ? parsed.do : [
           'Take all prescribed medications on schedule',
           'Walk short distances daily to prevent blood clots',
           'Keep surgical site clean and dry',
           'Attend all follow-up appointments',
           'Get plenty of rest and sleep'
         ],
-        dont: parsed.dont.length >= 3 ? parsed.dont : [
+        dont: Array.isArray(parsed.dont) ? parsed.dont : [
           'Lift anything heavier than 10 pounds',
           'Drive until cleared by your doctor',
           'Submerge incision in water (baths, pools)',
@@ -170,7 +177,7 @@ Use plain text only. No markdown. No asterisks. Be specific to ${procedure}.`;
           'Ignore signs of infection (fever, redness, discharge)'
         ],
       },
-      quiz: buildQuizForProcedure(procedure),
+      quiz: (parsed.quiz && Array.isArray(parsed.quiz.questions)) ? parsed.quiz : buildQuizForProcedure(procedure),
       metadata: { procedure, patientName, doctorName },
       plainTextSummary: parsed.overview,
     };
@@ -182,122 +189,14 @@ Use plain text only. No markdown. No asterisks. Be specific to ${procedure}.`;
 }
 
 /**
- * Enhanced parser that extracts DO and DONT lists
+ * Enhanced parser not needed when using JSON mode, 
+ * but keeping a dummy or removing it.
+ * We removed the usage above, so we can remove this function or keep it empty.
+ * I will remove it provided the range covers it.
  */
 function parseEnhancedResponse(content, procedure) {
-  const result = {
-    overview: '',
-    steps: [],
-    risks: [],
-    recovery: '',
-    do: [],
-    dont: [],
-  };
-
-  const lines = content.split('\n');
-  let currentSection = '';
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed) continue;
-
-    const lowerLine = trimmed.toLowerCase();
-    
-    // Detect section headers
-    if (lowerLine.startsWith('overview') || lowerLine === 'overview:') {
-      currentSection = 'overview';
-      continue;
-    } else if (lowerLine.startsWith('steps') || lowerLine === 'steps:') {
-      currentSection = 'steps';
-      continue;
-    } else if (lowerLine.startsWith('risks') || lowerLine === 'risks:') {
-      currentSection = 'risks';
-      continue;
-    } else if (lowerLine.startsWith('recovery') || lowerLine === 'recovery:') {
-      currentSection = 'recovery';
-      continue;
-    } else if (lowerLine.startsWith('do ') || lowerLine === 'do:' || lowerLine.startsWith('do (')) {
-      currentSection = 'do';
-      continue;
-    } else if (lowerLine.startsWith('dont') || lowerLine.startsWith("don't") || lowerLine === 'dont:') {
-      currentSection = 'dont';
-      continue;
-    }
-
-    // Parse content based on section
-    switch (currentSection) {
-      case 'overview':
-        const cleanOverview = trimmed.replace(/^[:\-]\s*/, '');
-        if (cleanOverview.length > 10 && !cleanOverview.toLowerCase().startsWith('step')) {
-          result.overview += (result.overview ? ' ' : '') + cleanOverview;
-        }
-        break;
-
-      case 'steps':
-        if (/^\d+[\.\)]/.test(trimmed) || /^[-•]/.test(trimmed)) {
-          const cleanLine = trimmed.replace(/^\d+[\.\)]\s*/, '').replace(/^[-•]\s*/, '');
-          const separatorMatch = cleanLine.match(/^([^:\-–]+)[:\-–]\s*(.+)$/);
-          
-          if (separatorMatch) {
-            result.steps.push({ 
-              title: separatorMatch[1].trim(), 
-              description: separatorMatch[2].trim() 
-            });
-          } else if (cleanLine.length > 10) {
-            result.steps.push({ 
-              title: `Step ${result.steps.length + 1}`, 
-              description: cleanLine 
-            });
-          }
-        }
-        break;
-
-      case 'risks':
-        if (/^\d+[\.\)]/.test(trimmed) || /^[-•]/.test(trimmed)) {
-          const cleanLine = trimmed.replace(/^\d+[\.\)]\s*/, '').replace(/^[-•]\s*/, '');
-          const percentMatch = cleanLine.match(/(\d+(?:[-.]\d+)?%|less than \d+%|<\s*\d+%)/i);
-          const likelihood = percentMatch ? percentMatch[1] : '1-5%';
-          
-          const parts = cleanLine.replace(/\s*[-–]\s*\d+(?:[-.]\d+)?%/g, '').split(/\s*[-–:]\s*/);
-          
-          if (parts[0] && parts[0].length > 2) {
-            result.risks.push({
-              title: parts[0].trim(),
-              description: parts.slice(1).join(' ').trim() || 'May occur in some patients.',
-              likelihood: likelihood,
-            });
-          }
-        }
-        break;
-
-      case 'recovery':
-        const cleanRecovery = trimmed.replace(/^[:\-]\s*/, '');
-        if (cleanRecovery.length > 10 && !/^\d+[\.\)]/.test(cleanRecovery)) {
-          result.recovery += (result.recovery ? ' ' : '') + cleanRecovery;
-        }
-        break;
-
-      case 'do':
-        if (/^\d+[\.\)]/.test(trimmed) || /^[-•]/.test(trimmed)) {
-          const item = trimmed.replace(/^\d+[\.\)]\s*/, '').replace(/^[-•]\s*/, '').trim();
-          if (item.length > 5) {
-            result.do.push(item);
-          }
-        }
-        break;
-
-      case 'dont':
-        if (/^\d+[\.\)]/.test(trimmed) || /^[-•]/.test(trimmed)) {
-          const item = trimmed.replace(/^\d+[\.\)]\s*/, '').replace(/^[-•]\s*/, '').trim();
-          if (item.length > 5) {
-            result.dont.push(item);
-          }
-        }
-        break;
-    }
-  }
-
-  return result;
+  // Legacy parser not used anymore
+  return {};
 }
 
 /**
@@ -394,18 +293,18 @@ async function callOpenRouter(payload) {
   });
 
   const data = await response.json();
-  
+
   console.log('📥 OpenRouter response status:', response.status);
-  
+
   if (!response.ok) {
     console.error('OpenRouter error:', response.status, data);
     throw new Error(`OpenRouter API error: ${response.status} - ${data.error?.message || 'Unknown'}`);
   }
-  
+
   if (data.choices && data.choices[0] && data.choices[0].message) {
     return data;
   }
-  
+
   if (data.message || data.content) {
     return {
       choices: [{
@@ -415,7 +314,7 @@ async function callOpenRouter(payload) {
       }]
     };
   }
-  
+
   console.error('Unexpected response structure:', JSON.stringify(data).slice(0, 500));
   throw new Error('Invalid API response structure');
 }

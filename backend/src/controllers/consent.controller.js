@@ -48,19 +48,23 @@ function renderList(items, renderItem) {
 // CREATE CONSENT WITH OTP
 export async function createConsent(req, res) {
   try {
-    const { 
-      patientName, 
-      procedure, 
-      doctorId, 
-      doctorName = 'Your Doctor', 
+    const {
+      patientName,
+      procedure,
+      doctorId,
+      doctorName = 'Your Doctor',
       language = 'en',
-      otp  // ✅ NEW: OTP from request
+      patientAge, // ✅ NEW: Age
+      hospitalName, // ✅ NEW: Hospital
+      procedureDate, // ✅ NEW: Date
+      otp,  // ✅ NEW: OTP from request
+      emergencyMode = false  // ✅ NEW: Emergency Mode flag
     } = req.body;
 
     if (!patientName || !procedure || !doctorId) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         success: false,
-        error: 'Missing required fields: patientName, procedure, doctorId' 
+        error: 'Missing required fields: patientName, procedure, doctorId'
       });
     }
 
@@ -73,11 +77,11 @@ export async function createConsent(req, res) {
     // Generate structured content
     let content;
     try {
-      content = await generatePatientConsentContent({ 
-        procedure, 
-        patientName, 
-        doctorName, 
-        language 
+      content = await generatePatientConsentContent({
+        procedure,
+        patientName,
+        doctorName,
+        language
       });
     } catch (err) {
       console.warn('AI generation failed, using fallback:', err.message);
@@ -99,7 +103,8 @@ export async function createConsent(req, res) {
       patientName,
       procedure,
       doctorName,
-      hospitalName: 'Default Hospital', // You'll get this from req.body
+      doctorName,
+      hospitalName,
       timestamp: new Date().toISOString()
     };
 
@@ -111,10 +116,20 @@ export async function createConsent(req, res) {
     const consent = {
       consentId,
       patientName,
+      age: patientAge, // ✅ Store Age
       procedure,
       doctorId,
       doctorName,
+      hospital: hospitalName,
+      department: 'General Surgery',
+      location: 'Main Operation Theater',
+      patientId: `PAT-${Math.floor(1000 + Math.random() * 90000)}`,
+      scheduledDate: procedureDate || new Date().toLocaleDateString(),
+      scheduledTime: '09:00 AM',
+      surgeon: doctorName,
+      anesthesiologist: 'Dr. Anesthesia',
       otp: finalOtp,
+      emergencyMode: emergencyMode,  // ✅ Store Emergency Mode flag
       consentHash: consentHash,  // ✅ HASH stored in DB
       status: 'PENDING_PATIENT',
       patientSigned: false,
@@ -144,7 +159,8 @@ export async function createConsent(req, res) {
           patientName,
           procedure,
           doctorName,
-          hospitalName: 'Default Hospital',
+          doctorName,
+          hospitalName,
           timestamp: consent.createdAt
         })
       });
@@ -341,9 +357,9 @@ export async function createConsent(req, res) {
 
   } catch (err) {
     console.error('Create consent error:', err);
-    res.status(500).json({ 
+    res.status(500).json({
       success: false,
-      error: 'Failed to create consent' 
+      error: 'Failed to create consent'
     });
   }
 }
@@ -354,9 +370,9 @@ export async function signConsent(req, res) {
     const { consentId, patientSignature, timestamp, otp } = req.body;
 
     if (!consentId || !patientSignature) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         success: false,
-        error: 'Missing required fields: consentId, patientSignature' 
+        error: 'Missing required fields: consentId, patientSignature'
       });
     }
 
@@ -364,17 +380,17 @@ export async function signConsent(req, res) {
     const consent = consents.find(c => c.consentId === consentId);
 
     if (!consent) {
-      return res.status(404).json({ 
+      return res.status(404).json({
         success: false,
-        error: 'Consent not found' 
+        error: 'Consent not found'
       });
     }
 
     // ✅ OTP validation if consent requires it
     if (consent.otp && String(consent.otp) !== String(otp)) {
-      return res.status(403).json({ 
+      return res.status(403).json({
         success: false,
-        error: 'Invalid or missing OTP. Cannot sign without valid OTP.' 
+        error: 'Invalid or missing OTP. Cannot sign without valid OTP.'
       });
     }
 
@@ -401,9 +417,9 @@ export async function signConsent(req, res) {
 
   } catch (err) {
     console.error('Sign consent error:', err);
-    res.status(500).json({ 
+    res.status(500).json({
       success: false,
-      error: 'Failed to sign consent' 
+      error: 'Failed to sign consent'
     });
   }
 }
@@ -414,9 +430,9 @@ export async function getConsent(req, res) {
     const { consentId } = req.params;
 
     if (!consentId) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         success: false,
-        error: 'Consent ID is required' 
+        error: 'Consent ID is required'
       });
     }
 
@@ -424,13 +440,32 @@ export async function getConsent(req, res) {
     const consent = consents.find(c => c.consentId === consentId);
 
     if (!consent) {
-      return res.status(404).json({ 
+      return res.status(404).json({
         success: false,
-        error: 'Consent not found' 
+        error: 'Consent not found'
       });
     }
 
-    // ✅ Return full consent data (including OTP for validation on frontend)
+    // ✅ Get OTP from query params
+    const providedOtp = req.query.otp;
+    const isValidOtp = consent.otp && String(consent.otp) === String(providedOtp);
+
+    if (!isValidOtp) {
+      // Return restricted "safe" data if OTP is missing/incorrect
+      return res.json({
+        success: true,
+        requiresOtp: true,
+        consentId: consent.consentId,
+        patientName: consent.patientName,
+        doctorName: consent.doctorName,
+        procedure: consent.procedure,
+        hospital: consent.hospital,
+        status: consent.status,
+        createdAt: consent.createdAt
+      });
+    }
+
+    // ✅ Return full consent data ONLY if OTP is valid
     res.json({
       success: true,
       ...consent
@@ -438,9 +473,9 @@ export async function getConsent(req, res) {
 
   } catch (err) {
     console.error('Get consent error:', err);
-    res.status(500).json({ 
+    res.status(500).json({
       success: false,
-      error: 'Failed to fetch consent' 
+      error: 'Failed to fetch consent'
     });
   }
 }

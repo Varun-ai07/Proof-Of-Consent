@@ -178,7 +178,8 @@
 
                             <div class="form-group">
                                 <label>CONSENT LINK OR ID</label>
-                                <input type="text" id="consentInput" placeholder="Paste your secure consent link or Consent ID">
+                                <input type="text" id="consentInput"
+                                    placeholder="Paste your secure consent link or Consent ID">
                                 <p class="form-error" id="consentError"></p>
                             </div>
 
@@ -216,7 +217,8 @@
                                 <span>Scan QR Code</span>
                             </button>
 
-                            <p id="prefillNotice" class="prefill-notice">We prefilled your details from the secure link.</p>
+                            <p id="prefillNotice" class="prefill-notice">We prefilled your details from the secure link.
+                            </p>
                             <p class="card-footer">Consent access is provided by your doctor or hospital.</p>
                         </div>
                     </div>
@@ -844,7 +846,8 @@
 
                 const parsed = parseConsentValue(rawConsent);
                 const consentId = parsed.consentId || rawConsent;
-                const otp = rawOtp || parsed.otp;
+                const linkOtp = parsed.otp;
+                const enteredOtp = rawOtp;
 
                 if (!consentId) {
                     showConsentError(consentError, 'Enter a Consent ID or paste the link you received.');
@@ -856,41 +859,58 @@
                     return;
                 }
 
-                if (!otp) {
+                if (!enteredOtp) {
                     showConsentError(otpError, 'Enter the OTP from your doctor.');
                     return;
                 }
 
-                if (!isValidOtp(otp)) {
-                    showConsentError(otpError, 'OTP should be 4-8 digits.');
+                if (!isValidOtp(enteredOtp)) {
+                    showConsentError(otpError, 'OTP should be 6 digits.');
+                    return;
+                }
+
+                // NEW: Enforce that if a link OTP was provided, it must match the entered OTP
+                if (linkOtp && linkOtp !== enteredOtp) {
+                    showConsentError(otpError, 'The OTP must match the one provided in your consent link.');
                     return;
                 }
 
                 // Store in session for patient dashboard
                 sessionStorage.setItem('patientConsentId', consentId);
-                sessionStorage.setItem('patientOtp', otp);
-                navigateToConsent(consentId, otp);
+                sessionStorage.setItem('patientOtp', enteredOtp);
+                navigateToConsent(consentId, enteredOtp);
             }
         }
 
         function parseConsentValue(raw) {
-            if (!raw) return {};
+            if (!raw) return { consentId: '', otp: '' };
             let consentId = '';
             let otp = '';
 
+            // Strip whitespace
+            const input = raw.trim();
+
             try {
-                const url = new URL(raw);
-                consentId = url.searchParams.get('consentId') || url.searchParams.get('id') || '';
-                otp = url.searchParams.get('otp') || url.searchParams.get('code') || '';
-                if (!consentId) {
-                    const pathMatch = url.pathname.match(/CNS_[0-9]+/i);
-                    consentId = pathMatch ? pathMatch[0] : '';
+                // Try if it's a URL
+                if (input.startsWith('http') || input.includes('?')) {
+                    const url = new URL(input);
+                    consentId = url.searchParams.get('consentId') || url.searchParams.get('id') || '';
+                    otp = url.searchParams.get('otp') || url.searchParams.get('code') || '';
+                    if (!consentId) {
+                        const pathMatch = url.pathname.match(/CNS_[0-9]+/i);
+                        consentId = pathMatch ? pathMatch[0] : '';
+                    }
+                } else {
+                    // Not a URL, try to extract ID and potential OTP suffix like ...?otp=123456
+                    const idMatch = input.match(/CNS_[0-9]+/i);
+                    const otpMatch = input.match(/otp=([A-Za-z0-9]+)/i);
+                    consentId = idMatch ? idMatch[0] : input;
+                    otp = otpMatch ? otpMatch[1] : '';
                 }
             } catch (err) {
-                const idMatch = raw.match(/CNS_[0-9]+/i);
-                const otpMatch = raw.match(/otp=([A-Za-z0-9]+)/i);
-                consentId = idMatch ? idMatch[0] : raw;
-                otp = otpMatch ? otpMatch[1] : '';
+                // Fallback for non-URL strings
+                const idMatch = input.match(/CNS_[0-9]+/i);
+                consentId = idMatch ? idMatch[0] : input;
             }
 
             return { consentId, otp };
@@ -901,8 +921,56 @@
         }
 
         function isValidOtp(otp) {
-            return /^\d{4,8}$/.test(otp);
+            return /^\d{6}$/.test(otp);
         }
+
+        // Real-time validation for the access button
+        function updateAccessButtonState() {
+            const consentInput = document.getElementById('consentInput');
+            const otpInput = document.getElementById('otpInput');
+            const accessConsentBtn = document.getElementById('accessConsentBtn');
+
+            const consentId = consentInput.value.trim();
+            const otp = otpInput.value.trim();
+
+            const isIdValid = isValidConsentId(consentId);
+            const isOtpValid = isValidOtp(otp);
+
+            if (isIdValid && isOtpValid) {
+                accessConsentBtn.disabled = false;
+                accessConsentBtn.classList.remove('disabled');
+                accessConsentBtn.style.opacity = '1';
+                accessConsentBtn.style.cursor = 'pointer';
+            } else {
+                accessConsentBtn.disabled = true;
+                accessConsentBtn.classList.add('disabled');
+                accessConsentBtn.style.opacity = '0.5';
+                accessConsentBtn.style.cursor = 'not-allowed';
+            }
+
+            // Visual feedback for OTP
+            if (otp.length > 0) {
+                if (isOtpValid) {
+                    otpInput.style.borderColor = '#10b981'; // Green
+                } else if (otp.length >= 6) {
+                    otpInput.style.borderColor = '#ef4444'; // Red
+                } else {
+                    otpInput.style.borderColor = ''; // Default
+                }
+            } else {
+                otpInput.style.borderColor = '';
+            }
+        }
+
+        // Add listeners for real-time validation
+        document.getElementById('consentInput')?.addEventListener('input', updateAccessButtonState);
+        document.getElementById('otpInput')?.addEventListener('input', updateAccessButtonState);
+
+        // Initial state
+        document.addEventListener('DOMContentLoaded', () => {
+            // ... existing init calls ...
+            setTimeout(updateAccessButtonState, 100);
+        });
 
         function navigateToConsent(consentId, otp) {
             const search = new URLSearchParams({ consentId, otp }).toString();

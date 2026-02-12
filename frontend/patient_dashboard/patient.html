@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,11 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="bg-slate-50 text-slate-900 selection:bg-teal-100 selection:text-teal-900 overflow-x-hidden">
 
     <!-- Sticky Header Bar -->
@@ -31,17 +35,21 @@
                 <span class="font-mono font-semibold text-slate-900" id="headerConsentId">-</span>
             </div>
         </div>
-        
+
         <!-- Progress Bar -->
-        <div class="w-full h-1 bg-slate-100" role="progressbar" aria-label="Consent completion progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-            <div id="progressBar" class="h-full bg-gradient-to-r from-teal-500 to-emerald-500 transition-all duration-300" style="width: 0%"></div>
+        <div class="w-full h-1 bg-slate-100" role="progressbar" aria-label="Consent completion progress"
+            aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div id="progressBar"
+                class="h-full bg-gradient-to-r from-teal-500 to-emerald-500 transition-all duration-300"
+                style="width: 0%"></div>
         </div>
     </header>
 
     <!-- Loading Splash -->
     <div id="loadingSplash" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
         <div class="text-center">
-            <div class="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-4"></div>
+            <div class="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-4">
+            </div>
             <p class="text-slate-600 font-inter" id="loadingText">Loading consent form...</p>
         </div>
     </div>
@@ -52,7 +60,8 @@
             <iconify-icon icon="solar:shield-warning-bold" class="text-red-500 mt-0.5" width="20"></iconify-icon>
             <div>
                 <p class="font-semibold">OTP verification required</p>
-                <p id="otpAlertText" class="text-sm mt-1 font-inter">Please open the secure link that includes your 6-digit OTP to unlock this consent.</p>
+                <p id="otpAlertText" class="text-sm mt-1 font-inter">Please open the secure link that includes your
+                    6-digit OTP to unlock this consent.</p>
             </div>
         </div>
     </div>
@@ -62,7 +71,8 @@
         <!-- Language Toggle -->
         <div class="bg-white rounded-lg shadow-lg border border-slate-200 p-3">
             <label class="text-xs text-slate-600 block mb-2 font-inter">Language</label>
-            <select id="languageSelect" name="languageSelect" title="Language selection" class="text-sm border border-slate-200 rounded px-2 py-1 focus:ring-2 focus:ring-teal-500 focus:border-transparent font-inter">
+            <select id="languageSelect" name="languageSelect" title="Language selection"
+                class="text-sm border border-slate-200 rounded px-2 py-1 focus:ring-2 focus:ring-teal-500 focus:border-transparent font-inter">
                 <option value="en">English</option>
                 <option value="hi">Hindi</option>
                 <option value="ta">Tamil</option>
@@ -70,15 +80,17 @@
                 <option value="bn">Bengali</option>
             </select>
         </div>
-        
+
         <!-- AI Help Button -->
-        <button id="aiHelpBtn" type="button" aria-label="Open AI help" title="Open AI help" class="bg-teal-600 text-white rounded-lg shadow-lg p-3 hover:bg-teal-700 transition-all hover:scale-105">
+        <button id="aiHelpBtn" type="button" aria-label="Open AI help" title="Open AI help"
+            class="bg-teal-600 text-white rounded-lg shadow-lg p-3 hover:bg-teal-700 transition-all hover:scale-105">
             <iconify-icon icon="solar:chat-round-dots-bold" width="24"></iconify-icon>
         </button>
     </div>
 
     <!-- AI Help Drawer -->
-    <div id="aiHelpDrawer" class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl border-l border-slate-200 z-50 transform translate-x-full transition-transform duration-300">
+    <div id="aiHelpDrawer"
+        class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl border-l border-slate-200 z-50 transform translate-x-full transition-transform duration-300">
         <div class="p-6 border-b border-slate-200 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center">
@@ -86,22 +98,26 @@
                 </div>
                 <h3 class="font-semibold text-lg font-manrope">AI Assistant</h3>
             </div>
-            <button id="closeAiHelp" type="button" aria-label="Close AI help" title="Close AI help" class="text-slate-400 hover:text-slate-600">
+            <button id="closeAiHelp" type="button" aria-label="Close AI help" title="Close AI help"
+                class="text-slate-400 hover:text-slate-600">
                 <iconify-icon icon="solar:close-circle-bold" width="24"></iconify-icon>
             </button>
         </div>
         <div class="p-6 h-[calc(100%-180px)] overflow-y-auto">
             <div class="space-y-4">
                 <div class="bg-teal-50 rounded-lg p-4">
-                    <p class="text-sm text-slate-700 font-inter" id="aiGreeting">👋 Hello! I'm here to help you understand your procedure better. Ask me anything about the consent process.</p>
+                    <p class="text-sm text-slate-700 font-inter" id="aiGreeting">👋 Hello! I'm here to help you
+                        understand your procedure better. Ask me anything about the consent process.</p>
                 </div>
                 <div id="aiChatMessages" class="space-y-4"></div>
             </div>
         </div>
         <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-200 bg-white">
             <div class="flex gap-2">
-                <input type="text" id="aiQuestionInput" placeholder="Ask a question..." class="flex-1 px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-sm font-inter">
-                <button id="sendAiQuestion" type="button" aria-label="Send AI question" title="Send AI question" class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition-colors">
+                <input type="text" id="aiQuestionInput" placeholder="Ask a question..."
+                    class="flex-1 px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-sm font-inter">
+                <button id="sendAiQuestion" type="button" aria-label="Send AI question" title="Send AI question"
+                    class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition-colors">
                     <iconify-icon icon="solar:plain-2-bold" width="20"></iconify-icon>
                 </button>
             </div>
@@ -114,29 +130,41 @@
             <div class="p-6">
                 <h2 class="text-sm font-semibold text-slate-900 mb-4 font-manrope">Contents</h2>
                 <nav class="space-y-2">
-                    <a href="#overview" data-section="overview" class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
+                    <a href="#overview" data-section="overview"
+                        class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
                         <span>Overview</span>
-                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden" width="16"></iconify-icon>
+                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden"
+                            width="16"></iconify-icon>
                     </a>
-                    <a href="#procedure-steps" data-section="procedure-steps" class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
+                    <a href="#procedure-steps" data-section="procedure-steps"
+                        class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
                         <span>Procedure Steps</span>
-                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden" width="16"></iconify-icon>
+                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden"
+                            width="16"></iconify-icon>
                     </a>
-                    <a href="#risks" data-section="risks" class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
+                    <a href="#risks" data-section="risks"
+                        class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
                         <span>Risks</span>
-                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden" width="16"></iconify-icon>
+                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden"
+                            width="16"></iconify-icon>
                     </a>
-                    <a href="#alternatives" data-section="alternatives" class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
+                    <a href="#alternatives" data-section="alternatives"
+                        class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
                         <span>Alternatives</span>
-                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden" width="16"></iconify-icon>
+                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden"
+                            width="16"></iconify-icon>
                     </a>
-                    <a href="#recovery" data-section="recovery" class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
+                    <a href="#recovery" data-section="recovery"
+                        class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
                         <span>Recovery</span>
-                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden" width="16"></iconify-icon>
+                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden"
+                            width="16"></iconify-icon>
                     </a>
-                    <a href="#quiz" data-section="quiz" class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
+                    <a href="#quiz" data-section="quiz"
+                        class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
                         <span>Check Your Understanding</span>
-                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden" width="16"></iconify-icon>
+                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden"
+                            width="16"></iconify-icon>
                     </a>
                 </nav>
             </div>
@@ -148,23 +176,28 @@
             <section id="overview" class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-2xl font-semibold text-slate-900 font-manrope">Overview</h3>
-                    <button class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter" id="overviewVoiceBtn">
+                    <button
+                        class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter"
+                        id="overviewVoiceBtn">
                         <iconify-icon icon="solar:volume-loud-bold" width="18"></iconify-icon>
                         Listen
                     </button>
                 </div>
                 <div class="space-y-4">
                     <p id="overviewText" class="text-slate-700 leading-relaxed font-inter">Loading...</p>
-                    
+
                     <!-- Visual Placeholder -->
-                    <div class="bg-gradient-to-br from-teal-50 to-emerald-50 rounded-xl p-8 border border-teal-100 flex items-center justify-center min-h-[200px]">
+                    <div
+                        class="bg-gradient-to-br from-teal-50 to-emerald-50 rounded-xl p-8 border border-teal-100 flex items-center justify-center min-h-[200px]">
                         <div class="text-center">
-                            <iconify-icon icon="solar:medical-kit-bold" class="text-teal-600 mb-4" width="64"></iconify-icon>
+                            <iconify-icon icon="solar:medical-kit-bold" class="text-teal-600 mb-4"
+                                width="64"></iconify-icon>
                             <p class="text-sm text-slate-600 font-inter">Visual: Procedure Diagram</p>
                         </div>
                     </div>
 
-                    <button class="simplify-btn text-sm text-teal-600 hover:text-teal-700 flex items-center gap-2 font-inter">
+                    <button
+                        class="simplify-btn text-sm text-teal-600 hover:text-teal-700 flex items-center gap-2 font-inter">
                         <iconify-icon icon="solar:refresh-bold" width="16"></iconify-icon>
                         Simplify this explanation
                     </button>
@@ -172,10 +205,13 @@
             </section>
 
             <!-- Procedure Steps Section -->
-            <section id="procedure-steps" class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
+            <section id="procedure-steps"
+                class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-2xl font-semibold text-slate-900 font-manrope">Procedure Steps</h3>
-                    <button class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter" id="stepsVoiceBtn">
+                    <button
+                        class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter"
+                        id="stepsVoiceBtn">
                         <iconify-icon icon="solar:volume-loud-bold" width="18"></iconify-icon>
                         Listen
                     </button>
@@ -186,9 +222,11 @@
                     </div>
 
                     <!-- Visual Placeholder -->
-                    <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-8 border border-emerald-100 flex items-center justify-center min-h-[200px]">
+                    <div
+                        class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-8 border border-emerald-100 flex items-center justify-center min-h-[200px]">
                         <div class="text-center">
-                            <iconify-icon icon="solar:clipboard-list-bold" class="text-emerald-600 mb-4" width="64"></iconify-icon>
+                            <iconify-icon icon="solar:clipboard-list-bold" class="text-emerald-600 mb-4"
+                                width="64"></iconify-icon>
                             <p class="text-sm text-slate-600 font-inter">Visual: Step-by-Step Animation</p>
                         </div>
                     </div>
@@ -199,15 +237,19 @@
             <section id="risks" class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-2xl font-semibold text-slate-900 font-manrope">Risks</h3>
-                    <button class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter" id="risksVoiceBtn">
+                    <button
+                        class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter"
+                        id="risksVoiceBtn">
                         <iconify-icon icon="solar:volume-loud-bold" width="18"></iconify-icon>
                         Listen
                     </button>
                 </div>
                 <div class="space-y-4">
                     <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 flex gap-3">
-                        <iconify-icon icon="solar:info-circle-bold" class="text-amber-600 shrink-0" width="20"></iconify-icon>
-                        <p class="text-sm text-slate-700 font-inter">Most risks are rare but important to understand before proceeding.</p>
+                        <iconify-icon icon="solar:info-circle-bold" class="text-amber-600 shrink-0"
+                            width="20"></iconify-icon>
+                        <p class="text-sm text-slate-700 font-inter">Most risks are rare but important to understand
+                            before proceeding.</p>
                     </div>
 
                     <div id="risksContainer" class="space-y-3">
@@ -215,9 +257,11 @@
                     </div>
 
                     <!-- Visual Placeholder -->
-                    <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-8 border border-amber-100 flex items-center justify-center min-h-[160px]">
+                    <div
+                        class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-8 border border-amber-100 flex items-center justify-center min-h-[160px]">
                         <div class="text-center">
-                            <iconify-icon icon="solar:danger-triangle-bold" class="text-amber-600 mb-4" width="48"></iconify-icon>
+                            <iconify-icon icon="solar:danger-triangle-bold" class="text-amber-600 mb-4"
+                                width="48"></iconify-icon>
                             <p class="text-sm text-slate-600 font-inter">Visual: Risk Level Indicators</p>
                         </div>
                     </div>
@@ -225,17 +269,21 @@
             </section>
 
             <!-- Alternatives Section -->
-            <section id="alternatives" class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
+            <section id="alternatives"
+                class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-2xl font-semibold text-slate-900 font-manrope">Alternatives</h3>
-                    <button class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter" id="alternativesVoiceBtn">
+                    <button
+                        class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter"
+                        id="alternativesVoiceBtn">
                         <iconify-icon icon="solar:volume-loud-bold" width="18"></iconify-icon>
                         Listen
                     </button>
                 </div>
                 <div class="space-y-4">
                     <p class="text-slate-700 leading-relaxed font-inter">
-                        While the recommended approach is the most effective option, alternative treatments are available:
+                        While the recommended approach is the most effective option, alternative treatments are
+                        available:
                     </p>
 
                     <div id="alternativesContainer" class="space-y-4">
@@ -243,8 +291,10 @@
                     </div>
 
                     <div id="recommendationBanner" class="bg-teal-50 border border-teal-200 rounded-lg p-4 flex gap-3">
-                        <iconify-icon icon="solar:verified-check-bold" class="text-teal-600 shrink-0" width="20"></iconify-icon>
-                        <p class="text-sm text-slate-700 font-inter" id="recommendationText">Loading recommendation...</p>
+                        <iconify-icon icon="solar:verified-check-bold" class="text-teal-600 shrink-0"
+                            width="20"></iconify-icon>
+                        <p class="text-sm text-slate-700 font-inter" id="recommendationText">Loading recommendation...
+                        </p>
                     </div>
                 </div>
             </section>
@@ -253,13 +303,16 @@
             <section id="recovery" class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-2xl font-semibold text-slate-900 font-manrope">Recovery</h3>
-                    <button class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter" id="recoveryVoiceBtn">
+                    <button
+                        class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter"
+                        id="recoveryVoiceBtn">
                         <iconify-icon icon="solar:volume-loud-bold" width="18"></iconify-icon>
                         Listen
                     </button>
                 </div>
                 <div class="space-y-6">
-                    <p id="recoverySummary" class="text-slate-700 leading-relaxed font-inter">Loading recovery information...</p>
+                    <p id="recoverySummary" class="text-slate-700 leading-relaxed font-inter">Loading recovery
+                        information...</p>
 
                     <!-- Recovery Timeline -->
                     <div class="bg-white border border-slate-200 rounded-xl p-6">
@@ -273,24 +326,28 @@
                     <div class="grid md:grid-cols-2 gap-4">
                         <div class="bg-teal-50 border border-teal-100 rounded-lg p-4">
                             <h5 class="font-semibold text-slate-900 mb-3 flex items-center gap-2 font-manrope">
-                                <iconify-icon icon="solar:check-circle-bold" class="text-teal-600" width="18"></iconify-icon>
+                                <iconify-icon icon="solar:check-circle-bold" class="text-teal-600"
+                                    width="18"></iconify-icon>
                                 Do
                             </h5>
                             <ul id="dosList" class="text-sm text-slate-700 space-y-2 font-inter">
                                 <li class="flex items-start gap-2">
-                                    <iconify-icon icon="solar:check-read-bold" class="text-teal-500 shrink-0 mt-0.5" width="16"></iconify-icon>
+                                    <iconify-icon icon="solar:check-read-bold" class="text-teal-500 shrink-0 mt-0.5"
+                                        width="16"></iconify-icon>
                                     <span>Loading...</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="bg-red-50 border border-red-100 rounded-lg p-4">
                             <h5 class="font-semibold text-slate-900 mb-3 flex items-center gap-2 font-manrope">
-                                <iconify-icon icon="solar:close-circle-bold" class="text-red-600" width="18"></iconify-icon>
+                                <iconify-icon icon="solar:close-circle-bold" class="text-red-600"
+                                    width="18"></iconify-icon>
                                 Don't
                             </h5>
                             <ul id="dontsList" class="text-sm text-slate-700 space-y-2 font-inter">
                                 <li class="flex items-start gap-2">
-                                    <iconify-icon icon="solar:close-square-bold" class="text-red-500 shrink-0 mt-0.5" width="16"></iconify-icon>
+                                    <iconify-icon icon="solar:close-square-bold" class="text-red-500 shrink-0 mt-0.5"
+                                        width="16"></iconify-icon>
                                     <span>Loading...</span>
                                 </li>
                             </ul>
@@ -303,7 +360,8 @@
             <section id="quiz" class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
                 <div class="mb-6">
                     <h3 class="text-2xl font-semibold text-slate-900 mb-2 font-manrope">Check Your Understanding</h3>
-                    <p class="text-slate-600 font-inter">Please answer these questions to ensure you understand the procedure before signing consent.</p>
+                    <p class="text-slate-600 font-inter">Please answer these questions to ensure you understand the
+                        procedure before signing consent.</p>
                 </div>
 
                 <div id="quizContainer" class="space-y-6">
@@ -311,7 +369,8 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button id="submitQuiz" class="w-full py-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors shadow-lg font-semibold text-lg font-inter mt-6">
+                <button id="submitQuiz"
+                    class="w-full py-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors shadow-lg font-semibold text-lg font-inter mt-6">
                     Submit Answers
                 </button>
 
@@ -322,9 +381,12 @@
                             <iconify-icon icon="solar:check-circle-bold" class="text-white" width="24"></iconify-icon>
                         </div>
                         <div class="flex-1">
-                            <h4 class="font-semibold text-emerald-900 mb-2 text-lg font-manrope">Great! You've understood everything.</h4>
-                            <p class="text-emerald-800 mb-4 font-inter">You may now sign your consent to proceed with the procedure.</p>
-                            <button id="proceedToSignature" class="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-semibold font-inter">
+                            <h4 class="font-semibold text-emerald-900 mb-2 text-lg font-manrope">Great! You've
+                                understood everything.</h4>
+                            <p class="text-emerald-800 mb-4 font-inter">You may now sign your consent to proceed with
+                                the procedure.</p>
+                            <button id="proceedToSignature"
+                                class="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-semibold font-inter">
                                 Proceed to Digital Consent Form
                             </button>
                         </div>
@@ -338,8 +400,10 @@
                             <iconify-icon icon="solar:close-circle-bold" class="text-white" width="24"></iconify-icon>
                         </div>
                         <div class="flex-1">
-                            <h4 class="font-semibold text-red-900 mb-2 text-lg font-manrope">Please review the information</h4>
-                            <p class="text-red-800 font-inter" id="errorMessage">Some answers are incorrect or incomplete. Please review the sections and try again.</p>
+                            <h4 class="font-semibold text-red-900 mb-2 text-lg font-manrope">Please review the
+                                information</h4>
+                            <p class="text-red-800 font-inter" id="errorMessage">Some answers are incorrect or
+                                incomplete. Please review the sections and try again.</p>
                         </div>
                     </div>
                 </div>
@@ -395,7 +459,7 @@
 
         async function fetchAIContent(procedure, patientName, doctorName) {
             console.log('🤖 Fetching AI-generated content from backend...');
-            
+
             const response = await fetchWithTimeout(`${CONFIG.API_BASE_URL}/ai/generate-content`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -406,19 +470,19 @@
                     language: 'en'
                 })
             });
-            
+
             if (!response.ok) {
                 throw new Error('AI content generation failed');
             }
-            
+
             const data = await response.json();
-            
+
             // ✅ FIX: The API returns { success: true, content: {...} }
             // So we need to extract the content property
             if (data.success && data.content) {
                 return data.content;
             }
-            
+
             // If content is at root level (backwards compatibility)
             return data;
         }
@@ -442,13 +506,27 @@
                     // Fallback to API
                     console.log('⚠️ Not found in localStorage, trying API...');
                     loadingText.textContent = 'Fetching from server...';
-                    
-                    const response = await fetchWithTimeout(`${CONFIG.API_BASE_URL}/consent/${currentConsentId}`);
+
+                    const otp = getOtpParam();
+                    const otpQuery = otp ? `?otp=${encodeURIComponent(otp)}` : '';
+                    const response = await fetchWithTimeout(`${CONFIG.API_BASE_URL}/consent/${currentConsentId}${otpQuery}`);
+
                     if (!response.ok) {
                         throw new Error(response.status === 404 ? 'Consent not found' : 'Failed to load consent');
                     }
+
                     const data = await response.json();
-                    consentData = data.success ? data : { ...data };
+                    consentData = data;
+
+                    // ✅ CHECK FOR RESTRICTED DATA (OTP Required)
+                    if (consentData.requiresOtp) {
+                        console.warn('🔒 Backend requires valid OTP to show sensitive data');
+                        document.getElementById('loadingSplash').classList.add('hidden');
+                        showOtpAlert('Secure access required. Please use the link provided by your doctor or enter the valid 6-digit OTP.');
+                        togglePageLock(true);
+                        return; // Stop initialization
+                    }
+
                     console.log('✅ Loaded consent from API');
                 }
 
@@ -456,14 +534,14 @@
                 if (!consentData.steps || consentData.steps.length === 0) {
                     console.log('⚠️ AI content missing, calling AI API...');
                     loadingText.textContent = 'Generating AI explanation for your procedure...';
-                    
+
                     try {
                         const aiContent = await fetchAIContent(
                             consentData.procedure,
                             consentData.patientName,
                             consentData.doctorName
                         );
-                        
+
                         // Merge AI content with existing consent data
                         consentData = {
                             ...consentData,
@@ -475,12 +553,12 @@
                             recovery: aiContent.recovery,
                             quiz: aiContent.quiz
                         };
-                        
+
                         console.log('✅ AI content generated successfully');
-                        
+
                         // Save to localStorage for future visits
                         localStorage.setItem(`consent_${currentConsentId}`, JSON.stringify(consentData));
-                        
+
                     } catch (aiErr) {
                         console.error('❌ AI generation failed:', aiErr);
                         showLoadingError('Failed to generate AI explanation. Please try again or contact support.');
@@ -643,12 +721,12 @@
                 document.getElementById('alternativesVoiceBtn').setAttribute('data-text', altText);
             }
 
-            document.getElementById('recommendationText').textContent = 
+            document.getElementById('recommendationText').textContent =
                 'Based on your condition, the recommended approach is the safest and most effective option.';
 
             // Recovery
             if (consentData.recovery) {
-                document.getElementById('recoverySummary').textContent = 
+                document.getElementById('recoverySummary').textContent =
                     consentData.recovery.summary || `Recovery from ${consentData.procedure} typically takes several weeks. Follow all post-procedure instructions carefully.`;
 
                 // Timeline
@@ -710,14 +788,14 @@
                     if (entry.isIntersecting) {
                         entry.target.classList.remove('opacity-0', 'translate-y-4');
                         entry.target.classList.add('opacity-100', 'translate-y-0');
-                        
+
                         const sectionId = entry.target.id;
                         if (sectionId !== 'quiz') {
                             completedSections.add(sectionId);
                             markSectionComplete(sectionId);
                             updateProgress();
                         }
-                        
+
                         updateActiveNav(sectionId);
                     }
                 });
@@ -758,13 +836,13 @@
             voiceButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const text = btn.getAttribute('data-text');
-                    
+
                     if (window.speechSynthesis.speaking) {
                         window.speechSynthesis.cancel();
                         btn.innerHTML = '<iconify-icon icon="solar:volume-loud-bold" width="18"></iconify-icon> Listen';
                         return;
                     }
-                    
+
                     btn.innerHTML = '<iconify-icon icon="solar:stop-circle-bold" width="18"></iconify-icon> Stop';
                     const utterance = new SpeechSynthesisUtterance(text);
                     utterance.rate = 0.9;
@@ -844,8 +922,8 @@
                 const msgId = 'msg_' + Date.now();
                 const messageDiv = document.createElement('div');
                 messageDiv.id = msgId;
-                messageDiv.className = type === 'user' 
-                    ? 'bg-teal-100 rounded-lg p-3 ml-8' 
+                messageDiv.className = type === 'user'
+                    ? 'bg-teal-100 rounded-lg p-3 ml-8'
                     : 'bg-slate-100 rounded-lg p-3 mr-8';
                 messageDiv.innerHTML = `<p class="text-sm text-slate-700 font-inter">${isTyping ? message : escapeHtml(message)}</p>`;
                 aiChatMessages.appendChild(messageDiv);
@@ -855,6 +933,57 @@
         }
 
         function initQuiz() {
+            // ✅ EMERGENCY MODE → Completely remove quiz from page
+            if (consentData.emergencyMode === true) {
+                console.log('🚨 EMERGENCY MODE – quiz section entirely removed');
+
+                // 1. Hide the entire quiz section
+                const quizSection = document.getElementById('quiz');
+                if (quizSection) quizSection.style.display = 'none';
+
+                // 2. Hide the quiz link in sidebar navigation
+                const quizNavLink = document.querySelector('a[data-section="quiz"]');
+                if (quizNavLink) quizNavLink.style.display = 'none';
+
+                // 3. Add a direct "Proceed to Sign" button after recovery section
+                const recoverySection = document.getElementById('recovery');
+                if (recoverySection) {
+                    const signBlock = document.createElement('section');
+                    signBlock.className = 'content-section mb-16 opacity-100 translate-y-0';
+                    signBlock.innerHTML = `
+                        <div class="bg-orange-50 border-2 border-orange-300 rounded-xl p-8 text-center">
+                            <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <iconify-icon icon="solar:siren-rounded-bold" class="text-white" width="32"></iconify-icon>
+                            </div>
+                            <h3 class="text-xl font-bold text-orange-900 mb-2 font-manrope">🚨 Emergency Procedure</h3>
+                            <p class="text-orange-800 mb-6 font-inter">This is an emergency consent. The comprehension quiz has been waived. You may proceed directly to sign.</p>
+                            <button id="emergencyProceedBtn" class="px-8 py-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-semibold text-lg font-inter shadow-lg">
+                                Proceed to Digital Consent Form →
+                            </button>
+                        </div>
+                    `;
+                    recoverySection.after(signBlock);
+
+                    document.getElementById('emergencyProceedBtn').addEventListener('click', () => {
+                        if (!validateOtpRequirement()) {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                            return;
+                        }
+                        sessionStorage.setItem('currentConsentId', currentConsentId);
+                        const otp = getOtpParam();
+                        const otpQuery = otp ? `&otp=${encodeURIComponent(otp)}` : '';
+                        window.location.href = `consent_sign.html?consentId=${currentConsentId}${otpQuery}`;
+                    });
+                }
+
+                // 4. Mark quiz as done for progress tracking
+                completedSections.add('quiz');
+                updateProgress();
+
+                return; // nothing else to do
+            }
+
+            // ✅ NORMAL MODE - Show quiz as usual
             // If quiz is missing or empty, show error (AI should provide it)
             if (!consentData.quiz || !consentData.quiz.questions || consentData.quiz.questions.length === 0) {
                 document.getElementById('quizContainer').innerHTML = `
@@ -964,4 +1093,5 @@
         window.addEventListener('DOMContentLoaded', initializeConsent);
     </script>
 </body>
+
 </html>
