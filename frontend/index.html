@@ -823,6 +823,8 @@
             }
 
             accessConsentBtn.addEventListener('click', () => {
+                const consentInput = document.getElementById('consentInput');
+                const otpInput = document.getElementById('otpInput');
                 handleAccess(consentInput.value.trim(), otpInput.value.trim());
             });
 
@@ -847,7 +849,15 @@
                 const parsed = parseConsentValue(rawConsent);
                 const consentId = parsed.consentId || rawConsent;
                 const linkOtp = parsed.otp;
-                const enteredOtp = rawOtp;
+                const enteredOtp = rawOtp || linkOtp;
+
+                // Sync UI if we extracted values from a link during click
+                if (parsed.consentId && !document.getElementById('consentInput').value.includes(parsed.consentId)) {
+                    document.getElementById('consentInput').value = parsed.consentId;
+                }
+                if (linkOtp && !document.getElementById('otpInput').value) {
+                    document.getElementById('otpInput').value = linkOtp;
+                }
 
                 if (!consentId) {
                     showConsentError(consentError, 'Enter a Consent ID or paste the link you received.');
@@ -925,34 +935,30 @@
         }
 
         // Real-time validation for the access button
+        // Real-time validation for visual feedback
         function updateAccessButtonState() {
             const consentInput = document.getElementById('consentInput');
             const otpInput = document.getElementById('otpInput');
             const accessConsentBtn = document.getElementById('accessConsentBtn');
 
-            const consentId = consentInput.value.trim();
-            const otp = otpInput.value.trim();
+            const rawConsent = consentInput.value.trim();
+            const rawOtp = otpInput.value.trim();
 
-            const isIdValid = isValidConsentId(consentId);
-            const isOtpValid = isValidOtp(otp);
+            const parsed = parseConsentValue(rawConsent);
+            const otp = rawOtp || parsed.otp;
 
-            if (isIdValid && isOtpValid) {
-                accessConsentBtn.disabled = false;
-                accessConsentBtn.classList.remove('disabled');
-                accessConsentBtn.style.opacity = '1';
-                accessConsentBtn.style.cursor = 'pointer';
-            } else {
-                accessConsentBtn.disabled = true;
-                accessConsentBtn.classList.add('disabled');
-                accessConsentBtn.style.opacity = '0.5';
-                accessConsentBtn.style.cursor = 'not-allowed';
-            }
+            // Always keep enabled as requested
+            accessConsentBtn.disabled = false;
+            accessConsentBtn.classList.remove('disabled');
+            accessConsentBtn.style.opacity = '1';
+            accessConsentBtn.style.cursor = 'pointer';
 
             // Visual feedback for OTP
-            if (otp.length > 0) {
-                if (isOtpValid) {
+            const activeOtp = rawOtp || (isValidOtp(parsed.otp) ? parsed.otp : "");
+            if (activeOtp.length > 0) {
+                if (isValidOtp(activeOtp)) {
                     otpInput.style.borderColor = '#10b981'; // Green
-                } else if (otp.length >= 6) {
+                } else if (activeOtp.length >= 6) {
                     otpInput.style.borderColor = '#ef4444'; // Red
                 } else {
                     otpInput.style.borderColor = ''; // Default
@@ -963,7 +969,25 @@
         }
 
         // Add listeners for real-time validation
-        document.getElementById('consentInput')?.addEventListener('input', updateAccessButtonState);
+        document.getElementById('consentInput')?.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            // Handle paste of full link proactively
+            if (val.startsWith('http') || val.includes('?')) {
+                const parsed = parseConsentValue(val);
+                if (parsed.consentId) {
+                    e.target.value = parsed.consentId;
+                    const prefillNotice = document.getElementById('prefillNotice');
+                    if (prefillNotice) prefillNotice.classList.add('show');
+                }
+                if (parsed.otp) {
+                    const otpInput = document.getElementById('otpInput');
+                    if (otpInput && !otpInput.value) {
+                        otpInput.value = parsed.otp;
+                    }
+                }
+            }
+            updateAccessButtonState();
+        });
         document.getElementById('otpInput')?.addEventListener('input', updateAccessButtonState);
 
         // Initial state
