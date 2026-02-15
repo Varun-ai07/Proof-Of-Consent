@@ -1,1625 +1,199 @@
 [
   {
-    "consentId": "CNS_1769110501175",
-    "patientName": "John",
-    "procedure": "Appendectomy",
-    "doctorId": "DOC_001",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "createdAt": "2026-01-22T19:35:03.697Z"
-  },
-  {
-    "consentId": "CNS_1769111612444",
-    "patientName": "Varun",
-    "procedure": "Hip Replacement",
-    "doctorId": "DOC_001",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "createdAt": "2026-01-22T19:53:35.872Z"
-  },
-  {
-    "consentId": "CNS_1769807590012",
-    "patientName": "Mani",
-    "procedure": "Prostatectomy",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "otp": "177992",
-    "consentHash": "70c60d5eb4293f1d6d07458e3116801513810ae7f1eb61593b31ad3d110d9453",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-01-30T21:13:33.783Z",
-    "aiSummary": "Prostatectomy: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
-    "steps": [
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
-      },
-      {
-        "title": "Small Incisions",
-        "description": "Small surgical incisions are made to allow access for the instruments needed."
-      },
-      {
-        "title": "Procedure",
-        "description": "The main surgical steps are performed carefully by your experienced surgical team."
-      },
-      {
-        "title": "Closure",
-        "description": "Incisions are closed with dissolvable stitches or surgical glue."
-      },
-      {
-        "title": "Recovery Start",
-        "description": "You begin recovery with monitoring and pain management in the recovery room."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Rare internal bleeding that may require monitoring or additional care.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Anesthesia Reaction",
-        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
-        "likelihood": "less than 1%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Open Surgery",
-        "description": "Traditional surgical approach with one larger incision instead of small ones.",
-        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
-      },
-      {
-        "title": "Medical Management",
-        "description": "Medication-focused approach to manage the condition without surgery.",
-        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
-      }
-    ],
-    "recovery": {
-      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
-      "timeline": [
-        {
-          "label": "Day 0",
-          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
-        },
-        {
-          "label": "Day 1",
-          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
-        },
-        {
-          "label": "Day 2-3",
-          "description": "Often ready for discharge. Follow wound care instructions carefully."
-        },
-        {
-          "label": "Week 1",
-          "description": "Most routine activities can resume. Continue following medical restrictions."
-        }
-      ],
-      "do": [
-        "Take all prescribed medications as directed",
-        "Walk lightly as advised by your medical team",
-        "Keep incisions clean and dry",
-        "Attend all follow-up appointments",
-        "Rest and get adequate sleep"
-      ],
-      "dont": [
-        "Lift heavy objects (more than 10 lbs)",
-        "Do strenuous exercise or sports",
-        "Submerge incisions in water until cleared",
-        "Drive until approved by your doctor",
-        "Ignore signs of infection or complications"
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Will you be awake during the Prostatectomy?",
-          "correctOption": "A",
-          "options": {
-            "A": "No, you will be under anesthesia",
-            "B": "Yes, you will be fully awake"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What is a common risk of this procedure?",
-          "correctOption": "A",
-          "options": {
-            "A": "Minor infection at incision site",
-            "B": "Catching a common cold"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "How long is typical recovery?",
-          "correctOption": "A",
-          "options": {
-            "A": "About 1-2 weeks",
-            "B": "About 3-4 months"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "In your own words, what did you understand about this procedure?",
-          "minWords": 20
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1769808041256",
-    "patientName": "Thivin",
-    "procedure": "Prostatectomy",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "otp": "417690",
-    "consentHash": "3cd06029edb672f774f2267f96f002be3e1d43a0e3cf1d46b44d66ed1de2cac1",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-01-30T21:20:42.727Z",
-    "aiSummary": "Prostatectomy: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
-    "steps": [
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
-      },
-      {
-        "title": "Small Incisions",
-        "description": "Small surgical incisions are made to allow access for the instruments needed."
-      },
-      {
-        "title": "Procedure",
-        "description": "The main surgical steps are performed carefully by your experienced surgical team."
-      },
-      {
-        "title": "Closure",
-        "description": "Incisions are closed with dissolvable stitches or surgical glue."
-      },
-      {
-        "title": "Recovery Start",
-        "description": "You begin recovery with monitoring and pain management in the recovery room."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Rare internal bleeding that may require monitoring or additional care.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Anesthesia Reaction",
-        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
-        "likelihood": "less than 1%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Open Surgery",
-        "description": "Traditional surgical approach with one larger incision instead of small ones.",
-        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
-      },
-      {
-        "title": "Medical Management",
-        "description": "Medication-focused approach to manage the condition without surgery.",
-        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
-      }
-    ],
-    "recovery": {
-      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
-      "timeline": [
-        {
-          "label": "Day 0",
-          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
-        },
-        {
-          "label": "Day 1",
-          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
-        },
-        {
-          "label": "Day 2-3",
-          "description": "Often ready for discharge. Follow wound care instructions carefully."
-        },
-        {
-          "label": "Week 1",
-          "description": "Most routine activities can resume. Continue following medical restrictions."
-        }
-      ],
-      "do": [
-        "Take all prescribed medications as directed",
-        "Walk lightly as advised by your medical team",
-        "Keep incisions clean and dry",
-        "Attend all follow-up appointments",
-        "Rest and get adequate sleep"
-      ],
-      "dont": [
-        "Lift heavy objects (more than 10 lbs)",
-        "Do strenuous exercise or sports",
-        "Submerge incisions in water until cleared",
-        "Drive until approved by your doctor",
-        "Ignore signs of infection or complications"
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Will you be awake during the Prostatectomy?",
-          "correctOption": "A",
-          "options": {
-            "A": "No, you will be under anesthesia",
-            "B": "Yes, you will be fully awake"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What is a common risk of this procedure?",
-          "correctOption": "A",
-          "options": {
-            "A": "Minor infection at incision site",
-            "B": "Catching a common cold"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "How long is typical recovery?",
-          "correctOption": "A",
-          "options": {
-            "A": "About 1-2 weeks",
-            "B": "About 3-4 months"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "In your own words, what did you understand about this procedure?",
-          "minWords": 20
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1769808161416",
-    "patientName": "Nigilan",
-    "procedure": "Hernia Repair",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "otp": "252899",
-    "consentHash": "222b60d077487ac5748a101d1341bfd88b069188a76e2be17d8a6ab0a0e47461",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-01-30T21:22:42.847Z",
-    "aiSummary": "Hernia Repair: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
-    "steps": [
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
-      },
-      {
-        "title": "Small Incisions",
-        "description": "Small surgical incisions are made to allow access for the instruments needed."
-      },
-      {
-        "title": "Procedure",
-        "description": "The main surgical steps are performed carefully by your experienced surgical team."
-      },
-      {
-        "title": "Closure",
-        "description": "Incisions are closed with dissolvable stitches or surgical glue."
-      },
-      {
-        "title": "Recovery Start",
-        "description": "You begin recovery with monitoring and pain management in the recovery room."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Rare internal bleeding that may require monitoring or additional care.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Anesthesia Reaction",
-        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
-        "likelihood": "less than 1%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Open Surgery",
-        "description": "Traditional surgical approach with one larger incision instead of small ones.",
-        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
-      },
-      {
-        "title": "Medical Management",
-        "description": "Medication-focused approach to manage the condition without surgery.",
-        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
-      }
-    ],
-    "recovery": {
-      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
-      "timeline": [
-        {
-          "label": "Day 0",
-          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
-        },
-        {
-          "label": "Day 1",
-          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
-        },
-        {
-          "label": "Day 2-3",
-          "description": "Often ready for discharge. Follow wound care instructions carefully."
-        },
-        {
-          "label": "Week 1",
-          "description": "Most routine activities can resume. Continue following medical restrictions."
-        }
-      ],
-      "do": [
-        "Take all prescribed medications as directed",
-        "Walk lightly as advised by your medical team",
-        "Keep incisions clean and dry",
-        "Attend all follow-up appointments",
-        "Rest and get adequate sleep"
-      ],
-      "dont": [
-        "Lift heavy objects (more than 10 lbs)",
-        "Do strenuous exercise or sports",
-        "Submerge incisions in water until cleared",
-        "Drive until approved by your doctor",
-        "Ignore signs of infection or complications"
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Will you be awake during the Hernia Repair?",
-          "correctOption": "A",
-          "options": {
-            "A": "No, you will be under anesthesia",
-            "B": "Yes, you will be fully awake"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What is a common risk of this procedure?",
-          "correctOption": "A",
-          "options": {
-            "A": "Minor infection at incision site",
-            "B": "Catching a common cold"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "How long is typical recovery?",
-          "correctOption": "A",
-          "options": {
-            "A": "About 1-2 weeks",
-            "B": "About 3-4 months"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "In your own words, what did you understand about this procedure?",
-          "minWords": 20
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770643468327",
-    "patientName": "hello",
-    "procedure": "Knee Replacement",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "otp": "891663",
-    "consentHash": "8586c09413ffe377cacc54f95b49e60de34520a2c8728700607abe08e8a27718",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-09T13:24:31.519Z",
-    "aiSummary": "Knee Replacement: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
-    "steps": [
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
-      },
-      {
-        "title": "Small Incisions",
-        "description": "Small surgical incisions are made to allow access for the instruments needed."
-      },
-      {
-        "title": "Procedure",
-        "description": "The main surgical steps are performed carefully by your experienced surgical team."
-      },
-      {
-        "title": "Closure",
-        "description": "Incisions are closed with dissolvable stitches or surgical glue."
-      },
-      {
-        "title": "Recovery Start",
-        "description": "You begin recovery with monitoring and pain management in the recovery room."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Rare internal bleeding that may require monitoring or additional care.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Anesthesia Reaction",
-        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
-        "likelihood": "less than 1%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Open Surgery",
-        "description": "Traditional surgical approach with one larger incision instead of small ones.",
-        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
-      },
-      {
-        "title": "Medical Management",
-        "description": "Medication-focused approach to manage the condition without surgery.",
-        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
-      }
-    ],
-    "recovery": {
-      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
-      "timeline": [
-        {
-          "label": "Day 0",
-          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
-        },
-        {
-          "label": "Day 1",
-          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
-        },
-        {
-          "label": "Day 2-3",
-          "description": "Often ready for discharge. Follow wound care instructions carefully."
-        },
-        {
-          "label": "Week 1",
-          "description": "Most routine activities can resume. Continue following medical restrictions."
-        }
-      ],
-      "do": [
-        "Take all prescribed medications as directed",
-        "Walk lightly as advised by your medical team",
-        "Keep incisions clean and dry",
-        "Attend all follow-up appointments",
-        "Rest and get adequate sleep"
-      ],
-      "dont": [
-        "Lift heavy objects (more than 10 lbs)",
-        "Do strenuous exercise or sports",
-        "Submerge incisions in water until cleared",
-        "Drive until approved by your doctor",
-        "Ignore signs of infection or complications"
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Will you be awake during the Knee Replacement?",
-          "correctOption": "A",
-          "options": {
-            "A": "No, you will be under anesthesia",
-            "B": "Yes, you will be fully awake"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What is a common risk of this procedure?",
-          "correctOption": "A",
-          "options": {
-            "A": "Minor infection at incision site",
-            "B": "Catching a common cold"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "How long is typical recovery?",
-          "correctOption": "A",
-          "options": {
-            "A": "About 1-2 weeks",
-            "B": "About 3-4 months"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "In your own words, what did you understand about this procedure?",
-          "minWords": 20
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770643738307",
-    "patientName": "botu",
-    "procedure": "Hip Replacement",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "otp": "602579",
-    "consentHash": "bf6520b326153433d812020697e223a524a891f958f3e13824257c5048b302cb",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-09T13:28:59.987Z",
-    "aiSummary": "Hip Replacement: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
-    "steps": [
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
-      },
-      {
-        "title": "Small Incisions",
-        "description": "Small surgical incisions are made to allow access for the instruments needed."
-      },
-      {
-        "title": "Procedure",
-        "description": "The main surgical steps are performed carefully by your experienced surgical team."
-      },
-      {
-        "title": "Closure",
-        "description": "Incisions are closed with dissolvable stitches or surgical glue."
-      },
-      {
-        "title": "Recovery Start",
-        "description": "You begin recovery with monitoring and pain management in the recovery room."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Rare internal bleeding that may require monitoring or additional care.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Anesthesia Reaction",
-        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
-        "likelihood": "less than 1%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Open Surgery",
-        "description": "Traditional surgical approach with one larger incision instead of small ones.",
-        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
-      },
-      {
-        "title": "Medical Management",
-        "description": "Medication-focused approach to manage the condition without surgery.",
-        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
-      }
-    ],
-    "recovery": {
-      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
-      "timeline": [
-        {
-          "label": "Day 0",
-          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
-        },
-        {
-          "label": "Day 1",
-          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
-        },
-        {
-          "label": "Day 2-3",
-          "description": "Often ready for discharge. Follow wound care instructions carefully."
-        },
-        {
-          "label": "Week 1",
-          "description": "Most routine activities can resume. Continue following medical restrictions."
-        }
-      ],
-      "do": [
-        "Take all prescribed medications as directed",
-        "Walk lightly as advised by your medical team",
-        "Keep incisions clean and dry",
-        "Attend all follow-up appointments",
-        "Rest and get adequate sleep"
-      ],
-      "dont": [
-        "Lift heavy objects (more than 10 lbs)",
-        "Do strenuous exercise or sports",
-        "Submerge incisions in water until cleared",
-        "Drive until approved by your doctor",
-        "Ignore signs of infection or complications"
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Will you be awake during the Hip Replacement?",
-          "correctOption": "A",
-          "options": {
-            "A": "No, you will be under anesthesia",
-            "B": "Yes, you will be fully awake"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What is a common risk of this procedure?",
-          "correctOption": "A",
-          "options": {
-            "A": "Minor infection at incision site",
-            "B": "Catching a common cold"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "How long is typical recovery?",
-          "correctOption": "A",
-          "options": {
-            "A": "About 1-2 weeks",
-            "B": "About 3-4 months"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "In your own words, what did you understand about this procedure?",
-          "minWords": 20
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770644747304",
-    "patientName": "wht",
-    "procedure": "Hernia Repair",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "otp": "703425",
-    "consentHash": "6f3353d40aac8475c48b581974144cfead2d614d5e84034c3925ebc2fc9e334a",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-09T13:45:48.648Z",
-    "aiSummary": "Hernia Repair: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
-    "steps": [
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
-      },
-      {
-        "title": "Small Incisions",
-        "description": "Small surgical incisions are made to allow access for the instruments needed."
-      },
-      {
-        "title": "Procedure",
-        "description": "The main surgical steps are performed carefully by your experienced surgical team."
-      },
-      {
-        "title": "Closure",
-        "description": "Incisions are closed with dissolvable stitches or surgical glue."
-      },
-      {
-        "title": "Recovery Start",
-        "description": "You begin recovery with monitoring and pain management in the recovery room."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Rare internal bleeding that may require monitoring or additional care.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Anesthesia Reaction",
-        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
-        "likelihood": "less than 1%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Open Surgery",
-        "description": "Traditional surgical approach with one larger incision instead of small ones.",
-        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
-      },
-      {
-        "title": "Medical Management",
-        "description": "Medication-focused approach to manage the condition without surgery.",
-        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
-      }
-    ],
-    "recovery": {
-      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
-      "timeline": [
-        {
-          "label": "Day 0",
-          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
-        },
-        {
-          "label": "Day 1",
-          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
-        },
-        {
-          "label": "Day 2-3",
-          "description": "Often ready for discharge. Follow wound care instructions carefully."
-        },
-        {
-          "label": "Week 1",
-          "description": "Most routine activities can resume. Continue following medical restrictions."
-        }
-      ],
-      "do": [
-        "Take all prescribed medications as directed",
-        "Walk lightly as advised by your medical team",
-        "Keep incisions clean and dry",
-        "Attend all follow-up appointments",
-        "Rest and get adequate sleep"
-      ],
-      "dont": [
-        "Lift heavy objects (more than 10 lbs)",
-        "Do strenuous exercise or sports",
-        "Submerge incisions in water until cleared",
-        "Drive until approved by your doctor",
-        "Ignore signs of infection or complications"
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Will you be awake during the Hernia Repair?",
-          "correctOption": "A",
-          "options": {
-            "A": "No, you will be under anesthesia",
-            "B": "Yes, you will be fully awake"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What is a common risk of this procedure?",
-          "correctOption": "A",
-          "options": {
-            "A": "Minor infection at incision site",
-            "B": "Catching a common cold"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "How long is typical recovery?",
-          "correctOption": "A",
-          "options": {
-            "A": "About 1-2 weeks",
-            "B": "About 3-4 months"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "In your own words, what did you understand about this procedure?",
-          "minWords": 20
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770644977234",
-    "patientName": "new",
-    "procedure": "Knee Replacement",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "otp": "434666",
-    "consentHash": "24f302bef2dddc6ad706cc06089197b1fdd68b9baececda166bf761ecbe1371c",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-09T13:49:38.192Z",
-    "aiSummary": "Knee Replacement: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
-    "steps": [
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
-      },
-      {
-        "title": "Small Incisions",
-        "description": "Small surgical incisions are made to allow access for the instruments needed."
-      },
-      {
-        "title": "Procedure",
-        "description": "The main surgical steps are performed carefully by your experienced surgical team."
-      },
-      {
-        "title": "Closure",
-        "description": "Incisions are closed with dissolvable stitches or surgical glue."
-      },
-      {
-        "title": "Recovery Start",
-        "description": "You begin recovery with monitoring and pain management in the recovery room."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Rare internal bleeding that may require monitoring or additional care.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Anesthesia Reaction",
-        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
-        "likelihood": "less than 1%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Open Surgery",
-        "description": "Traditional surgical approach with one larger incision instead of small ones.",
-        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
-      },
-      {
-        "title": "Medical Management",
-        "description": "Medication-focused approach to manage the condition without surgery.",
-        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
-      }
-    ],
-    "recovery": {
-      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
-      "timeline": [
-        {
-          "label": "Day 0",
-          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
-        },
-        {
-          "label": "Day 1",
-          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
-        },
-        {
-          "label": "Day 2-3",
-          "description": "Often ready for discharge. Follow wound care instructions carefully."
-        },
-        {
-          "label": "Week 1",
-          "description": "Most routine activities can resume. Continue following medical restrictions."
-        }
-      ],
-      "do": [
-        "Take all prescribed medications as directed",
-        "Walk lightly as advised by your medical team",
-        "Keep incisions clean and dry",
-        "Attend all follow-up appointments",
-        "Rest and get adequate sleep"
-      ],
-      "dont": [
-        "Lift heavy objects (more than 10 lbs)",
-        "Do strenuous exercise or sports",
-        "Submerge incisions in water until cleared",
-        "Drive until approved by your doctor",
-        "Ignore signs of infection or complications"
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Will you be awake during the Knee Replacement?",
-          "correctOption": "A",
-          "options": {
-            "A": "No, you will be under anesthesia",
-            "B": "Yes, you will be fully awake"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What is a common risk of this procedure?",
-          "correctOption": "A",
-          "options": {
-            "A": "Minor infection at incision site",
-            "B": "Catching a common cold"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "How long is typical recovery?",
-          "correctOption": "A",
-          "options": {
-            "A": "About 1-2 weeks",
-            "B": "About 3-4 months"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "In your own words, what did you understand about this procedure?",
-          "minWords": 20
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770646201434",
-    "patientName": "very",
-    "procedure": "Hip Replacement",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "otp": "379382",
-    "consentHash": "4dd35a029e0eadc6388081ca9fdcdbef24e5b4bd6b015704a262692bbad72566",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-09T14:10:26.435Z",
-    "aiSummary": "Hip replacement surgery, also known as hip arthroplasty, involves replacing a damaged hip joint with an artificial joint (prosthesis). This procedure is typically performed to relieve pain, improve mobility, and restore function when arthritis or other conditions have severely damaged the hip joint. The goal is to significantly improve your quality of life.",
-    "steps": [
-      {
-        "title": "Preparation",
-        "description": "Before surgery, you'll have a thorough medical evaluation, including blood tests, a physical exam, and possibly X-rays or an MRI to assess your hip joint. You’ll meet with your surgeon, anesthesiologist, and possibly a physical therapist to discuss the procedure, answer your questions, and review your medical history. You may be asked to stop certain medications, like blood thinners, a week or two before surgery, and you’ll need to arrange for someone to drive you home after the procedure."
-      },
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to ensure you are comfortable and pain-free during the surgery. This can be either general anesthesia (where you are asleep) or spinal anesthesia (where you are awake but numb from the waist down). Your anesthesiologist will discuss the best option for you based on your health and preferences."
-      },
-      {
-        "title": "Procedure Details",
-        "description": "After anesthesia, the surgeon will make an incision over your hip. The damaged cartilage and bone are then removed, and the artificial hip joint is implanted. The prosthesis typically consists of a stem that fits into the femur (thigh bone), a ball that replaces the hip joint head, and a socket that replaces the hip socket. The surgeon carefully positions and secures the components to ensure proper alignment and stability."
-      },
-      {
-        "title": "Closure",
-        "description": "Once the new hip joint is in place, the surgeon will close the incision with sutures or staples. A sterile dressing will be applied to the surgical site. A drain may be temporarily placed to remove excess fluid. You will then be taken to the recovery room to wake up from anesthesia and be monitored."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Infection can occur at the surgical site, requiring antibiotics and potentially further surgery to remove the infected prosthesis. This is a serious complication.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Blood Clots",
-        "description": "Blood clots can form in the leg veins (deep vein thrombosis or DVT) or travel to the lungs (pulmonary embolism or PE). Measures will be taken to prevent this, such as blood thinners and compression stockings.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Dislocation",
-        "description": "The new hip joint can dislocate, meaning the ball comes out of the socket. This usually requires a closed reduction (putting the joint back in place without surgery), but sometimes surgery is needed.",
-        "likelihood": "1-3%"
-      },
-      {
-        "title": "Loosening of the Prosthesis",
-        "description": "Over time, the artificial joint can loosen from the bone, causing pain and requiring revision surgery. This is more common with older patients or those who are very active.",
-        "likelihood": "5-10% over 10-15 years"
-      },
-      {
-        "title": "Nerve or Blood Vessel Damage",
-        "description": "During surgery, there is a small risk of damage to nerves or blood vessels near the hip joint, which can lead to numbness, weakness, or impaired circulation.",
-        "likelihood": "Less than 1%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Open Surgery",
-        "description": "Traditional surgical approach with a larger incision.",
-        "whenRecommended": "When minimally invasive approach is not suitable"
-      },
-      {
-        "title": "Medical Management",
-        "description": "Medication-based treatment without surgery.",
-        "whenRecommended": "When surgery can be safely deferred"
-      }
-    ],
-    "recovery": {
-      "summary": "Recovery from hip replacement surgery typically takes several weeks to months. You'll start physical therapy soon after surgery to regain strength and mobility. Most patients can return to most of their normal activities within 3-6 months, but full recovery can take longer.",
-      "timeline": [
-        {
-          "label": "Day 1",
-          "description": "Hospital recovery with monitoring and pain management."
-        },
-        {
-          "label": "Day 2-3",
-          "description": "Begin light walking. May be discharged home."
-        },
-        {
-          "label": "Week 1-2",
-          "description": "Rest at home. Light activities only. Follow-up appointment."
-        },
-        {
-          "label": "Week 4-6",
-          "description": "Gradual return to normal activities as approved by doctor."
-        }
-      ],
-      "do": [
-        "Follow your physical therapist’s instructions carefully.",
-        "Take your medications as prescribed, including pain relievers and blood thinners.",
-        "Keep the surgical incision clean and dry.",
-        "Use assistive devices, such as a walker or cane, as recommended by your doctor.",
-        "Elevate your leg when sitting or lying down to reduce swelling.",
-        "Perform gentle range-of-motion exercises as instructed."
-      ],
-      "dont": [
-        "Bend your hip more than 90 degrees for the first few weeks (unless specifically instructed otherwise).",
-        "Cross your legs or twist your hip.",
-        "Drive a car until your doctor says it's safe.",
-        "Put weight on your operated leg as instructed by your surgeon and physical therapist.",
-        "Engage in high-impact activities, such as running or jumping, until cleared by your doctor.",
-        "Ignore any signs of infection, such as fever, redness, swelling, or drainage from the incision."
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Will you be awake during the Hip Replacement?",
-          "correctOption": "A",
-          "options": {
-            "A": "No, you will be under anesthesia",
-            "B": "Yes, you will be fully awake"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What is a common risk of this procedure?",
-          "correctOption": "A",
-          "options": {
-            "A": "Minor infection at incision site",
-            "B": "Catching a common cold"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "How long is typical recovery?",
-          "correctOption": "A",
-          "options": {
-            "A": "About 1-2 weeks",
-            "B": "About 3-4 months"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "In your own words, what did you understand about this procedure?",
-          "minWords": 20
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770646314109",
-    "patientName": "Nre",
-    "procedure": "Hip Replacement",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "otp": "567239",
-    "consentHash": "a720846375a723d082efd0799243da19326307e1de6eda3666a243e614c7cd3a",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-09T14:12:16.095Z",
-    "aiSummary": "Hip replacement surgery, also known as hip arthroplasty, involves replacing a damaged hip joint with an artificial joint (prosthesis). This procedure is typically performed to relieve pain, improve mobility, and restore function when other treatments like medication or physical therapy haven't been effective. The goal is to significantly improve your quality of life.",
-    "steps": [
-      {
-        "title": "Preparation",
-        "description": "Before surgery, you'll have a thorough medical evaluation, including blood tests, a physical exam, and possibly X-rays or an MRI to assess your hip joint. You’ll meet with your surgeon, anesthesiologist, and possibly a physical therapist to discuss the procedure, answer your questions, and review your medical history. You may be asked to stop certain medications, like blood thinners, a week or two before surgery, and you’ll need to arrange for someone to drive you home after the procedure."
-      },
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to ensure you don't feel any pain during the surgery. This can be either general anesthesia (where you are completely asleep) or spinal anesthesia (where you are numb from the waist down). Your anesthesiologist will discuss the best option for you based on your health and preferences. You will be closely monitored throughout the procedure to ensure your safety and comfort."
-      },
-      {
-        "title": "Procedure Details",
-        "description": "The surgeon will make an incision over your hip. The damaged cartilage and bone are then removed, and the artificial hip joint is carefully implanted. The prosthesis typically consists of a stem that fits into the femur (thigh bone), a ball that replaces the hip joint head, and a socket that replaces the hip socket. The surgeon will ensure the components are properly aligned and secured before closing the incision."
-      },
-      {
-        "title": "Closure",
-        "description": "Once the new hip joint is in place, the surgeon will close the incision in layers. This involves stitching or stapling the skin and tissues back together. A sterile dressing will be applied to the surgical site. A drain may be temporarily placed to remove excess fluid and prevent swelling."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Infection can occur at the surgical site, requiring antibiotics and potentially further surgery to remove the infected prosthesis. This is a serious complication that can delay healing and cause significant discomfort.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Blood Clots",
-        "description": "Blood clots can form in the leg veins (deep vein thrombosis or DVT) after surgery. These clots can potentially travel to the lungs (pulmonary embolism or PE), which is a life-threatening condition. Medications and compression stockings are used to minimize this risk.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Dislocation",
-        "description": "The new hip joint can dislocate, meaning the ball comes out of the socket. This usually requires a closed reduction (putting the joint back in place without surgery), but sometimes surgery is needed. Following post-operative instructions carefully can help prevent dislocation.",
-        "likelihood": "1-3%"
-      },
-      {
-        "title": "Loosening of the Prosthesis",
-        "description": "Over time, the artificial hip joint can loosen from the bone, causing pain and instability. This may require revision surgery to replace the prosthesis.",
-        "likelihood": "5-10% over 10-15 years"
-      },
-      {
-        "title": "Nerve or Blood Vessel Damage",
-        "description": "During surgery, there is a small risk of damage to nerves or blood vessels near the hip joint, which can lead to numbness, weakness, or changes in blood flow to the leg.",
-        "likelihood": "Less than 1%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Open Surgery",
-        "description": "Traditional surgical approach with a larger incision.",
-        "whenRecommended": "When minimally invasive approach is not suitable"
-      },
-      {
-        "title": "Medical Management",
-        "description": "Medication-based treatment without surgery.",
-        "whenRecommended": "When surgery can be safely deferred"
-      }
-    ],
-    "recovery": {
-      "summary": "Recovery from hip replacement surgery typically takes several weeks to months. You'll start physical therapy soon after surgery to regain strength and mobility. Most patients can return to most of their normal activities within 3-6 months, but full recovery can take longer. Regular follow-up appointments with your surgeon are essential to monitor your progress.",
-      "timeline": [
-        {
-          "label": "Day 1",
-          "description": "Hospital recovery with monitoring and pain management."
-        },
-        {
-          "label": "Day 2-3",
-          "description": "Begin light walking. May be discharged home."
-        },
-        {
-          "label": "Week 1-2",
-          "description": "Rest at home. Light activities only. Follow-up appointment."
-        },
-        {
-          "label": "Week 4-6",
-          "description": "Gradual return to normal activities as approved by doctor."
-        }
-      ],
-      "do": [
-        "Attend all scheduled physical therapy sessions.",
-        "Take prescribed pain medication as directed.",
-        "Use assistive devices (walker, crutches) as instructed by your physical therapist.",
-        "Elevate your leg when resting to reduce swelling.",
-        "Perform gentle range-of-motion exercises as instructed.",
-        "Keep the surgical incision clean and dry."
-      ],
-      "dont": [
-        "Bend your hip more than 90 degrees for the first 6 weeks (unless specifically instructed otherwise).",
-        "Cross your legs or twist your hip.",
-        "Twist your body while standing or sitting.",
-        "Drive a car until cleared by your surgeon.",
-        "Engage in high-impact activities (running, jumping) until fully recovered.",
-        "Place direct pressure on your hip for extended periods."
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Will you be awake during the Hip Replacement?",
-          "correctOption": "A",
-          "options": {
-            "A": "No, you will be under anesthesia",
-            "B": "Yes, you will be fully awake"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What is a common risk of this procedure?",
-          "correctOption": "A",
-          "options": {
-            "A": "Minor infection at incision site",
-            "B": "Catching a common cold"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "How long is typical recovery?",
-          "correctOption": "A",
-          "options": {
-            "A": "About 1-2 weeks",
-            "B": "About 3-4 months"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "In your own words, what did you understand about this procedure?",
-          "minWords": 20
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770646455263",
-    "patientName": "ref",
-    "procedure": "Appendectomy",
-    "doctorId": "DOC_001",
-    "doctorName": "Dr. John Smith",
-    "otp": "908499",
-    "consentHash": "8dddea7e7f45a04732292a5192f51b318ed91d97576a10c8c8c49b14af30c272",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-09T14:14:46.385Z",
-    "aiSummary": "An appendectomy is a surgical procedure to remove your appendix, a small pouch attached to your large intestine. It's typically performed when the appendix becomes inflamed or infected (appendicitis), which can cause severe pain and potentially lead to serious complications. Removing the appendix prevents further infection and relieves your symptoms.",
-    "steps": [
-      {
-        "title": "Preparation",
-        "description": "Before the surgery, you'll likely be asked to stop eating and drinking for a certain period (usually 6-8 hours) to ensure your stomach is empty. You'll also need to inform your doctor about any medications you're taking, allergies you have, and any medical conditions you have. A pre-operative assessment, including blood tests and potentially imaging (like a CT scan), will be performed to confirm the diagnosis and assess your overall health."
-      },
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to ensure you don't feel any pain during the procedure. This can be either general anesthesia (where you are completely asleep) or, in some cases, regional anesthesia (which numbs a specific area of your body). An anesthesiologist will monitor your vital signs throughout the surgery to ensure your safety."
-      },
-      {
-        "title": "Procedure Details",
-        "description": "The appendectomy can be performed in two ways: open surgery or laparoscopy. In open surgery, a single incision is made in your lower right abdomen. In laparoscopy, several small incisions are made, and a camera and specialized instruments are used to remove the appendix. The surgeon will locate the appendix, carefully separate it from surrounding tissues, and then remove it. The base of the appendix is tied off to prevent bleeding."
-      },
-      {
-        "title": "Closure",
-        "description": "Once the appendix is removed, the surgeon will close the incision(s). In open surgery, the incision will be closed with sutures (stitches) or staples. In laparoscopy, the incisions are typically small and may only require a single stitch or adhesive strip. A sterile dressing will be applied to the incision site(s)."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Like any surgery, there's a risk of infection at the incision site or inside the abdomen. This is usually treated with antibiotics.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Some bleeding is normal during and after surgery, but excessive bleeding requiring a blood transfusion is a rare possibility.",
-        "likelihood": "1-3%"
-      },
-      {
-        "title": "Injury to Nearby Organs",
-        "description": "There's a small risk of injury to nearby organs, such as the bowel or bladder, during the surgery. This may require additional surgery to repair.",
-        "likelihood": "0.5-1%"
-      },
-      {
-        "title": "Ileus (Temporary Bowel Obstruction)",
-        "description": "After surgery, the bowel may temporarily slow down or stop working, leading to a buildup of gas and fluids. This is usually managed with bowel rest and intravenous fluids.",
-        "likelihood": "5-10%"
-      },
-      {
-        "title": "Adverse Reaction to Anesthesia",
-        "description": "Although rare, some patients may experience an allergic reaction or other adverse effects from the anesthesia.",
-        "likelihood": "0.1-0.5%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Open Surgery",
-        "description": "Traditional surgical approach with a larger incision.",
-        "whenRecommended": "When minimally invasive approach is not suitable"
-      },
-      {
-        "title": "Medical Management",
-        "description": "Medication-based treatment without surgery.",
-        "whenRecommended": "When surgery can be safely deferred"
-      }
-    ],
-    "recovery": {
-      "summary": "After the appendectomy, you'll typically spend 1-3 days in the hospital. You'll gradually resume eating and drinking as your bowel function returns. Pain medication will be provided to manage any discomfort. Full recovery usually takes 2-4 weeks, during which you should avoid strenuous activities.",
-      "timeline": [
-        {
-          "label": "Day 1",
-          "description": "Hospital recovery with monitoring and pain management."
-        },
-        {
-          "label": "Day 2-3",
-          "description": "Begin light walking. May be discharged home."
-        },
-        {
-          "label": "Week 1-2",
-          "description": "Rest at home. Light activities only. Follow-up appointment."
-        },
-        {
-          "label": "Week 4-6",
-          "description": "Gradual return to normal activities as approved by doctor."
-        }
-      ],
-      "do": [
-        "Take all prescribed medications as directed, including pain relievers and antibiotics.",
-        "Keep the incision site clean and dry. Follow your doctor's instructions for wound care.",
-        "Gradually increase your activity level as tolerated, but avoid heavy lifting or strenuous exercise for at least 4 weeks.",
-        "Drink plenty of fluids to stay hydrated.",
-        "Report any signs of infection (fever, redness, swelling, pus) or unusual pain to your doctor immediately.",
-        "Attend all follow-up appointments with your surgeon."
-      ],
-      "dont": [
-        "Don't lift anything heavier than 10 pounds for at least 4 weeks.",
-        "Don't drive a car or operate machinery until your doctor says it's safe.",
-        "Don't take aspirin or ibuprofen (NSAIDs) unless specifically instructed by your doctor, as these can increase the risk of bleeding.",
-        "Don't soak the incision site in water (e.g., baths or swimming) until it is fully healed.",
-        "Don't ignore any persistent or worsening pain. Contact your doctor if you have concerns.",
-        "Don't smoke, as smoking can delay healing."
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Will you be awake during the Appendectomy?",
-          "correctOption": "A",
-          "options": {
-            "A": "No, you will be under anesthesia",
-            "B": "Yes, you will be fully awake"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What is a common risk of this procedure?",
-          "correctOption": "A",
-          "options": {
-            "A": "Minor infection at incision site",
-            "B": "Catching a common cold"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "How long is typical recovery?",
-          "correctOption": "A",
-          "options": {
-            "A": "About 1-2 weeks",
-            "B": "About 3-4 months"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "In your own words, what did you understand about this procedure?",
-          "minWords": 20
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770647105316",
-    "patientName": "fed",
+    "consentId": "CNS_1771142250643",
+    "patientName": "Deepak",
+    "age": "18",
     "procedure": "Bypass Surgery",
     "doctorId": "DOC_001",
     "doctorName": "Gobinath",
-    "otp": "612437",
-    "consentHash": "5295e09fd2d243ac9d88541f1373dcc807d1c4572c55b4d4213288b0d5668047",
+    "hospital": "Coimbatore Medical College",
+    "department": "General Surgery",
+    "location": "Main Operation Theater",
+    "patientId": "PAT-28729",
+    "scheduledDate": "2026-02-15",
+    "scheduledTime": "09:00 AM",
+    "surgeon": "Gobinath",
+    "anesthesiologist": "Dr. Anesthesia",
+    "otp": "215147",
+    "emergencyMode": false,
+    "consentHash": "a8fface520c76d0d11493f77e2311c10733bd224f6c4cadbf997e1bdf589ff96",
     "status": "PENDING_PATIENT",
     "patientSigned": false,
     "doctorVerified": false,
     "blockchainTx": null,
     "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-09T14:25:36.852Z",
-    "aiSummary": "Bypass surgery, also known as coronary artery bypass grafting (CABG), is a procedure to improve blood flow to your heart. It involves taking a healthy blood vessel from another part of your body and using it to create a new route around a blocked or narrowed coronary artery. This surgery is typically recommended when medications and lifestyle changes are not enough to manage severe coronary artery disease and reduce the risk of heart attack.",
+    "createdAt": "2026-02-15T07:57:32.077Z",
+    "aiSummary": "Bypass Surgery: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
     "steps": [
       {
-        "title": "Preparation",
-        "description": "Before surgery, you'll undergo a thorough medical evaluation, including blood tests, an electrocardiogram (ECG), chest X-ray, and possibly an angiogram to assess the extent of blockages. You'll meet with your surgeon, anesthesiologist, and other members of the healthcare team to discuss the procedure, answer your questions, and review your medical history. You'll also be instructed to stop certain medications, such as blood thinners, several days before surgery, as directed by your doctor."
-      },
-      {
         "title": "Anesthesia",
-        "description": "Bypass surgery is performed under general anesthesia, meaning you will be completely asleep and unaware during the procedure. An anesthesiologist will monitor your vital signs, including heart rate, blood pressure, and breathing, throughout the surgery. A breathing tube will be inserted to help you breathe, and a catheter will be placed in your bladder to drain urine."
+        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
       },
       {
-        "title": "Procedure Details",
-        "description": "Once you're under anesthesia, a cut will be made down the center of your chest (median sternotomy), and your breastbone will be temporarily separated to access your heart. A heart-lung machine will take over the function of your heart and lungs, allowing the surgeon to operate on a still heart. The surgeon will then graft a healthy blood vessel (usually from your leg, arm, or chest) to bypass the blocked coronary artery, restoring blood flow to the heart muscle. Multiple bypasses may be performed depending on the number of blocked arteries."
+        "title": "Small Incisions",
+        "description": "Small surgical incisions are made to allow access for the instruments needed."
+      },
+      {
+        "title": "Procedure",
+        "description": "The main surgical steps are performed carefully by your experienced surgical team."
       },
       {
         "title": "Closure",
-        "description": "After the bypass grafts are completed and the heart resumes its normal function, the heart-lung machine is disconnected. The breastbone is wired back together, and the incision is closed with sutures or staples. You will be transferred to the intensive care unit (ICU) for close monitoring as you recover from anesthesia."
+        "description": "Incisions are closed with dissolvable stitches or surgical glue."
+      },
+      {
+        "title": "Recovery Start",
+        "description": "You begin recovery with monitoring and pain management in the recovery room."
       }
     ],
     "risks": [
       {
-        "title": "Bleeding",
-        "description": "Bleeding can occur during or after surgery, requiring blood transfusions or further procedures to stop the bleeding.",
+        "title": "Infection",
+        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
         "likelihood": "2-5%"
       },
       {
-        "title": "Infection",
-        "description": "Infection can occur at the incision site or within the chest cavity. Antibiotics are typically used to treat infections.",
-        "likelihood": "1-3%"
+        "title": "Bleeding",
+        "description": "Rare internal bleeding that may require monitoring or additional care.",
+        "likelihood": "1-2%"
       },
       {
-        "title": "Stroke",
-        "description": "A stroke can occur if a blood clot travels to the brain, disrupting blood flow. This is a rare but serious complication.",
-        "likelihood": "0.5-1%"
-      },
-      {
-        "title": "Heart Rhythm Problems (Arrhythmias)",
-        "description": "Irregular heart rhythms can occur after surgery, sometimes requiring medication or a pacemaker to correct them.",
-        "likelihood": "5-10%"
-      },
-      {
-        "title": "Kidney Problems",
-        "description": "Reduced kidney function can occur, especially in patients with pre-existing kidney disease.",
-        "likelihood": "2-4%"
+        "title": "Anesthesia Reaction",
+        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
+        "likelihood": "less than 1%"
       }
     ],
     "alternatives": [
       {
-        "title": "Medical Management",
-        "description": "This involves managing your condition with medications (such as statins, beta-blockers, and aspirin), lifestyle changes (such as diet and exercise), and cardiac rehabilitation.",
-        "whenRecommended": "For patients with less severe coronary artery disease or those who are not good candidates for surgery due to other medical conditions."
+        "title": "Open Surgery",
+        "description": "Traditional surgical approach with one larger incision instead of small ones.",
+        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
       },
       {
-        "title": "Angioplasty and Stenting (Percutaneous Coronary Intervention - PCI)",
-        "description": "This procedure involves inserting a catheter with a balloon tip into the blocked artery and inflating the balloon to widen the artery. A stent is then placed to keep the artery open.",
-        "whenRecommended": "For patients with single or a few blockages that can be effectively treated with stenting, and when surgery is considered too risky."
+        "title": "Medical Management",
+        "description": "Medication-focused approach to manage the condition without surgery.",
+        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
       }
     ],
     "recovery": {
-      "summary": "Recovery from bypass surgery typically takes 6 to 12 weeks. You'll spend several days in the hospital, followed by a period of rehabilitation to regain strength and improve cardiovascular health. It's important to follow your doctor's instructions carefully and attend all follow-up appointments.",
+      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
       "timeline": [
         {
+          "label": "Day 0",
+          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
+        },
+        {
           "label": "Day 1",
-          "description": "Hospital recovery with monitoring and pain management."
+          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
         },
         {
           "label": "Day 2-3",
-          "description": "Begin light walking. May be discharged home."
+          "description": "Often ready for discharge. Follow wound care instructions carefully."
         },
         {
-          "label": "Week 1-2",
-          "description": "Rest at home. Light activities only. Follow-up appointment."
-        },
-        {
-          "label": "Week 4-6",
-          "description": "Gradual return to normal activities as approved by doctor."
+          "label": "Week 1",
+          "description": "Most routine activities can resume. Continue following medical restrictions."
         }
       ],
       "do": [
-        "Take all medications as prescribed by your doctor.",
-        "Attend cardiac rehabilitation sessions to improve your heart health.",
-        "Follow a heart-healthy diet low in saturated fat and cholesterol.",
-        "Get regular, moderate exercise as approved by your doctor.",
-        "Monitor your incision site for signs of infection (redness, swelling, drainage).",
-        "Report any concerning symptoms to your doctor, such as chest pain, shortness of breath, or irregular heartbeats."
+        "Take all prescribed medications as directed",
+        "Walk lightly as advised by your medical team",
+        "Keep incisions clean and dry",
+        "Attend all follow-up appointments",
+        "Rest and get adequate sleep"
       ],
       "dont": [
-        "Lift anything heavier than 5-10 pounds for at least 6 weeks.",
-        "Drive a car until your doctor says it's safe.",
-        "Smoke or be around smoke.",
-        "Engage in strenuous activities or heavy housework.",
-        "Take over-the-counter medications without consulting your doctor.",
-        "Ignore any new or worsening symptoms."
+        "Lift heavy objects (more than 10 lbs)",
+        "Do strenuous exercise or sports",
+        "Submerge incisions in water until cleared",
+        "Drive until approved by your doctor",
+        "Ignore signs of infection or complications"
       ]
     },
     "quiz": {
       "questions": [
         {
           "id": "q1",
-          "question": "What is the main purpose of bypass surgery?",
+          "question": "Will you be awake during the Bypass Surgery?",
           "correctOption": "A",
           "options": {
-            "A": "To improve blood flow to the heart by bypassing blocked arteries.",
-            "B": "To replace a damaged heart valve.",
-            "C": "To strengthen the heart muscle.",
-            "D": "To lower blood pressure."
+            "A": "No, you will be under anesthesia",
+            "B": "Yes, you will be fully awake"
           }
         },
         {
           "id": "q2",
-          "question": "Which of the following is a common alternative to bypass surgery?",
-          "correctOption": "B",
+          "question": "What is a common risk of this procedure?",
+          "correctOption": "A",
           "options": {
-            "A": "Pacemaker implantation",
-            "B": "Angioplasty and stenting (PCI)",
-            "C": "Heart transplant",
-            "D": "Medication for diabetes"
+            "A": "Minor infection at incision site",
+            "B": "Catching a common cold"
           }
         },
         {
           "id": "q3",
-          "question": "What should you NOT do after bypass surgery?",
+          "question": "How long is typical recovery?",
           "correctOption": "A",
           "options": {
-            "A": "Lift heavy objects.",
-            "B": "Take prescribed medications.",
-            "C": "Attend cardiac rehabilitation.",
-            "D": "Follow a heart-healthy diet."
+            "A": "About 1-2 weeks",
+            "B": "About 3-4 months"
           }
         },
         {
           "id": "q4",
-          "question": "What is the purpose of the heart-lung machine during bypass surgery?",
-          "correctOption": "C",
-          "options": {
-            "A": "To monitor the patient's blood pressure.",
-            "B": "To deliver oxygen to the brain.",
-            "C": "To take over the function of the heart and lungs.",
-            "D": "To administer anesthesia."
-          }
+          "question": "In your own words, what did you understand about this procedure?",
+          "minWords": 20
         }
       ]
     }
   },
   {
-    "consentId": "CNS_1770649436541",
-    "patientName": "bef",
+    "consentId": "CNS_1771142403618",
+    "patientName": "Varun",
+    "age": "18",
     "procedure": "Hysterectomy",
     "doctorId": "DOC_001",
     "doctorName": "Gobinath",
-    "otp": "683293",
-    "consentHash": "407860782e55c493657208f887a4c88ab4589768b9c26fc6c898a0b8d5c1ffe2",
+    "hospital": "Coimbatore Medical College",
+    "department": "General Surgery",
+    "location": "Main Operation Theater",
+    "patientId": "PAT-56843",
+    "scheduledDate": "2026-02-15",
+    "scheduledTime": "09:00 AM",
+    "surgeon": "Gobinath",
+    "anesthesiologist": "Dr. Anesthesia",
+    "otp": "865985",
+    "emergencyMode": false,
+    "consentHash": "d8e3db5a86d361b75858edf031cb633c90c9a58c54662006883e31ab71f1414c",
     "status": "PENDING_PATIENT",
     "patientSigned": false,
     "doctorVerified": false,
     "blockchainTx": null,
     "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-09T15:04:40.059Z",
+    "createdAt": "2026-02-15T08:00:41.300Z",
     "aiSummary": "A hysterectomy is a surgical procedure to remove the uterus. It may be recommended to treat conditions like fibroids, endometriosis, abnormal bleeding, or cancer. This form explains the procedure, its potential risks, alternatives, and what to expect during recovery.",
     "steps": [
       {
         "title": "Preparation",
-        "description": "Before the surgery, you will have a pre-operative assessment, including a physical exam and blood tests. You'll need to stop taking certain medications, such as blood thinners, as instructed by your doctor. Bowel preparation may be required, which could involve a special diet or laxatives to clear your bowels. You will also have a chance to ask any remaining questions."
+        "description": "Before the surgery, you will have a pre-operative assessment, including blood tests, a physical exam, and possibly an EKG. You'll need to stop taking certain medications, such as blood thinners, as instructed by your doctor. Bowel preparation (e.g., laxatives) may be required depending on the surgical approach. You will also be asked to avoid eating or drinking anything after midnight the night before surgery."
       },
       {
         "title": "Anesthesia",
-        "description": "You will receive anesthesia to ensure you are comfortable and pain-free during the surgery. This can be general anesthesia (where you are asleep) or, in some cases, regional anesthesia (numbing the lower body). An anesthesiologist will monitor your vital signs throughout the procedure."
+        "description": "You will receive anesthesia to ensure you are comfortable and pain-free during the procedure. This can be general anesthesia (where you are completely asleep) or regional anesthesia (where a specific area of your body is numbed). The anesthesiologist will discuss the best option for you based on your health and the type of hysterectomy being performed."
       },
       {
         "title": "Procedure Details",
-        "description": "The hysterectomy can be performed in several ways: abdominal (through an incision in the abdomen), vaginal (through the vagina), laparoscopic (through small incisions with a camera), or robotic-assisted laparoscopic. The specific approach depends on your condition and your doctor's recommendation. During the procedure, the uterus and, in some cases, the ovaries and fallopian tubes, are removed. If the ovaries are removed, you will enter surgical menopause."
+        "description": "The hysterectomy can be performed in several ways: abdominal (through an incision in the abdomen), vaginal (through the vagina), laparoscopic (through small incisions with a camera), or robotic-assisted laparoscopic. The surgeon will remove the uterus. Depending on the reason for the hysterectomy, the ovaries and fallopian tubes may also be removed. The surgeon will determine the best approach based on your individual circumstances and medical history."
       },
       {
         "title": "Closure",
-        "description": "Once the uterus (and any other tissues being removed) is removed, the incision(s) will be closed. Abdominal incisions will be closed with sutures or staples. Vaginal and laparoscopic incisions may require fewer or no sutures. A sterile dressing will be applied to the incision site(s)."
+        "description": "Once the uterus (and any other organs being removed) is removed, the incision(s) will be closed. Abdominal incisions will be closed with sutures or staples. Vaginal incisions may not require stitches. Laparoscopic incisions will be closed with surgical glue or small sutures. A sterile dressing will be applied."
       }
     ],
     "risks": [
       {
         "title": "Infection",
-        "description": "Infection at the incision site or within the pelvis is a possibility. Antibiotics are often given to prevent this.",
+        "description": "Infection at the incision site or within the pelvis is a possibility. Antibiotics are typically given to prevent this, but it can still occur.",
         "likelihood": "2-5%"
       },
       {
@@ -1633,1069 +207,153 @@
         "likelihood": "0.5-1%"
       },
       {
-        "title": "Blood Clots",
-        "description": "Blood clots can form in the legs (deep vein thrombosis) or lungs (pulmonary embolism). Measures are taken to prevent this, such as compression stockings and early ambulation.",
-        "likelihood": "1-2%"
+        "title": "Early Menopause (if ovaries are removed)",
+        "description": "If the ovaries are removed, you will experience immediate menopause, with symptoms like hot flashes, vaginal dryness, and mood changes. Hormone replacement therapy may be an option to discuss with your doctor.",
+        "likelihood": "100% (if ovaries removed)"
       },
       {
-        "title": "Vaginal Cuff Problems (if cervix is removed)",
-        "description": "If the cervix is removed, there's a small risk of a vaginal cuff dehiscence (separation of the vaginal cuff).",
-        "likelihood": "0.1-0.5%"
+        "title": "Blood Clots",
+        "description": "Blood clots can form in the legs (deep vein thrombosis) or travel to the lungs (pulmonary embolism). Measures will be taken to prevent this, such as compression stockings and early ambulation.",
+        "likelihood": "1-2%"
       }
     ],
     "alternatives": [
       {
         "title": "Medical Management",
-        "description": "For conditions like fibroids or heavy bleeding, medical treatments such as hormonal medications (birth control pills, IUDs), tranexamic acid, or GnRH agonists may be considered.",
+        "description": "For conditions like fibroids or heavy bleeding, medical treatments such as medications (hormonal birth control, tranexamic acid) or procedures like uterine artery embolization may be considered.",
         "whenRecommended": "When symptoms are mild to moderate and the patient desires to avoid surgery."
       },
       {
-        "title": "Uterine Fibroid Embolization (UFE)",
-        "description": "UFE is a procedure where small particles are injected into the blood vessels that supply fibroids, causing them to shrink.",
-        "whenRecommended": "For women with symptomatic fibroids who want to avoid hysterectomy and are good candidates for the procedure."
-      },
-      {
         "title": "Myomectomy",
-        "description": "Myomectomy is a surgical procedure to remove fibroids while leaving the uterus in place.",
-        "whenRecommended": "For women who wish to preserve fertility and have symptomatic fibroids."
+        "description": "If fibroids are the primary concern, a myomectomy (removal of fibroids while preserving the uterus) may be an option.",
+        "whenRecommended": "When the patient desires to preserve fertility or avoid a hysterectomy."
       }
     ],
     "recovery": {
-      "summary": "Recovery from a hysterectomy typically takes 4-8 weeks. You will likely experience some pain and discomfort, which can be managed with medication. You'll need to avoid strenuous activities and heavy lifting for several weeks to allow your body to heal.",
+      "summary": "Recovery from a hysterectomy typically takes 6-8 weeks. You will experience some pain and discomfort initially, which will gradually improve. It's important to follow your doctor's instructions carefully to ensure proper healing and prevent complications.",
       "timeline": [
         {
-          "label": "Day 1",
-          "description": "Hospital recovery with monitoring and pain management."
+          "label": "Day 1-2",
+          "description": "You will likely stay in the hospital for 1-2 days. Pain medication will be provided. You will be encouraged to walk short distances to prevent blood clots. Monitor incision site for signs of infection."
         },
         {
-          "label": "Day 2-3",
-          "description": "Begin light walking. May be discharged home."
-        },
-        {
-          "label": "Week 1-2",
-          "description": "Rest at home. Light activities only. Follow-up appointment."
-        },
-        {
-          "label": "Week 4-6",
-          "description": "Gradual return to normal activities as approved by doctor."
+          "label": "Week 1",
+          "description": "Rest is crucial. Avoid heavy lifting (over 10 pounds). You may experience vaginal discharge (clear or pink) which is normal. Gradually increase your activity level as tolerated. Attend follow-up appointment with your surgeon."
         }
       ],
       "do": [
-        "Follow your doctor's instructions carefully regarding medication and wound care.",
+        "Take all medications as prescribed.",
         "Attend all follow-up appointments.",
-        "Rest and avoid strenuous activities as directed.",
-        "Drink plenty of fluids to stay hydrated.",
-        "Gradually increase your activity level as tolerated.",
-        "Report any signs of infection (fever, redness, swelling, drainage) to your doctor immediately."
+        "Rest and avoid strenuous activity.",
+        "Drink plenty of fluids.",
+        "Report any signs of infection (fever, redness, swelling, pus) to your doctor immediately.",
+        "Perform gentle pelvic floor exercises (Kegels) to strengthen the muscles."
       ],
       "dont": [
-        "Don't lift anything heavier than 10 pounds for the first 6 weeks.",
-        "Don't engage in sexual intercourse for 6-8 weeks, or as directed by your doctor.",
-        "Don't douche or use vaginal deodorants.",
-        "Don't smoke, as it can impair healing.",
-        "Don't ignore any unusual symptoms, such as severe pain, fever, or heavy bleeding."
+        "Lift anything heavy (over 10 pounds) for at least 6 weeks.",
+        "Engage in strenuous exercise for at least 6 weeks.",
+        "Insert anything into the vagina (tampons, douches) for at least 6 weeks.",
+        "Drive while taking pain medication.",
+        "Smoke or consume alcohol excessively.",
+        "Ignore any unusual symptoms, such as severe pain, fever, or heavy bleeding."
       ]
     },
     "quiz": {
       "questions": [
         {
           "id": "q1",
-          "question": "What is the main reason a hysterectomy might be performed?",
+          "question": "What is the main reason a hysterectomy might be recommended?",
           "correctOption": "A",
           "options": {
-            "A": "To remove the uterus",
-            "B": "To remove the ovaries",
-            "C": "To remove the fallopian tubes",
-            "D": "To remove the cervix"
+            "A": "To treat conditions like fibroids or abnormal bleeding",
+            "B": "To improve overall health",
+            "C": "To increase fertility",
+            "D": "To prevent all types of cancer"
           }
         },
         {
           "id": "q2",
-          "question": "Which of the following is a potential risk of a hysterectomy?",
-          "correctOption": "B",
+          "question": "What is a potential risk of having your ovaries removed during a hysterectomy?",
+          "correctOption": "A",
           "options": {
-            "A": "Increased fertility",
-            "B": "Infection",
-            "C": "Improved vision",
-            "D": "Faster metabolism"
+            "A": "Immediate menopause",
+            "B": "Increased fertility",
+            "C": "Improved bone density",
+            "D": "Decreased risk of infection"
           }
         },
         {
           "id": "q3",
-          "question": "What does it mean to enter surgical menopause if your ovaries are removed during a hysterectomy?",
-          "correctOption": "A",
-          "options": {
-            "A": "You will stop having periods and experience symptoms similar to natural menopause",
-            "B": "You will continue to have regular periods",
-            "C": "You will become pregnant",
-            "D": "You will experience increased energy levels"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "For how long should you typically avoid heavy lifting after a hysterectomy?",
+          "question": "Which of the following is NOT recommended during the initial recovery period after a hysterectomy?",
           "correctOption": "C",
           "options": {
-            "A": "1 week",
-            "B": "2 weeks",
-            "C": "6 weeks",
-            "D": "12 weeks"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770649858227",
-    "patientName": "hi",
-    "procedure": "Prostatectomy",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "otp": "499990",
-    "consentHash": "fe803f07a0b393fb5150c573b09ba2c0702080962fea92c7a41fd8d856da6738",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-09T15:11:49.507Z",
-    "aiSummary": "A prostatectomy is a surgical procedure to remove all or part of the prostate gland. It's commonly performed to treat prostate cancer, benign prostatic hyperplasia (BPH – an enlarged prostate), or other prostate conditions. The goal is to alleviate symptoms and improve quality of life.",
-    "steps": [
-      {
-        "title": "Preparation",
-        "description": "Before the surgery, you'll have a thorough medical evaluation, including blood tests, a physical exam, and possibly imaging scans like an MRI or CT scan. You'll need to stop taking certain medications, such as blood thinners, several days before the procedure. Bowel preparation, such as an enema or laxatives, may be required to clear your bowels. You will also meet with your surgeon and anesthesiologist to discuss the procedure and address any concerns."
-      },
-      {
-        "title": "Anesthesia",
-        "description": "Prostatectomy can be performed under general anesthesia (you'll be asleep) or spinal/epidural anesthesia (you'll be awake but numb from the waist down). The choice depends on your overall health, the type of prostatectomy being performed, and your preference. An anesthesiologist will monitor your vital signs throughout the surgery."
-      },
-      {
-        "title": "Procedure Details",
-        "description": "The surgical approach varies depending on the type of prostatectomy. Radical prostatectomy (for cancer) involves removing the entire prostate gland, seminal vesicles, and sometimes nearby lymph nodes. The surgery can be performed through an open incision, laparoscopically (using small incisions and a camera), or robotically-assisted laparoscopically. During the procedure, the surgeon carefully dissects and removes the prostate, taking care to preserve surrounding nerves and tissues as much as possible. Urinary control is re-established by reconnecting the bladder to the urethra."
-      },
-      {
-        "title": "Closure",
-        "description": "After the prostate is removed, the surgeon will close the surgical incision(s). If an open approach was used, the incision will be closed with sutures or staples. With laparoscopic or robotic approaches, the incisions are small and may only require adhesive strips or small sutures. A catheter will be placed in your bladder to drain urine while you heal. This catheter will typically remain in place for several days to weeks."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Urinary Incontinence",
-        "description": "Leakage of urine after surgery is a potential risk. This can be temporary or, in some cases, permanent. Pelvic floor exercises (Kegels) can help strengthen the muscles and improve continence.",
-        "likelihood": "10-30%"
-      },
-      {
-        "title": "Erectile Dysfunction",
-        "description": "Difficulty achieving or maintaining an erection can occur due to nerve damage during surgery. Nerve-sparing techniques are used to minimize this risk, but it's not always possible to avoid it completely. Options for treatment are available.",
-        "likelihood": "20-50%"
-      },
-      {
-        "title": "Infection",
-        "description": "As with any surgery, there's a risk of infection at the surgical site or within the urinary tract. Antibiotics are typically given to prevent infection.",
-        "likelihood": "1-5%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Excessive bleeding during or after surgery can occur. A blood transfusion may be necessary in some cases.",
-        "likelihood": "1-3%"
-      },
-      {
-        "title": "Lymphocele",
-        "description": "A collection of lymphatic fluid can form near the surgical site. This is usually minor and resolves on its own, but may require drainage in rare cases.",
-        "likelihood": "1-2%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Medical Management (for BPH)",
-        "description": "For benign prostatic hyperplasia (BPH), medications like alpha-blockers and 5-alpha reductase inhibitors can help shrink the prostate and relieve symptoms. This is a good option for men with mild to moderate symptoms who prefer to avoid surgery.",
-        "whenRecommended": "For men with mild to moderate BPH symptoms who want to avoid surgery."
-      },
-      {
-        "title": "Transurethral Resection of the Prostate (TURP)",
-        "description": "TURP is a minimally invasive procedure where a resectoscope is inserted through the urethra to remove prostate tissue. It's often used for BPH and can be an alternative to a full prostatectomy in some cases.",
-        "whenRecommended": "For men with BPH who want a less invasive surgical option than a prostatectomy."
-      }
-    ],
-    "recovery": {
-      "summary": "Recovery from a prostatectomy typically takes several weeks to months. You'll need to follow your doctor's instructions carefully to ensure proper healing and minimize complications. Pain management and gradual return to normal activities are key components of the recovery process.",
-      "timeline": [
-        {
-          "label": "Day 1-2",
-          "description": "You'll be closely monitored in the hospital. Pain medication will be administered. You'll have a catheter in place to drain urine. Start with clear liquids and gradually advance to a regular diet as tolerated."
-        },
-        {
-          "label": "Week 1",
-          "description": "You'll likely be discharged from the hospital within a few days. Continue taking pain medication as prescribed. Avoid strenuous activities and heavy lifting. Attend follow-up appointments with your surgeon. Begin pelvic floor exercises (Kegels) as instructed."
-        }
-      ],
-      "do": [
-        "Follow all post-operative instructions provided by your surgeon.",
-        "Take all medications as prescribed, including pain relievers and antibiotics.",
-        "Perform pelvic floor exercises (Kegels) regularly to strengthen your bladder muscles.",
-        "Drink plenty of fluids to stay hydrated and help flush your urinary system.",
-        "Attend all scheduled follow-up appointments."
-      ],
-      "dont": [
-        "Engage in strenuous activities or heavy lifting for at least 6 weeks.",
-        "Drive while taking pain medication that can impair your judgment.",
-        "Insert anything into your urethra (e.g., tampons, speculums).",
-        "Strain during bowel movements.",
-        "Ignore any signs of infection, such as fever, chills, or increased pain."
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "What is the main purpose of a prostatectomy?",
-          "correctOption": "A",
-          "options": {
-            "A": "To remove all or part of the prostate gland",
-            "B": "To shrink the prostate without surgery",
-            "C": "To treat urinary tract infections"
+            "A": "Drinking plenty of fluids",
+            "B": "Resting",
+            "C": "Lifting heavy objects",
+            "D": "Taking prescribed medications"
           }
         },
         {
-          "id": "q2",
-          "question": "Which of the following is a potential side effect of prostatectomy?",
+          "id": "q4",
+          "question": "What does 'laparoscopic' mean in the context of a hysterectomy?",
           "correctOption": "B",
           "options": {
-            "A": "Improved vision",
-            "B": "Erectile dysfunction",
-            "C": "Increased appetite"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "What is a catheter used for after a prostatectomy?",
-          "correctOption": "A",
-          "options": {
-            "A": "To drain urine from the bladder",
-            "B": "To administer medication directly into the bloodstream",
-            "C": "To monitor heart rate"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "Why is it important to perform pelvic floor exercises (Kegels) after a prostatectomy?",
-          "correctOption": "A",
-          "options": {
-            "A": "To strengthen the bladder muscles and improve continence",
-            "B": "To improve vision",
-            "C": "To increase appetite"
+            "A": "Surgery through a large abdominal incision",
+            "B": "Surgery through small incisions using a camera",
+            "C": "Surgery performed only vaginally",
+            "D": "A type of anesthesia"
           }
         }
       ]
     }
   },
   {
-    "consentId": "CNS_1770651001979",
-    "patientName": "joker",
-    "age": "18",
-    "procedure": "Bypass Surgery",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "otp": "723599",
-    "consentHash": "9d880ef0ec075b122bd3871cfe1d4470066dd764360e434273f46ab4a2bba612",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-09T15:30:41.127Z",
-    "aiSummary": "Bypass surgery, also known as coronary artery bypass grafting (CABG), is a procedure to improve blood flow to your heart. It involves taking a healthy blood vessel from another part of your body and using it to create a new route around a blocked or narrowed coronary artery. This surgery is typically recommended when medications and lifestyle changes are not enough to manage severe coronary artery disease and reduce the risk of heart attack.",
-    "steps": [
-      {
-        "title": "Preparation",
-        "description": "Before surgery, you'll undergo a thorough medical evaluation, including blood tests, an electrocardiogram (ECG), chest X-ray, and possibly an angiogram to assess the extent of blockages. You'll meet with your surgical team, including the surgeon, anesthesiologist, and nurses, to discuss the procedure, answer your questions, and review your medical history. You'll also be instructed to stop certain medications, such as blood thinners, several days before surgery, as directed by your doctor."
-      },
-      {
-        "title": "Anesthesia",
-        "description": "Bypass surgery is performed under general anesthesia, meaning you will be completely asleep and unaware during the procedure. An anesthesiologist will monitor your vital signs, including heart rate, blood pressure, and breathing, throughout the surgery. A breathing tube will be inserted to help you breathe, and a catheter will be placed in your bladder to drain urine."
-      },
-      {
-        "title": "Procedure Details",
-        "description": "The surgeon will make an incision down the center of your chest and open your breastbone (sternotomy) to access your heart. A heart-lung machine will take over the function of your heart and lungs, allowing the surgeon to operate on a still, bloodless heart. A healthy blood vessel, typically from your leg (saphenous vein) or chest (internal mammary artery), will be grafted to bypass the blocked coronary artery. Multiple bypasses may be performed depending on the number of blocked arteries. The surgeon will carefully connect the graft to the coronary artery, restoring blood flow."
-      },
-      {
-        "title": "Closure",
-        "description": "Once the bypasses are completed, the heart is gradually weaned off the heart-lung machine and allowed to resume its normal function. The breathing tube is removed, and your breastbone is wired back together. Chest tubes are placed to drain any excess fluid from around your heart and lungs. The incision is closed with sutures or staples, and a dressing is applied."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Bleeding",
-        "description": "Bleeding can occur during or after surgery, requiring blood transfusions or further procedures to stop the bleeding.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Infection",
-        "description": "Infection can occur at the incision site or within the chest cavity. Antibiotics are typically used to treat infections.",
-        "likelihood": "1-3%"
-      },
-      {
-        "title": "Stroke",
-        "description": "A stroke can occur if a blood clot travels to the brain, disrupting blood flow. This is a rare but serious complication.",
-        "likelihood": "0.5-1%"
-      },
-      {
-        "title": "Heart Rhythm Problems (Arrhythmias)",
-        "description": "Irregular heart rhythms can occur after surgery, sometimes requiring medication or a pacemaker to correct them.",
-        "likelihood": "5-10%"
-      },
-      {
-        "title": "Kidney Problems",
-        "description": "Reduced kidney function can occur due to decreased blood flow during the procedure.",
-        "likelihood": "1-2%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Medical Management",
-        "description": "This involves managing your condition with medications (such as statins, beta-blockers, and aspirin), lifestyle changes (such as diet and exercise), and cardiac rehabilitation.",
-        "whenRecommended": "For patients with less severe coronary artery disease, stable angina, or who are not good candidates for surgery due to other medical conditions."
-      },
-      {
-        "title": "Off-Pump Bypass Surgery (OPCAB)",
-        "description": "This technique performs bypass surgery without using the heart-lung machine, allowing the heart to continue beating during the procedure. It may reduce some risks associated with the heart-lung machine.",
-        "whenRecommended": "For select patients with suitable anatomy and stable heart conditions, as determined by the surgical team."
-      }
-    ],
-    "recovery": {
-      "summary": "Recovery from bypass surgery typically takes several weeks to months. You'll spend a few days in the hospital, followed by a period of rehabilitation to regain strength and improve cardiovascular health. Following your doctor's instructions carefully is crucial for a successful recovery.",
-      "timeline": [
-        {
-          "label": "Day 1-2",
-          "description": "You'll be closely monitored in the intensive care unit (ICU). Pain medication will be administered to manage discomfort. Chest tubes will drain fluid, and you'll gradually start breathing on your own."
-        },
-        {
-          "label": "Week 1",
-          "description": "You'll be transferred to a regular hospital room and begin physical therapy to improve mobility. You'll receive instructions on wound care, medication management, and dietary guidelines. You'll likely be discharged from the hospital within 5-7 days."
-        }
-      ],
-      "do": [
-        "Take all medications as prescribed by your doctor.",
-        "Attend cardiac rehabilitation sessions regularly.",
-        "Follow a heart-healthy diet low in saturated fat and cholesterol.",
-        "Engage in regular, moderate exercise as approved by your doctor.",
-        "Monitor your incision site for signs of infection (redness, swelling, drainage).",
-        "Report any concerning symptoms to your doctor promptly (chest pain, shortness of breath, fever)."
-      ],
-      "dont": [
-        "Smoke or be exposed to secondhand smoke.",
-        "Lift anything heavier than 5-10 pounds for several weeks after surgery.",
-        "Drive a car until cleared by your doctor.",
-        "Take over-the-counter medications without consulting your doctor.",
-        "Skip follow-up appointments with your doctor or cardiac rehabilitation team.",
-        "Strain or overexert yourself during recovery."
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "What is the main purpose of bypass surgery?",
-          "correctOption": "A",
-          "options": {
-            "A": "To improve blood flow to the heart by bypassing blocked arteries.",
-            "B": "To strengthen the heart muscle.",
-            "C": "To lower blood pressure.",
-            "D": "To prevent heart attacks."
-          }
-        },
-        {
-          "id": "q2",
-          "question": "Which of the following is a potential risk of bypass surgery?",
-          "correctOption": "B",
-          "options": {
-            "A": "Increased energy levels.",
-            "B": "Infection.",
-            "C": "Improved vision.",
-            "D": "Hair growth."
-          }
-        },
-        {
-          "id": "q3",
-          "question": "What is one important thing you should do after bypass surgery?",
-          "correctOption": "A",
-          "options": {
-            "A": "Attend cardiac rehabilitation sessions.",
-            "B": "Immediately return to your normal activities.",
-            "C": "Stop taking all medications.",
-            "D": "Avoid any physical activity."
-          }
-        },
-        {
-          "id": "q4",
-          "question": "What does 'CABG' stand for?",
-          "correctOption": "C",
-          "options": {
-            "A": "Cardiac Angiogram Bypass Grafting",
-            "B": "Coronary Artery Blockage Grafting",
-            "C": "Coronary Artery Bypass Grafting",
-            "D": "Cardiac Angiography Bypass"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770651399328",
-    "patientName": "bro",
-    "age": "17",
-    "procedure": "Knee Replacement",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "hospital": "Coimbatore Medical College",
-    "department": "General Surgery",
-    "location": "Main Operation Theater",
-    "patientId": "PAT-82699",
-    "scheduledDate": "2026-02-09",
-    "scheduledTime": "09:00 AM",
-    "surgeon": "Gobinath",
-    "anesthesiologist": "Dr. Anesthesia",
-    "otp": "698490",
-    "consentHash": "28bfcfe4240e1bf340963706efea105d92face482e8ffb795f45a5ae6b804ae8",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-09T15:37:14.041Z",
-    "aiSummary": "Knee replacement, also known as total knee arthroplasty, is a surgical procedure to replace a damaged or diseased knee joint with an artificial joint (prosthesis). This is typically done to relieve pain, improve mobility, and restore function when other treatments haven't worked. The goal is to significantly improve your quality of life.",
-    "steps": [
-      {
-        "title": "Preparation",
-        "description": "Before surgery, you'll have a thorough medical evaluation, including blood tests, a physical exam, and possibly X-rays or an MRI. We'll discuss your medical history, medications, and allergies. You may need to stop certain medications, like blood thinners, before the procedure. Physical therapy may be recommended to strengthen muscles around your knee."
-      },
-      {
-        "title": "Anesthesia",
-        "description": "You'll receive anesthesia to ensure you don't feel any pain during the surgery. This can be either general anesthesia (where you're asleep) or spinal anesthesia (where you're awake but numb from the waist down). Your anesthesiologist will discuss the best option for you based on your health and preferences."
-      },
-      {
-        "title": "Procedure Details",
-        "description": "The surgeon will make an incision over your knee. The damaged cartilage and bone surfaces are then removed and replaced with the artificial joint components, which are typically made of metal alloys, plastic, and ceramic. The new joint is carefully aligned and secured in place. The surgeon will ensure the prosthesis allows for proper knee movement and stability."
-      },
-      {
-        "title": "Closure",
-        "description": "Once the new joint is in place, the surgeon will close the incision with sutures or staples. A sterile dressing will be applied. A drain may be placed temporarily to remove excess fluid from the surgical site. You will then be taken to the recovery room to wake up from anesthesia."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Infection can occur in the joint replacement, requiring antibiotics or, in severe cases, further surgery. Strict sterile techniques are used to minimize this risk.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Blood Clots",
-        "description": "Blood clots can form in the leg veins after surgery, which can be dangerous if they travel to the lungs (pulmonary embolism). Medications and compression devices are used to prevent this.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Nerve or Blood Vessel Damage",
-        "description": "During surgery, there's a small risk of damage to nerves or blood vessels around the knee, which could lead to numbness, weakness, or changes in blood flow.",
-        "likelihood": "0.5-1%"
-      },
-      {
-        "title": "Joint Stiffness or Dislocation",
-        "description": "Some patients may experience stiffness in the knee after surgery, which can be addressed with physical therapy. In rare cases, the new joint can dislocate, requiring repositioning.",
-        "likelihood": "1-3%"
-      },
-      {
-        "title": "Implant Loosening",
-        "description": "Over time, the implant may loosen from the bone, potentially requiring revision surgery.",
-        "likelihood": "5-10% over 10-15 years"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Medical Management",
-        "description": "This involves using medications (like pain relievers and anti-inflammatory drugs), physical therapy, injections (like cortisone or hyaluronic acid), and lifestyle modifications to manage knee pain and improve function.",
-        "whenRecommended": "For patients with mild to moderate pain and limited mobility, or those who are not good candidates for surgery due to other health conditions."
-      },
-      {
-        "title": "Arthroscopic Surgery",
-        "description": "This minimally invasive procedure involves making small incisions and using a camera to visualize and repair damaged cartilage or remove loose bodies within the knee joint.",
-        "whenRecommended": "For patients with specific knee problems like cartilage tears or meniscus damage, but not for severe arthritis requiring joint replacement."
-      }
-    ],
-    "recovery": {
-      "summary": "Recovery from knee replacement surgery typically takes several weeks to months. You'll start with physical therapy to regain strength and mobility in your knee. With consistent effort and following your doctor's instructions, you can expect to return to many of your normal activities.",
-      "timeline": [
-        {
-          "label": "Day 1-2",
-          "description": "You'll be monitored in the hospital, receiving pain medication and starting gentle exercises. You'll likely use a walker or crutches to move around."
-        },
-        {
-          "label": "Week 1",
-          "description": "You'll continue physical therapy, gradually increasing your range of motion and strength. You'll likely transition from a walker to crutches or a cane. Swelling and pain are common, but should gradually decrease."
-        }
-      ],
-      "do": [
-        "Attend all scheduled physical therapy appointments.",
-        "Take pain medication as prescribed.",
-        "Elevate your leg when resting.",
-        "Apply ice packs to reduce swelling.",
-        "Keep your incision clean and dry.",
-        "Perform gentle range-of-motion exercises as instructed."
-      ],
-      "dont": [
-        "Put weight on your knee as instructed by your doctor or physical therapist.",
-        "Twist or bend your knee excessively.",
-        "Drive a car until cleared by your doctor.",
-        "Engage in strenuous activities or sports until fully recovered.",
-        "Ignore any signs of infection, such as increased redness, swelling, or drainage from the incision.",
-        "Stop taking prescribed medications without consulting your doctor."
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "What is the main goal of knee replacement surgery?",
-          "correctOption": "A",
-          "options": {
-            "A": "To relieve pain and improve mobility",
-            "B": "To completely eliminate all knee pain forever"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "Which of the following is a potential risk of knee replacement surgery?",
-          "correctOption": "B",
-          "options": {
-            "A": "Increased flexibility",
-            "B": "Infection",
-            "C": "Improved balance"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "What is an important part of recovery after knee replacement?",
-          "correctOption": "A",
-          "options": {
-            "A": "Physical therapy",
-            "B": "Staying in bed all day",
-            "C": "Avoiding any movement"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "What should you do if you notice increased redness or swelling around your incision?",
-          "correctOption": "C",
-          "options": {
-            "A": "Apply more ice",
-            "B": "Ignore it and wait",
-            "C": "Contact your doctor immediately"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770818853196",
-    "patientName": "hi",
-    "age": "78",
-    "procedure": "Hip Replacement",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "hospital": "Coimbatore Medical College",
-    "department": "General Surgery",
-    "location": "Main Operation Theater",
-    "patientId": "PAT-8244",
-    "scheduledDate": "2026-05-25",
-    "scheduledTime": "09:00 AM",
-    "surgeon": "Gobinath",
-    "anesthesiologist": "Dr. Anesthesia",
-    "otp": "122021",
-    "consentHash": "f2314ad4dd51e795513043ea5f7691ab87ad4da2669ca77bcc5035499e67257d",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-11T14:07:36.782Z",
-    "aiSummary": "Hip Replacement: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
-    "steps": [
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
-      },
-      {
-        "title": "Small Incisions",
-        "description": "Small surgical incisions are made to allow access for the instruments needed."
-      },
-      {
-        "title": "Procedure",
-        "description": "The main surgical steps are performed carefully by your experienced surgical team."
-      },
-      {
-        "title": "Closure",
-        "description": "Incisions are closed with dissolvable stitches or surgical glue."
-      },
-      {
-        "title": "Recovery Start",
-        "description": "You begin recovery with monitoring and pain management in the recovery room."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Rare internal bleeding that may require monitoring or additional care.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Anesthesia Reaction",
-        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
-        "likelihood": "less than 1%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Open Surgery",
-        "description": "Traditional surgical approach with one larger incision instead of small ones.",
-        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
-      },
-      {
-        "title": "Medical Management",
-        "description": "Medication-focused approach to manage the condition without surgery.",
-        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
-      }
-    ],
-    "recovery": {
-      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
-      "timeline": [
-        {
-          "label": "Day 0",
-          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
-        },
-        {
-          "label": "Day 1",
-          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
-        },
-        {
-          "label": "Day 2-3",
-          "description": "Often ready for discharge. Follow wound care instructions carefully."
-        },
-        {
-          "label": "Week 1",
-          "description": "Most routine activities can resume. Continue following medical restrictions."
-        }
-      ],
-      "do": [
-        "Take all prescribed medications as directed",
-        "Walk lightly as advised by your medical team",
-        "Keep incisions clean and dry",
-        "Attend all follow-up appointments",
-        "Rest and get adequate sleep"
-      ],
-      "dont": [
-        "Lift heavy objects (more than 10 lbs)",
-        "Do strenuous exercise or sports",
-        "Submerge incisions in water until cleared",
-        "Drive until approved by your doctor",
-        "Ignore signs of infection or complications"
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Will you be awake during the Hip Replacement?",
-          "correctOption": "A",
-          "options": {
-            "A": "No, you will be under anesthesia",
-            "B": "Yes, you will be fully awake"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What is a common risk of this procedure?",
-          "correctOption": "A",
-          "options": {
-            "A": "Minor infection at incision site",
-            "B": "Catching a common cold"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "How long is typical recovery?",
-          "correctOption": "A",
-          "options": {
-            "A": "About 1-2 weeks",
-            "B": "About 3-4 months"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "In your own words, what did you understand about this procedure?",
-          "minWords": 20
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770819635065",
-    "patientName": "hek",
-    "age": "78",
-    "procedure": "Bypass Surgery",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "hospital": "Coimbatore Medical College",
-    "department": "General Surgery",
-    "location": "Main Operation Theater",
-    "patientId": "PAT-17243",
-    "scheduledDate": "2026-02-11",
-    "scheduledTime": "09:00 AM",
-    "surgeon": "Gobinath",
-    "anesthesiologist": "Dr. Anesthesia",
-    "otp": "646549",
-    "consentHash": "6b70583b89b935ab129103f24dda4269359d562d4f7765faf6b322bb4d7d321a",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-11T14:21:15.482Z",
-    "aiSummary": "Bypass surgery, also known as coronary artery bypass grafting (CABG), is a procedure to improve blood flow to your heart. It involves taking a healthy blood vessel from another part of your body and using it to create a new route around a blocked or narrowed coronary artery. This surgery is typically recommended when medications and lifestyle changes are not enough to manage severe coronary artery disease and reduce the risk of heart attack.",
-    "steps": [
-      {
-        "title": "Preparation",
-        "description": "Before surgery, you'll undergo a thorough medical evaluation, including blood tests, an electrocardiogram (ECG), chest X-ray, and possibly an angiogram to assess the extent of blockages. You'll meet with your surgeon, anesthesiologist, and other members of the healthcare team to discuss the procedure, answer your questions, and review your medical history. You'll also be instructed to stop certain medications, such as blood thinners, several days before surgery, as directed by your doctor."
-      },
-      {
-        "title": "Anesthesia",
-        "description": "Bypass surgery is performed under general anesthesia, meaning you will be completely asleep and unaware during the procedure. An anesthesiologist will monitor your vital signs, including heart rate, blood pressure, and breathing, throughout the surgery. A breathing tube will be inserted to help you breathe, and a catheter will be placed in your bladder to drain urine."
-      },
-      {
-        "title": "Procedure Details",
-        "description": "The surgeon will make an incision in the chest and open the breastbone (sternotomy) to access the heart. A heart-lung machine will take over the function of your heart and lungs, allowing the surgeon to operate on a still, bloodless heart. A healthy blood vessel, typically from your leg (saphenous vein) or chest (internal mammary artery), will be grafted to bypass the blocked coronary artery. Multiple bypasses may be performed depending on the number of blocked arteries. The surgeon will carefully connect the graft to the coronary artery, restoring blood flow."
-      },
-      {
-        "title": "Closure",
-        "description": "Once the bypasses are completed, the heart is gradually weaned off the heart-lung machine and allowed to resume its normal function. The breathing tube is removed, and the breastbone is wired back together. Chest tubes are placed to drain any excess fluid from the chest cavity. The incision is closed with sutures or staples, and a dressing is applied."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Bleeding",
-        "description": "Bleeding can occur during or after surgery, requiring blood transfusions or further procedures to stop the bleeding.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Infection",
-        "description": "Infection can occur at the incision site or within the chest cavity. Antibiotics are typically used to treat infections.",
-        "likelihood": "1-3%"
-      },
-      {
-        "title": "Stroke",
-        "description": "A stroke can occur if a blood clot travels to the brain, disrupting blood flow. This is a rare but serious complication.",
-        "likelihood": "0.5-1%"
-      },
-      {
-        "title": "Heart Rhythm Problems (Arrhythmias)",
-        "description": "Irregular heart rhythms can occur after surgery, sometimes requiring medication or a pacemaker to correct them.",
-        "likelihood": "5-10%"
-      },
-      {
-        "title": "Kidney Problems",
-        "description": "Reduced kidney function can occur due to decreased blood flow during the procedure.",
-        "likelihood": "1-2%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Medical Management",
-        "description": "This involves managing your condition with medications (such as statins, beta-blockers, and aspirin), lifestyle changes (such as diet and exercise), and cardiac rehabilitation.",
-        "whenRecommended": "For patients with less severe coronary artery disease or those who are not good candidates for surgery due to other medical conditions."
-      },
-      {
-        "title": "Angioplasty and Stenting (Percutaneous Coronary Intervention - PCI)",
-        "description": "This procedure involves inserting a catheter with a balloon tip into the blocked artery and inflating the balloon to widen the artery. A stent is then placed to keep the artery open.",
-        "whenRecommended": "For patients with single or a few blockages that can be effectively treated with stenting, and when surgery is considered too risky."
-      }
-    ],
-    "recovery": {
-      "summary": "Recovery from bypass surgery typically takes several weeks to months. You'll spend a few days in the hospital, followed by a period of rehabilitation to regain strength and improve heart health. Following your doctor's instructions carefully is crucial for a successful recovery.",
-      "timeline": [
-        {
-          "label": "Day 1-2",
-          "description": "You'll be closely monitored in the intensive care unit (ICU). Pain medication will be administered to manage discomfort. You'll gradually start breathing on your own and may be able to sit up and move around with assistance."
-        },
-        {
-          "label": "Week 1",
-          "description": "You'll be transferred to a regular hospital room. Chest tubes will be removed as drainage decreases. You'll begin cardiac rehabilitation exercises under the guidance of a physical therapist. You'll receive instructions on wound care and medication management."
-        }
-      ],
-      "do": [
-        "Take all medications as prescribed by your doctor.",
-        "Attend cardiac rehabilitation sessions regularly.",
-        "Follow a heart-healthy diet low in saturated fat and cholesterol.",
-        "Get regular, moderate exercise as approved by your doctor.",
-        "Monitor your incision site for signs of infection (redness, swelling, drainage).",
-        "Report any concerning symptoms to your doctor, such as chest pain, shortness of breath, or fever."
-      ],
-      "dont": [
-        "Smoke or be exposed to secondhand smoke.",
-        "Lift anything heavier than 5-10 pounds for several weeks after surgery.",
-        "Drive a car until your doctor says it's safe.",
-        "Engage in strenuous activities or heavy lifting without your doctor's approval.",
-        "Skip medication doses without consulting your doctor.",
-        "Ignore any new or worsening symptoms."
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "What is the main purpose of bypass surgery?",
-          "correctOption": "A",
-          "options": {
-            "A": "To improve blood flow to the heart by bypassing blocked arteries.",
-            "B": "To replace a damaged heart valve.",
-            "C": "To strengthen the heart muscle."
-          }
-        },
-        {
-          "id": "q2",
-          "question": "Which of the following is a common alternative to bypass surgery?",
-          "correctOption": "B",
-          "options": {
-            "A": "Pacemaker implantation",
-            "B": "Angioplasty and stenting",
-            "C": "Heart transplant"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "What should you do if you notice redness or drainage from your incision site?",
-          "correctOption": "A",
-          "options": {
-            "A": "Contact your doctor immediately.",
-            "B": "Apply antibiotic ointment and monitor it.",
-            "C": "Ignore it and wait to see if it improves."
-          }
-        },
-        {
-          "id": "q4",
-          "question": "Why is cardiac rehabilitation important after bypass surgery?",
-          "correctOption": "C",
-          "options": {
-            "A": "To prevent infection.",
-            "B": "To reduce the need for medication.",
-            "C": "To help you regain strength and improve heart health."
-          }
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770820273008",
-    "patientName": "hello",
-    "age": "23",
-    "procedure": "Cataract Surgery",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "hospital": "Coimbatore Medical College",
-    "department": "General Surgery",
-    "location": "Main Operation Theater",
-    "patientId": "PAT-74345",
-    "scheduledDate": "2026-02-11",
-    "scheduledTime": "09:00 AM",
-    "surgeon": "Gobinath",
-    "anesthesiologist": "Dr. Anesthesia",
-    "otp": "598110",
-    "consentHash": "22e870bcd17783f8958f6f28f6c971431ccc5704e0194daa36c4522ef26456eb",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-11T14:31:49.977Z",
-    "aiSummary": "Cataract surgery is a common procedure to remove a cloudy lens (cataract) from your eye and replace it with a clear artificial lens. Cataracts develop naturally with age and can cause blurry vision, glare, and difficulty seeing at night. This surgery aims to restore clear vision and improve your quality of life.",
-    "steps": [
-      {
-        "title": "Preparation",
-        "description": "Before surgery, you'll have a thorough eye exam to confirm the diagnosis and determine the best type of lens implant for you. We'll also discuss your medical history and any medications you're taking. You may be asked to stop certain medications, like blood thinners, a few days before the procedure. Your eye will be numbed with eye drops, and you'll have photos taken to guide the surgeon."
-      },
-      {
-        "title": "Anesthesia",
-        "description": "Cataract surgery is typically performed under local anesthesia, meaning you'll be awake but your eye will be numb. This is usually achieved with eye drops. In some cases, a mild sedative may be given to help you relax. General anesthesia (being completely asleep) is rarely necessary."
-      },
-      {
-        "title": "Procedure Details",
-        "description": "The surgeon makes a tiny incision in your cornea (the clear front part of your eye). A small amount of fluid is removed, and a tiny capsule is created around the cloudy lens. Using a technique called phacoemulsification, the cloudy lens is broken up with ultrasound energy and gently suctioned out. Then, a foldable artificial lens (intraocular lens or IOL) is inserted through the same incision and carefully positioned within the capsule. The IOL unfolds and remains in place permanently."
-      },
-      {
-        "title": "Closure",
-        "description": "The tiny incision made during the surgery usually self-seals and doesn't require stitches. A protective shield will be placed over your eye to protect it. You'll be monitored for a short time after the surgery to ensure everything is stable before you are discharged."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Infection inside the eye is a rare but serious complication. It is treated with antibiotics.",
-        "likelihood": "0.1%"
-      },
-      {
-        "title": "Inflammation",
-        "description": "Some inflammation is normal after surgery, but excessive inflammation can affect vision. It is usually managed with eye drops.",
-        "likelihood": "5-10%"
-      },
-      {
-        "title": "Retinal Detachment",
-        "description": "A retinal detachment is a separation of the retina from the back of the eye. This is a rare but serious complication that requires prompt treatment.",
-        "likelihood": "0.5-1%"
-      },
-      {
-        "title": "Cystoid Macular Edema (CME)",
-        "description": "CME is swelling in the macula (the central part of the retina) that can cause blurry vision. It is usually treated with eye drops.",
-        "likelihood": "1-3%"
-      },
-      {
-        "title": "Glaucoma",
-        "description": "Increased pressure inside the eye (glaucoma) can occur, potentially damaging the optic nerve. This is usually managed with eye drops or, rarely, further surgery.",
-        "likelihood": "1%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Medical Management (Observation)",
-        "description": "Initially, vision changes due to cataracts can sometimes be managed with stronger eyeglasses or contact lenses. This is a temporary solution and doesn't address the underlying cataract.",
-        "whenRecommended": "For patients with mild cataracts and minimal vision impairment who are not significantly bothered by their vision."
-      },
-      {
-        "title": "Femtosecond Laser-Assisted Cataract Surgery (FLACS)",
-        "description": "This technique uses a laser to make some of the incisions and break up the cataract. It may offer greater precision in certain cases, but it doesn't eliminate all surgical risks.",
-        "whenRecommended": "For patients who may benefit from more precise incisions or cataract fragmentation, and who understand the additional cost."
-      }
-    ],
-    "recovery": {
-      "summary": "Recovery from cataract surgery is usually quite quick. You'll likely notice an immediate improvement in your vision, but it may take several weeks for your vision to fully stabilize. Follow-up appointments are important to monitor your healing and ensure optimal results.",
-      "timeline": [
-        {
-          "label": "Day 1-2",
-          "description": "Your eye may be slightly red, swollen, and sensitive to light. Use the prescribed eye drops as directed. Avoid rubbing your eye and strenuous activity. Rest and protect your eye with the shield provided."
-        },
-        {
-          "label": "Week 1",
-          "description": "Most of the redness and swelling will subside. Your vision will continue to improve. You'll have follow-up appointments to check your progress. Continue using eye drops as prescribed and avoid heavy lifting or bending over for extended periods."
-        }
-      ],
-      "do": [
-        "Use prescribed eye drops as directed by your doctor.",
-        "Attend all scheduled follow-up appointments.",
-        "Protect your eye from injury with the provided shield, especially while sleeping.",
-        "Wear sunglasses to protect your eye from bright light.",
-        "Keep your face clean and dry, especially around the incision."
-      ],
-      "dont": [
-        "Rub your eye.",
-        "Lift heavy objects or engage in strenuous activity for at least a week.",
-        "Swim or submerge your head underwater for at least two weeks.",
-        "Apply makeup or lotions near your eye until cleared by your doctor.",
-        "Drive if your vision is blurry or you are taking medications that affect your vision."
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "What is the main purpose of cataract surgery?",
-          "correctOption": "A",
-          "options": {
-            "A": "To remove a cloudy lens and replace it with a clear one.",
-            "B": "To improve overall health and wellness.",
-            "C": "To prevent glaucoma."
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What type of anesthesia is typically used for cataract surgery?",
-          "correctOption": "A",
-          "options": {
-            "A": "Local anesthesia (numbing drops).",
-            "B": "General anesthesia (being completely asleep).",
-            "C": "No anesthesia is used."
-          }
-        },
-        {
-          "id": "q3",
-          "question": "Which of the following is a potential risk of cataract surgery?",
-          "correctOption": "B",
-          "options": {
-            "A": "Improved hearing.",
-            "B": "Infection.",
-            "C": "Increased height."
-          }
-        },
-        {
-          "id": "q4",
-          "question": "What should you NOT do after cataract surgery?",
-          "correctOption": "A",
-          "options": {
-            "A": "Rub your eye.",
-            "B": "Use eye drops.",
-            "C": "Wear sunglasses."
-          }
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770820744070",
-    "patientName": "ko",
-    "age": "56",
+    "consentId": "CNS_1771165957751",
+    "patientName": "Gobi",
+    "age": "15",
     "procedure": "Appendectomy",
     "doctorId": "DOC_001",
     "doctorName": "Gobinath",
     "hospital": "Coimbatore Medical College",
     "department": "General Surgery",
     "location": "Main Operation Theater",
-    "patientId": "PAT-12367",
-    "scheduledDate": "2026-02-11",
+    "patientId": "PAT-13542",
+    "scheduledDate": "2026-02-15",
     "scheduledTime": "09:00 AM",
     "surgeon": "Gobinath",
     "anesthesiologist": "Dr. Anesthesia",
-    "otp": "132936",
-    "emergencyMode": true,
-    "consentHash": "a01993d2d2dd9aa475dfe5afdb6089128642a666d7759c95f1a89ee3ac9c2a43",
+    "otp": "263557",
+    "emergencyMode": false,
+    "consentHash": "068daf5eda7cb842ad4c855d2f28c5a7632fb3d635aea64f8e4f74ef43693135",
     "status": "PENDING_PATIENT",
     "patientSigned": false,
     "doctorVerified": false,
     "blockchainTx": null,
     "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-11T14:39:39.232Z",
-    "aiSummary": "An appendectomy is a surgical procedure to remove the appendix, a small, finger-shaped pouch that extends from your colon. It's typically performed when the appendix becomes inflamed (appendicitis), causing pain, fever, and potential infection. Removing the appendix prevents serious complications like a ruptured appendix, which can be life-threatening.",
+    "createdAt": "2026-02-15T14:33:17.146Z",
+    "aiSummary": "An appendectomy is the surgical removal of the appendix, a small, finger-shaped pouch that extends from your colon. This procedure is typically performed when the appendix becomes inflamed (appendicitis), causing pain, fever, and potential infection. Removing the appendix prevents serious complications like a ruptured appendix, which can be life-threatening.",
     "steps": [
       {
         "title": "Preparation",
-        "description": "Before the surgery, you'll be asked to stop eating and drinking several hours beforehand, usually after midnight. You'll also need to inform your doctor about any medications you're taking, including over-the-counter drugs and supplements. A pre-operative assessment, including vital signs and a review of your medical history, will be conducted to ensure you are fit for surgery. You may be asked to shower with a special antibacterial soap."
+        "description": "Before your appendectomy, you'll be asked to stop eating and drinking several hours beforehand, usually after midnight. You'll also need to inform your doctor about any medications you're taking, including over-the-counter drugs and supplements. A pre-operative assessment, including blood tests and potentially imaging (like a CT scan), will be performed to confirm the diagnosis and assess your overall health. You will be given specific instructions regarding bowel preparation, which may involve a clear liquid diet."
       },
       {
         "title": "Anesthesia",
-        "description": "Appendectomies are typically performed under general anesthesia, meaning you will be asleep and won't feel any pain during the procedure. An anesthesiologist will monitor your vital signs throughout the surgery. Before administering the anesthesia, the anesthesiologist will discuss the risks and benefits with you."
+        "description": "Appendectomies can be performed using general anesthesia, meaning you will be completely asleep and unaware during the procedure. Alternatively, in some cases, regional anesthesia (like an epidural) may be used, which numbs the lower body while you remain awake but comfortable. An anesthesiologist will be present throughout the surgery to monitor your vital signs and ensure your safety."
       },
       {
         "title": "Procedure Details (Laparoscopic vs. Open)",
-        "description": "There are two main approaches: laparoscopic and open. Laparoscopic appendectomy involves making small incisions and using a camera and specialized instruments to remove the appendix. Open appendectomy involves a larger incision in the lower right abdomen. The surgeon will determine the best approach based on your individual circumstances and the severity of your appendicitis. During the procedure, the surgeon will locate the appendix, sever its connection to the colon, and remove it. The area is then cleaned to prevent infection."
+        "description": "There are two main surgical approaches: laparoscopic and open. Laparoscopic appendectomy involves making small incisions and using a camera and specialized instruments to remove the appendix. Open appendectomy involves a larger incision in the lower right abdomen. The choice depends on the severity of your condition and the surgeon's expertise. During the procedure, the surgeon will locate the inflamed appendix, carefully separate it from surrounding tissues, and remove it. The base of the appendix is then tied off to prevent bleeding."
       },
       {
         "title": "Closure",
-        "description": "After the appendix is removed, the surgeon will close the incision(s). In laparoscopic surgery, the incisions are typically closed with sutures or surgical staples. In open surgery, the incision may be closed with sutures, staples, or surgical glue. A sterile dressing will be applied to the incision site(s)."
+        "description": "After the appendix is removed, the surgeon will close the incision(s). In laparoscopic surgery, the small incisions are typically closed with sutures or surgical glue. In open surgery, the incision will be closed with sutures or staples. A sterile dressing will be applied to the incision site(s)."
       }
     ],
     "risks": [
       {
         "title": "Infection",
-        "description": "Infection at the incision site or within the abdomen is a potential risk. This is usually treated with antibiotics.",
+        "description": "Like any surgical procedure, there's a risk of infection at the incision site or within the abdomen. This is usually treated with antibiotics.",
         "likelihood": "2-5%"
       },
       {
@@ -2710,53 +368,54 @@
       },
       {
         "title": "Ileus (Bowel Obstruction)",
-        "description": "Ileus is a temporary slowing or stopping of bowel function after surgery. It usually resolves on its own, but may require treatment with medication or a nasogastric tube.",
+        "description": "After surgery, the bowel may temporarily stop working properly, leading to a buildup of gas and fluids. This is called an ileus and usually resolves on its own.",
         "likelihood": "5-10%"
       },
       {
         "title": "Adverse Reaction to Anesthesia",
-        "description": "Although rare, allergic reactions or other adverse effects to anesthesia can occur.",
+        "description": "Although rare, allergic reactions or other complications related to anesthesia can occur.",
         "likelihood": "0.1-0.5%"
       }
     ],
     "alternatives": [
       {
         "title": "Medical Management (Antibiotics)",
-        "description": "In some cases of uncomplicated appendicitis, a course of antibiotics may be used to treat the infection without surgery. However, this approach carries a higher risk of recurrence.",
-        "whenRecommended": "For patients with mild appendicitis and no signs of perforation or abscess."
+        "description": "In some cases of uncomplicated appendicitis, a course of strong antibiotics may be used to treat the infection without surgery. However, this approach carries a higher risk of recurrence and potential complications.",
+        "whenRecommended": "For patients with mild appendicitis and no signs of perforation or abscess, and who are good candidates for antibiotic therapy."
       },
       {
-        "title": "Different Surgical Approach (Open vs. Laparoscopic)",
-        "description": "The choice between open and laparoscopic surgery depends on factors like the severity of the appendicitis, the patient's overall health, and the surgeon's expertise. Open surgery may be necessary if the appendix has ruptured or if there are complications that make laparoscopic surgery unsafe.",
-        "whenRecommended": "Open surgery is typically recommended when there is a ruptured appendix, abscess, or other complications that make laparoscopic surgery difficult or unsafe."
+        "title": "Minimally Invasive Robotic Surgery",
+        "description": "Robotic surgery is a type of laparoscopic surgery where the surgeon uses a robotic system to perform the procedure. It offers enhanced precision and dexterity, potentially leading to smaller incisions and faster recovery.",
+        "whenRecommended": "For patients who are good surgical candidates and where the surgeon has experience with robotic appendectomy."
       }
     ],
     "recovery": {
-      "summary": "Recovery from an appendectomy typically takes 1-4 weeks, depending on the surgical approach and your overall health. You'll likely spend 1-3 days in the hospital after surgery. Pain will gradually subside with medication, and you'll be able to resume most normal activities within a few weeks.",
+      "summary": "Recovery from an appendectomy typically takes 1-4 weeks, depending on the surgical approach and your overall health. You'll likely spend 1-3 days in the hospital for monitoring and pain management. Following your doctor's instructions carefully is crucial for a smooth and speedy recovery.",
       "timeline": [
         {
           "label": "Day 1-2",
-          "description": "You'll be monitored closely in the hospital. Pain medication will be administered as needed. You'll be encouraged to walk around to prevent blood clots and promote healing. Diet will gradually progress from clear liquids to solid foods."
+          "description": "You'll be monitored for pain and complications. Pain medication will be provided. You'll gradually start eating and drinking as tolerated. Walking short distances is encouraged to prevent blood clots."
         },
         {
           "label": "Week 1",
-          "description": "You'll likely be discharged from the hospital within 1-3 days. Continue taking pain medication as prescribed. Avoid strenuous activities and heavy lifting. Gradually increase your activity level as tolerated. Follow up with your surgeon for a check-up."
+          "description": "You'll likely be discharged from the hospital within 1-3 days. Continue taking pain medication as prescribed. Avoid strenuous activities and heavy lifting. Monitor the incision site for signs of infection (redness, swelling, drainage). Follow up with your surgeon as scheduled."
         }
       ],
       "do": [
         "Take all prescribed medications as directed.",
         "Keep the incision site clean and dry.",
-        "Change dressings as instructed by your healthcare provider.",
-        "Drink plenty of fluids to stay hydrated.",
+        "Drink plenty of fluids to prevent dehydration.",
         "Gradually increase your activity level as tolerated.",
-        "Attend all follow-up appointments."
+        "Attend all follow-up appointments with your surgeon.",
+        "Report any signs of infection (fever, redness, swelling, drainage) to your doctor immediately."
       ],
       "dont": [
-        "Avoid strenuous activities or heavy lifting for at least 4-6 weeks.",
-        "Don't smoke, as it can impair healing.",
-        "Don't take aspirin or ibuprofen without consulting your doctor, as they can increase the risk of bleeding.",
-        "Don't ignore signs of infection, such as fever, redness, swelling, or pus at the incision site.",
-        "Don't drive until your doctor says it's safe."
+        "Lift anything heavy (over 10 pounds) for at least 2 weeks.",
+        "Engage in strenuous activities or sports for at least 4 weeks.",
+        "Drive a car until you are cleared by your doctor.",
+        "Soak the incision site in a bath or swimming pool.",
+        "Smoke, as it can impair healing.",
+        "Take aspirin or ibuprofen without consulting your doctor, as they can increase the risk of bleeding."
       ]
     },
     "quiz": {
@@ -2766,9 +425,10 @@
           "question": "What is the main reason an appendectomy is performed?",
           "correctOption": "A",
           "options": {
-            "A": "To remove an inflamed appendix (appendicitis)",
-            "B": "To remove a kidney stone",
-            "C": "To treat a heart condition"
+            "A": "Inflammation of the appendix (appendicitis)",
+            "B": "Removal of a kidney stone",
+            "C": "Treatment of a heart condition",
+            "D": "Repair of a torn ligament"
           }
         },
         {
@@ -2778,781 +438,30 @@
           "options": {
             "A": "Improved vision",
             "B": "Infection at the incision site",
-            "C": "Increased energy levels"
+            "C": "Increased energy levels",
+            "D": "Stronger bones"
           }
         },
         {
           "id": "q3",
-          "question": "What does 'laparoscopic' surgery mean?",
+          "question": "What does 'laparoscopic' mean in relation to surgery?",
           "correctOption": "A",
           "options": {
             "A": "Surgery performed through small incisions using a camera",
-            "B": "Surgery performed only under local anesthesia",
-            "C": "Surgery that always requires a blood transfusion"
+            "B": "Surgery performed only on children",
+            "C": "Surgery that always requires a blood transfusion",
+            "D": "Surgery that is always performed in an emergency"
           }
         },
         {
           "id": "q4",
-          "question": "What should you do if you notice redness or swelling at your incision site?",
-          "correctOption": "B",
-          "options": {
-            "A": "Apply more ointment",
-            "B": "Contact your doctor immediately",
-            "C": "Ignore it and wait a few days"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1770820847566",
-    "patientName": "jk",
-    "age": "56",
-    "procedure": "Hernia Repair",
-    "doctorId": "DOC_001",
-    "doctorName": "Dr. John Smith",
-    "hospital": "City General Hospital",
-    "department": "General Surgery",
-    "location": "Main Operation Theater",
-    "patientId": "PAT-88151",
-    "scheduledDate": "2026-02-11",
-    "scheduledTime": "09:00 AM",
-    "surgeon": "Dr. John Smith",
-    "anesthesiologist": "Dr. Anesthesia",
-    "otp": "778257",
-    "emergencyMode": false,
-    "consentHash": "db52934ab0ec9dd9538d73219eb677f60a3c1d5884db8d05a6e32b08466c3ea2",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-11T14:41:25.220Z",
-    "aiSummary": "A hernia repair is a surgical procedure to fix a weakness or hole in your abdominal wall where an organ or tissue is bulging through. This procedure aims to push the protruding tissue back into place and reinforce the weakened area, preventing further complications and relieving discomfort. The goal is to restore the integrity of your abdominal wall and improve your quality of life.",
-    "steps": [
-      {
-        "title": "Preparation",
-        "description": "Before the surgery, you'll have a pre-operative assessment, including a physical exam and review of your medical history. You may need to stop certain medications, such as blood thinners, several days before the procedure. You'll also receive instructions on fasting (not eating or drinking) for a specific period before the surgery, typically 6-8 hours, and you should arrange for someone to drive you home after the procedure."
-      },
-      {
-        "title": "Anesthesia",
-        "description": "Hernia repair can be performed under general anesthesia (you'll be asleep) or local anesthesia with sedation (you'll be awake but relaxed and may not feel much pain). The choice depends on the type of hernia, your overall health, and your preference, discussed with your anesthesiologist. The anesthesiologist will monitor your vital signs throughout the procedure."
-      },
-      {
-        "title": "Procedure Details",
-        "description": "The surgeon will make an incision in your abdomen, the size and location depending on the size and location of the hernia. The protruding tissue will be gently pushed back into the abdominal cavity. The weakened area of the abdominal wall is then reinforced. This may involve stitching the tissues together, using a mesh patch (a synthetic material that acts like a scaffold), or a combination of both. The type of repair (open or laparoscopic) will influence the incision size and approach."
-      },
-      {
-        "title": "Closure",
-        "description": "Once the hernia is repaired and the abdominal wall is reinforced, the surgeon will close the incision in layers using sutures (stitches). A sterile dressing will be applied to the incision site. If a laparoscopic approach was used, several small incisions will be closed similarly."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Infection at the incision site is a potential risk with any surgery. Symptoms include redness, swelling, pain, and fever. Antibiotics are usually effective in treating infections.",
-        "likelihood": "1-3%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Some bleeding is expected during and after surgery. However, excessive bleeding requiring a blood transfusion is a rare complication.",
-        "likelihood": "0.5-1%"
-      },
-      {
-        "title": "Chronic Pain",
-        "description": "A small percentage of patients may experience persistent pain or discomfort around the incision site after surgery. This is often manageable with medication and physical therapy.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Recurrence of Hernia",
-        "description": "Despite repair, there's a chance the hernia could return, particularly if a mesh is not used or if the patient doesn't follow post-operative instructions. Regular follow-up appointments are important to monitor for recurrence.",
-        "likelihood": "5-10%"
-      },
-      {
-        "title": "Injury to Adjacent Structures",
-        "description": "Rarely, there is a risk of injury to nearby nerves, blood vessels, or organs during the procedure. This can lead to numbness, tingling, or other complications.",
-        "likelihood": "0.1-0.5%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Medical Management (Watchful Waiting)",
-        "description": "For small hernias that aren't causing significant symptoms, your doctor may recommend observation and pain management rather than immediate surgery. This involves monitoring the hernia for any changes and managing any discomfort with medication.",
-        "whenRecommended": "For small, asymptomatic hernias or patients with significant medical conditions that make surgery risky."
-      },
-      {
-        "title": "Laparoscopic vs. Open Repair",
-        "description": "Hernia repair can be performed using either a traditional open approach (larger incision) or a minimally invasive laparoscopic approach (smaller incisions with specialized instruments). Laparoscopic surgery generally results in less pain, smaller scars, and a faster recovery, but may not be suitable for all types of hernias.",
-        "whenRecommended": "Laparoscopic repair is often preferred for smaller hernias and patients who are good candidates for minimally invasive surgery."
-      }
-    ],
-    "recovery": {
-      "summary": "Recovery from hernia repair typically takes several weeks. You'll likely experience some pain and discomfort initially, which can be managed with medication. It's important to follow your doctor's instructions carefully to allow your body to heal properly and prevent complications.",
-      "timeline": [
-        {
-          "label": "Day 1-2",
-          "description": "Rest is crucial. Manage pain with prescribed medication. Keep the incision site clean and dry. Avoid lifting anything heavy or straining."
-        },
-        {
-          "label": "Week 1",
-          "description": "Gradually increase activity levels as tolerated. Continue to monitor the incision site for signs of infection. Attend follow-up appointments as scheduled. You may still experience some discomfort, but it should gradually improve."
-        }
-      ],
-      "do": [
-        "Take all prescribed medications as directed.",
-        "Keep the incision site clean and dry.",
-        "Attend all scheduled follow-up appointments.",
-        "Gradually increase activity levels as tolerated, following your doctor's instructions.",
-        "Perform gentle exercises to strengthen your abdominal muscles (as instructed by your doctor or physical therapist).",
-        "Report any signs of infection (redness, swelling, pain, fever) to your doctor immediately."
-      ],
-      "dont": [
-        "Lift anything heavier than 10 pounds for at least 4-6 weeks.",
-        "Strain during bowel movements (use stool softeners if needed).",
-        "Participate in strenuous activities or sports until cleared by your doctor.",
-        "Bend over at the waist or twist your torso excessively.",
-        "Smoke, as it can impair healing.",
-        "Ignore any unusual pain, swelling, or discharge from the incision site."
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "What is the main purpose of a hernia repair?",
-          "correctOption": "A",
-          "options": {
-            "A": "To push the protruding tissue back into place and reinforce the abdominal wall.",
-            "B": "To remove the entire abdomen."
-          }
-        },
-        {
-          "id": "q2",
-          "question": "Which of the following is a potential risk of hernia repair surgery?",
-          "correctOption": "A",
-          "options": {
-            "A": "Infection at the incision site.",
-            "B": "Growing a new organ."
-          }
-        },
-        {
-          "id": "q3",
           "question": "What should you do if you notice redness or swelling around your incision site?",
-          "correctOption": "B",
+          "correctOption": "C",
           "options": {
-            "A": "Apply more ointment.",
-            "B": "Contact your doctor immediately."
-          }
-        },
-        {
-          "id": "q4",
-          "question": "True or False: It's okay to lift heavy objects immediately after hernia repair surgery.",
-          "correctOption": "A",
-          "options": {
-            "A": "False",
-            "B": "True"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1771090712552",
-    "patientName": "Raja",
-    "age": "16",
-    "procedure": "Appendectomy",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "hospital": "Coimbatore Medical College",
-    "department": "General Surgery",
-    "location": "Main Operation Theater",
-    "patientId": "PAT-53176",
-    "scheduledDate": "2026-02-14",
-    "scheduledTime": "09:00 AM",
-    "surgeon": "Gobinath",
-    "anesthesiologist": "Dr. Anesthesia",
-    "otp": "937054",
-    "emergencyMode": false,
-    "consentHash": "f4cf621796c9771edbd1200dd0e90dd9562737f8d658085f8e32f0a067a12d58",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-14T17:38:32.838Z",
-    "aiSummary": "Appendectomy: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
-    "steps": [
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
-      },
-      {
-        "title": "Small Incisions",
-        "description": "Small surgical incisions are made to allow access for the instruments needed."
-      },
-      {
-        "title": "Procedure",
-        "description": "The main surgical steps are performed carefully by your experienced surgical team."
-      },
-      {
-        "title": "Closure",
-        "description": "Incisions are closed with dissolvable stitches or surgical glue."
-      },
-      {
-        "title": "Recovery Start",
-        "description": "You begin recovery with monitoring and pain management in the recovery room."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Rare internal bleeding that may require monitoring or additional care.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Anesthesia Reaction",
-        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
-        "likelihood": "less than 1%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Open Surgery",
-        "description": "Traditional surgical approach with one larger incision instead of small ones.",
-        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
-      },
-      {
-        "title": "Medical Management",
-        "description": "Medication-focused approach to manage the condition without surgery.",
-        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
-      }
-    ],
-    "recovery": {
-      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
-      "timeline": [
-        {
-          "label": "Day 0",
-          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
-        },
-        {
-          "label": "Day 1",
-          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
-        },
-        {
-          "label": "Day 2-3",
-          "description": "Often ready for discharge. Follow wound care instructions carefully."
-        },
-        {
-          "label": "Week 1",
-          "description": "Most routine activities can resume. Continue following medical restrictions."
-        }
-      ],
-      "do": [
-        "Take all prescribed medications as directed",
-        "Walk lightly as advised by your medical team",
-        "Keep incisions clean and dry",
-        "Attend all follow-up appointments",
-        "Rest and get adequate sleep"
-      ],
-      "dont": [
-        "Lift heavy objects (more than 10 lbs)",
-        "Do strenuous exercise or sports",
-        "Submerge incisions in water until cleared",
-        "Drive until approved by your doctor",
-        "Ignore signs of infection or complications"
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Will you be awake during the Appendectomy?",
-          "correctOption": "A",
-          "options": {
-            "A": "No, you will be under anesthesia",
-            "B": "Yes, you will be fully awake"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What is a common risk of this procedure?",
-          "correctOption": "A",
-          "options": {
-            "A": "Minor infection at incision site",
-            "B": "Catching a common cold"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "How long is typical recovery?",
-          "correctOption": "A",
-          "options": {
-            "A": "About 1-2 weeks",
-            "B": "About 3-4 months"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "In your own words, what did you understand about this procedure?",
-          "minWords": 20
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1771091244333",
-    "patientName": "raja ",
-    "age": "18",
-    "procedure": "Hip Replacement",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "hospital": "Coimbatore Medical College",
-    "department": "General Surgery",
-    "location": "Main Operation Theater",
-    "patientId": "PAT-22562",
-    "scheduledDate": "2026-02-14",
-    "scheduledTime": "09:00 AM",
-    "surgeon": "Gobinath",
-    "anesthesiologist": "Dr. Anesthesia",
-    "otp": "936382",
-    "emergencyMode": true,
-    "consentHash": "4ec3fb83759952014aca9a57f1e76e91551a2c7f856f68467d035a2fa0b99f5e",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-14T17:47:24.561Z",
-    "aiSummary": "Hip Replacement: This is a medical procedure performed to address your specific health condition. It involves careful surgical steps, risks are monitored and minimized, and recovery is typically quick. Most patients go home within 2 days and resume normal activities within 1-2 weeks with proper follow-up care.",
-    "steps": [
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to keep you comfortable and pain-free during the procedure."
-      },
-      {
-        "title": "Small Incisions",
-        "description": "Small surgical incisions are made to allow access for the instruments needed."
-      },
-      {
-        "title": "Procedure",
-        "description": "The main surgical steps are performed carefully by your experienced surgical team."
-      },
-      {
-        "title": "Closure",
-        "description": "Incisions are closed with dissolvable stitches or surgical glue."
-      },
-      {
-        "title": "Recovery Start",
-        "description": "You begin recovery with monitoring and pain management in the recovery room."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Minor infection at the incision sites can occur but is treatable with antibiotics.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Rare internal bleeding that may require monitoring or additional care.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Anesthesia Reaction",
-        "description": "Very rare allergic or adverse reaction to anesthesia medications.",
-        "likelihood": "less than 1%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Open Surgery",
-        "description": "Traditional surgical approach with one larger incision instead of small ones.",
-        "whenRecommended": "When minimally invasive approach is not suitable for your condition"
-      },
-      {
-        "title": "Medical Management",
-        "description": "Medication-focused approach to manage the condition without surgery.",
-        "whenRecommended": "Only for select cases where surgery can be deferred or avoided"
-      }
-    ],
-    "recovery": {
-      "summary": "Most patients go home within 2 days and resume light activities within a week. Full recovery typically takes about 1-2 weeks depending on the specific procedure and individual healing.",
-      "timeline": [
-        {
-          "label": "Day 0",
-          "description": "Surgery day with monitoring in recovery room. Rest and pain management."
-        },
-        {
-          "label": "Day 1",
-          "description": "Light walking encouraged. Soft diet. Pain control medications as prescribed."
-        },
-        {
-          "label": "Day 2-3",
-          "description": "Often ready for discharge. Follow wound care instructions carefully."
-        },
-        {
-          "label": "Week 1",
-          "description": "Most routine activities can resume. Continue following medical restrictions."
-        }
-      ],
-      "do": [
-        "Take all prescribed medications as directed",
-        "Walk lightly as advised by your medical team",
-        "Keep incisions clean and dry",
-        "Attend all follow-up appointments",
-        "Rest and get adequate sleep"
-      ],
-      "dont": [
-        "Lift heavy objects (more than 10 lbs)",
-        "Do strenuous exercise or sports",
-        "Submerge incisions in water until cleared",
-        "Drive until approved by your doctor",
-        "Ignore signs of infection or complications"
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Will you be awake during the Hip Replacement?",
-          "correctOption": "A",
-          "options": {
-            "A": "No, you will be under anesthesia",
-            "B": "Yes, you will be fully awake"
-          }
-        },
-        {
-          "id": "q2",
-          "question": "What is a common risk of this procedure?",
-          "correctOption": "A",
-          "options": {
-            "A": "Minor infection at incision site",
-            "B": "Catching a common cold"
-          }
-        },
-        {
-          "id": "q3",
-          "question": "How long is typical recovery?",
-          "correctOption": "A",
-          "options": {
-            "A": "About 1-2 weeks",
-            "B": "About 3-4 months"
-          }
-        },
-        {
-          "id": "q4",
-          "question": "In your own words, what did you understand about this procedure?",
-          "minWords": 20
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1771091726942",
-    "patientName": "Rahul",
-    "age": "12",
-    "procedure": "Knee Replacement",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "hospital": "Coimbatore Medical College",
-    "department": "General Surgery",
-    "location": "Main Operation Theater",
-    "patientId": "PAT-48842",
-    "scheduledDate": "2026-02-14",
-    "scheduledTime": "09:00 AM",
-    "surgeon": "Gobinath",
-    "anesthesiologist": "Dr. Anesthesia",
-    "otp": "908459",
-    "emergencyMode": false,
-    "consentHash": "4d2fb65a02fa27a72e8492e48ce348f31373b46e5675ad842fba1a998a3b5a50",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-14T17:56:02.741Z",
-    "aiSummary": "Knee replacement, also known as total knee arthroplasty, is a surgical procedure to replace a damaged or diseased knee joint with an artificial joint (prosthesis). This is typically done to relieve pain, improve mobility, and restore function when other treatments haven't worked. The goal is to significantly improve your quality of life by reducing or eliminating knee pain.",
-    "steps": [
-      {
-        "title": "Preparation",
-        "description": "Before surgery, you'll have a thorough medical evaluation, including blood tests, a physical exam, and possibly X-rays or an MRI to assess the condition of your knee. You'll also meet with your surgeon, anesthesiologist, and possibly a physical therapist to discuss the procedure, risks, and recovery process. We'll review your medications and may ask you to stop certain ones before surgery to minimize bleeding risk. You may also be asked to do some pre-operative exercises to strengthen your muscles."
-      },
-      {
-        "title": "Anesthesia",
-        "description": "You will receive anesthesia to ensure you are comfortable during the surgery. This can be either general anesthesia (where you are asleep) or spinal anesthesia (where you are awake but numb from the waist down). Your anesthesiologist will discuss the best option for you based on your health and preferences. Pain medication will also be administered to manage any discomfort after the surgery."
-      },
-      {
-        "title": "Procedure Details",
-        "description": "During the surgery, the surgeon will make an incision over your knee. The damaged cartilage and bone surfaces are then removed and replaced with the artificial joint components, which typically consist of a metal femoral (thigh bone) component, a metal tibial (shin bone) component, and a plastic spacer in between. The components are carefully positioned and secured to ensure proper alignment and stability. The surgeon will ensure the new joint allows for a natural range of motion."
-      },
-      {
-        "title": "Closure",
-        "description": "Once the new knee joint is in place, the surgeon will close the incision with sutures or staples. A sterile dressing will be applied to protect the wound. A drain may be temporarily placed to remove excess fluid. You will then be taken to the recovery room to wake up from anesthesia and be monitored."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Infection can occur in the joint replacement, requiring antibiotics and potentially further surgery. This is a serious complication, but rare.",
-        "likelihood": "1-2%"
-      },
-      {
-        "title": "Blood Clots",
-        "description": "Blood clots can form in the leg veins after surgery, which can travel to the lungs (pulmonary embolism). We will take preventative measures like blood thinners and compression stockings to minimize this risk.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Nerve or Blood Vessel Damage",
-        "description": "Nerves or blood vessels around the knee can be injured during surgery, leading to numbness, weakness, or changes in blood flow. This is uncommon.",
-        "likelihood": "0.5-1%"
-      },
-      {
-        "title": "Joint Stiffness or Dislocation",
-        "description": "The new knee joint may become stiff or dislocate, requiring further treatment or surgery. Proper rehabilitation and following post-operative instructions are crucial to prevent this.",
-        "likelihood": "1-3%"
-      },
-      {
-        "title": "Implant Loosening",
-        "description": "Over time, the implant can loosen from the bone, causing pain and potentially requiring revision surgery.",
-        "likelihood": "5-10% over 10-15 years"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Medical Management",
-        "description": "This involves using medications (pain relievers, anti-inflammatory drugs), physical therapy, injections (corticosteroids, hyaluronic acid), and lifestyle modifications to manage knee pain and improve function.",
-        "whenRecommended": "For patients with mild to moderate pain and good knee stability, or those who are not good candidates for surgery due to other medical conditions."
-      },
-      {
-        "title": "Arthroscopic Surgery",
-        "description": "This minimally invasive procedure involves making small incisions to repair damaged cartilage or remove loose bodies within the knee joint. It may provide temporary relief but doesn't address severe arthritis.",
-        "whenRecommended": "For patients with specific knee injuries or conditions like cartilage tears or meniscus problems, but not for advanced arthritis."
-      }
-    ],
-    "recovery": {
-      "summary": "Recovery from knee replacement surgery typically takes several weeks to months. You'll start with physical therapy to regain strength, flexibility, and range of motion. With consistent effort and following your doctor's instructions, you can expect to return to many of your normal activities.",
-      "timeline": [
-        {
-          "label": "Day 1-2",
-          "description": "You'll be monitored in the hospital, receiving pain medication and starting gentle exercises. Physical therapy will begin to help you get out of bed and walk with an assistive device (walker or crutches)."
-        },
-        {
-          "label": "Week 1",
-          "description": "You'll continue physical therapy, gradually increasing your activity level. You'll likely be able to return home and resume light household tasks. Swelling and pain are common, but should gradually decrease with medication and ice."
-        }
-      ],
-      "do": [
-        "Attend all scheduled physical therapy appointments.",
-        "Take pain medication as prescribed.",
-        "Elevate your leg frequently to reduce swelling.",
-        "Apply ice packs to your knee for 20 minutes at a time, several times a day.",
-        "Perform gentle range-of-motion exercises as instructed by your physical therapist.",
-        "Keep your incision clean and dry."
-      ],
-      "dont": [
-        "Drive a car until cleared by your doctor.",
-        "Put weight on your knee as instructed by your physical therapist.",
-        "Twist or bend your knee excessively.",
-        "Lift heavy objects (over 10 pounds).",
-        "Participate in high-impact activities (running, jumping) until fully recovered.",
-        "Submerge your incision in water (bath, pool) until it is fully healed."
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "What is the main goal of knee replacement surgery?",
-          "correctOption": "A",
-          "options": {
-            "A": "To relieve pain and improve mobility.",
-            "B": "To completely eliminate all knee movement."
-          }
-        },
-        {
-          "id": "q2",
-          "question": "Which of the following is a potential risk of knee replacement surgery?",
-          "correctOption": "B",
-          "options": {
-            "A": "Increased flexibility in the opposite leg.",
-            "B": "Infection."
-          }
-        },
-        {
-          "id": "q3",
-          "question": "What is an important part of recovery after knee replacement?",
-          "correctOption": "A",
-          "options": {
-            "A": "Physical therapy.",
-            "B": "Avoiding all movement of the knee."
-          }
-        },
-        {
-          "id": "q4",
-          "question": "True or False: You should submerge your incision in water before it is fully healed.",
-          "correctOption": "B",
-          "options": {
-            "A": "True",
-            "B": "False"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "consentId": "CNS_1771134157844",
-    "patientName": "helo",
-    "age": "67",
-    "procedure": "Hernia Repair",
-    "doctorId": "DOC_001",
-    "doctorName": "Gobinath",
-    "hospital": "Coimbatore Medical College",
-    "department": "General Surgery",
-    "location": "Main Operation Theater",
-    "patientId": "PAT-44245",
-    "scheduledDate": "2026-02-15",
-    "scheduledTime": "09:00 AM",
-    "surgeon": "Gobinath",
-    "anesthesiologist": "Dr. Anesthesia",
-    "otp": "870903",
-    "emergencyMode": false,
-    "consentHash": "335d069ba241d0aec082b7651b402116c42b245640a94ddacd0e1038ed030eaf",
-    "status": "PENDING_PATIENT",
-    "patientSigned": false,
-    "doctorVerified": false,
-    "blockchainTx": null,
-    "blockchainStatus": "PENDING",
-    "createdAt": "2026-02-15T05:43:13.854Z",
-    "aiSummary": "A hernia repair is a surgical procedure to fix a weakness or hole in your abdominal wall where an organ or tissue is bulging through. This procedure aims to push the protruding tissue back into place and reinforce the weakened area, preventing further complications and relieving discomfort. The goal is to restore the integrity of your abdominal wall and improve your quality of life.",
-    "steps": [
-      {
-        "title": "Preparation",
-        "description": "Before the surgery, you'll have a pre-operative assessment, including a physical exam and review of your medical history. You may need to stop certain medications, such as blood thinners, several days before the procedure. You'll also receive instructions on fasting (not eating or drinking) for a specific period before the surgery, typically 6-8 hours. We will also place an IV line for fluids and medications."
-      },
-      {
-        "title": "Anesthesia",
-        "description": "Hernia repair can be performed under general anesthesia (you'll be asleep) or regional anesthesia (numbing a specific area of your body). The choice depends on the type of hernia, your overall health, and your preference, discussed with your anesthesiologist. You will be closely monitored throughout the procedure to ensure your safety and comfort."
-      },
-      {
-        "title": "Procedure Details",
-        "description": "The surgeon will make an incision in the abdomen, the size of which depends on the size and location of the hernia. The protruding tissue will be gently pushed back into the abdominal cavity. The weakened area of the abdominal wall is then reinforced. This may involve stitching the tissues together, using a mesh patch (a synthetic material that acts as a scaffold), or a combination of both. The type of repair (open or laparoscopic) will influence the incision size and approach."
-      },
-      {
-        "title": "Closure",
-        "description": "Once the hernia is repaired and the abdominal wall is reinforced, the incision is closed in layers with sutures (stitches). A sterile dressing is applied to the incision site. If a laparoscopic approach was used, several small incisions will be closed similarly. You will be monitored in a recovery room as you wake up from anesthesia."
-      }
-    ],
-    "risks": [
-      {
-        "title": "Infection",
-        "description": "Infection at the incision site is a potential risk with any surgery. We take precautions to minimize this risk, but it can still occur. Symptoms include increased pain, redness, swelling, and fever. Antibiotics are typically used to treat infections.",
-        "likelihood": "1-3%"
-      },
-      {
-        "title": "Bleeding",
-        "description": "Some bleeding is expected during and after surgery. However, excessive bleeding requiring a blood transfusion is a rare but possible complication.",
-        "likelihood": "0.5-1%"
-      },
-      {
-        "title": "Chronic Pain",
-        "description": "A small percentage of patients may experience persistent pain or discomfort around the incision site after surgery. This is often manageable with medication and physical therapy.",
-        "likelihood": "2-5%"
-      },
-      {
-        "title": "Mesh Complications (if mesh is used)",
-        "description": "If a mesh patch is used, there is a small risk of complications such as infection, migration of the mesh, or chronic pain related to the mesh. These are rare but require careful monitoring.",
-        "likelihood": "0.1-1%"
-      },
-      {
-        "title": "Recurrence of Hernia",
-        "description": "Although rare, the hernia can sometimes recur, meaning it comes back. This may require further surgery.",
-        "likelihood": "1-5%"
-      }
-    ],
-    "alternatives": [
-      {
-        "title": "Medical Management (Watchful Waiting)",
-        "description": "For small hernias that aren't causing significant symptoms, your doctor may recommend watchful waiting, which involves monitoring the hernia without surgery. This is not a cure and the hernia may worsen over time.",
-        "whenRecommended": "For small, asymptomatic hernias in patients who are not good surgical candidates."
-      },
-      {
-        "title": "Laparoscopic vs. Open Repair",
-        "description": "Hernia repair can be performed using either a traditional open approach (larger incision) or a minimally invasive laparoscopic approach (smaller incisions with specialized instruments). Laparoscopic surgery generally results in less pain, faster recovery, and smaller scars, but may not be suitable for all hernias.",
-        "whenRecommended": "Laparoscopic repair is often preferred for smaller hernias and patients with good overall health. Open repair may be necessary for larger or more complex hernias."
-      }
-    ],
-    "recovery": {
-      "summary": "Recovery from hernia repair typically takes several weeks. You'll need to avoid strenuous activities and heavy lifting to allow the tissues to heal properly. Pain medication will be prescribed to manage any discomfort. Follow-up appointments will be scheduled to monitor your progress.",
-      "timeline": [
-        {
-          "label": "Day 1-2",
-          "description": "Expect some pain and discomfort. You'll likely be discharged home on the first or second day. Rest is crucial. Manage pain with prescribed medication. Keep the incision site clean and dry."
-        },
-        {
-          "label": "Week 1",
-          "description": "Gradually increase your activity level as tolerated. Avoid heavy lifting (over 10 pounds) and strenuous exercise. You may experience some bruising and swelling. Attend your follow-up appointment with your surgeon."
-        }
-      ],
-      "do": [
-        "Take all prescribed medications as directed.",
-        "Keep the incision site clean and dry.",
-        "Attend all scheduled follow-up appointments.",
-        "Gradually increase your activity level as tolerated.",
-        "Perform gentle range-of-motion exercises as instructed by your physical therapist.",
-        "Report any signs of infection (fever, redness, swelling, drainage) to your doctor immediately."
-      ],
-      "dont": [
-        "Lift anything heavier than 10 pounds for at least 4-6 weeks.",
-        "Engage in strenuous activities or heavy exercise for at least 6 weeks.",
-        "Strain during bowel movements (use stool softeners if needed).",
-        "Bend over at the waist or twist your body excessively.",
-        "Soak the incision site in a bath or swimming pool until it is fully healed.",
-        "Smoke, as it can impair healing."
-      ]
-    },
-    "quiz": {
-      "questions": [
-        {
-          "id": "q1",
-          "question": "What is the main purpose of a hernia repair?",
-          "correctOption": "A",
-          "options": {
-            "A": "To push the protruding tissue back into place and reinforce the abdominal wall.",
-            "B": "To remove the organ that is protruding."
-          }
-        },
-        {
-          "id": "q2",
-          "question": "Which of the following is a potential risk of hernia repair?",
-          "correctOption": "A",
-          "options": {
-            "A": "Infection at the incision site.",
-            "B": "Improved vision."
-          }
-        },
-        {
-          "id": "q3",
-          "question": "What should you avoid lifting for the first 4-6 weeks after surgery?",
-          "correctOption": "B",
-          "options": {
-            "A": "Light objects.",
-            "B": "Anything heavier than 10 pounds.",
-            "C": "Only small items."
-          }
-        },
-        {
-          "id": "q4",
-          "question": "What is one reason a doctor might recommend watchful waiting instead of surgery?",
-          "correctOption": "A",
-          "options": {
-            "A": "The hernia is small and not causing significant symptoms.",
-            "B": "The patient wants to immediately return to strenuous activity.",
-            "C": "The patient has no other medical conditions."
+            "A": "Apply a warm compress",
+            "B": "Ignore it and wait to see if it gets better",
+            "C": "Contact your doctor immediately",
+            "D": "Try over-the-counter antibiotic cream"
           }
         }
       ]
