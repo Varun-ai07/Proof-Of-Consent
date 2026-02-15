@@ -161,125 +161,13 @@
                 <!-- Alert Container -->
                 <div id="alertContainer" class="mb-6 hidden" role="alert" aria-live="polite"></div>
 
-                <!-- Create Consent Section (Default) -->
-                <section id="create-consent-section" class="content-section">
-                    <div class="card-medical p-6 max-w-4xl">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="p-3 bg-secondary-50 rounded-lg">
-                                <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-primary">New Consent Form</h3>
-                                <p class="text-sm text-text-secondary">Fill in patient details to generate AI-powered
-                                    consent</p>
-                            </div>
-                        </div>
+                <!-- Main Section Layout (Grid for Create Consent + Preview) -->
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 items-start">
 
-                        <form id="consentForm" class="space-y-5">
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label for="patientName" class="label-medical">Patient Full Name</label>
-                                    <input type="text" id="patientName" class="input-medical"
-                                        placeholder="Enter patient's full name" required>
-                                </div>
-                                <div>
-                                    <label for="patientAge" class="label-medical">Patient Age</label>
-                                    <input type="number" id="patientAge" class="input-medical" placeholder="Age" min="0"
-                                        max="150" required>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label for="patientPhone" class="label-medical">Patient Phone Number</label>
-                                <input type="tel" id="patientPhone" class="input-medical" placeholder="+91 98765 43210"
-                                    pattern="[\+]?[0-9]{10,15}" required>
-                                <p class="text-xs text-text-tertiary mt-1">📱 Required for OTP verification and consent
-                                    link delivery</p>
-                            </div>
-
-                            <div>
-                                <label for="procedure" class="label-medical">Procedure Type</label>
-                                <div class="relative">
-                                    <input type="text" id="procedure" class="input-medical"
-                                        placeholder="Search procedures..." required>
-                                    <ul id="procedureDropdown"
-                                        class="absolute z-10 w-full bg-white border border-border rounded-lg mt-1 max-h-60 overflow-y-auto hidden shadow-lg">
-                                        <li data-value="Appendectomy">Appendectomy</li>
-                                        <li data-value="Cataract Surgery">Cataract Surgery</li>
-                                        <li data-value="Hernia Repair">Hernia Repair</li>
-                                        <li data-value="Hip Replacement">Hip Replacement</li>
-                                        <li data-value="Knee Replacement">Knee Replacement</li>
-                                        <li data-value="Bypass Surgery">Bypass Surgery</li>
-                                        <li data-value="Hysterectomy">Hysterectomy</li>
-                                        <li data-value="Prostatectomy">Prostatectomy</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label for="procedureDate" class="label-medical">Procedure Date</label>
-                                <input type="date" id="procedureDate" class="input-medical" required>
-                            </div>
-
-                            <div>
-                                <label for="hospitalName" class="label-medical">Hospital Name</label>
-                                <input type="text" id="hospitalName" class="input-medical bg-surface"
-                                    value="City General Hospital" readonly>
-                                <p class="text-xs text-text-tertiary mt-1">Auto-filled from your profile</p>
-                            </div>
-
-                            <div>
-                                <label for="doctorName" class="label-medical">Doctor Name</label>
-                                <input type="text" id="doctorName" class="input-medical bg-surface"
-                                    value="Dr. John Smith" readonly>
-                                <p class="text-xs text-text-tertiary mt-1">Auto-filled from your profile</p>
-                            </div>
-
-                            <div>
-                                <label for="additionalNotes" class="label-medical">Additional Notes (Optional)</label>
-                                <textarea id="additionalNotes" class="input-medical resize-none" rows="3"
-                                    placeholder="Any special instructions or notes..."></textarea>
-                            </div>
-
-                            <div class="bg-warning-50 border-2 border-warning-200 rounded-lg p-4">
-                                <label class="flex items-start gap-3 cursor-pointer">
-                                    <input type="checkbox" id="emergencyMode"
-                                        class="mt-1 w-5 h-5 text-warning-600 border-warning-300 rounded focus:ring-warning-500">
-                                    <div class="flex-1">
-                                        <p class="font-semibold text-warning-900">⚠️ Emergency Mode</p>
-                                        <p class="text-sm text-warning-800 mt-1">Enable this for emergency procedures
-                                            where immediate action is needed. Quiz requirement will be bypassed.</p>
-                                        <p id="emergencyBadge" class="hidden text-xs font-bold text-warning-700 mt-2">🚨
-                                            Emergency Mode Enabled</p>
-                                    </div>
-                                </label>
-                            </div>
-
-                            <div class="flex gap-3">
-                                <button type="button" id="generateConsentBtn"
-                                    class="btn-primary flex-1 flex items-center justify-center gap-2">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                    </svg>
-                                    <span id="generateBtnText">🤖 Generate AI Consent Form</span>
-                                </button>
-                                <button type="reset" class="btn-secondary">Clear Form</button>
-                            </div>
-                        </form>
-                    </div>
-                </section>
-
-                <!-- AI-Generated Consent Form Preview -->
-                <section id="consentPreviewSection" class="hidden mt-6 animate-fade-in">
-                    <div class="card-medical p-6 max-w-4xl">
-
-                        <div class="flex items-center justify-between mb-6 pb-4 border-b border-border">
-                            <div class="flex items-center gap-3">
+                    <!-- Create Consent Section (Default) -->
+                    <section id="create-consent-section" class="content-section">
+                        <div class="card-medical p-6">
+                            <div class="flex items-center gap-3 mb-6">
                                 <div class="p-3 bg-secondary-50 rounded-lg">
                                     <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
@@ -288,783 +176,785 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-bold text-primary">AI-Generated Consent Form Preview</h3>
-                                    <div class="flex items-center gap-2 mt-1">
-                                        <span id="previewConsentId"
-                                            class="text-sm font-mono text-text-secondary">Consent ID: CNS_...</span>
-                                        <span id="emergencyBadgePreview"
-                                            class="hidden px-2 py-1 bg-warning-100 text-warning-700 text-xs font-bold rounded">🚨
-                                            EMERGENCY</span>
-                                    </div>
+                                    <h3 class="text-xl font-bold text-primary">New Consent Form</h3>
+                                    <p class="text-sm text-text-secondary">Fill in patient details to generate
+                                        AI-powered
+                                        consent</p>
                                 </div>
                             </div>
+
+                            <form id="consentForm" class="space-y-5">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="col-span-2 sm:col-span-1">
+                                        <label for="patientName" class="label-medical">Patient Full Name</label>
+                                        <input type="text" id="patientName" class="input-medical"
+                                            placeholder="Enter patient's full name" required>
+                                    </div>
+                                    <div class="col-span-2 sm:col-span-1">
+                                        <label for="patientAge" class="label-medical">Patient Age</label>
+                                        <input type="number" id="patientAge" class="input-medical" placeholder="Age"
+                                            min="0" max="150" required>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="patientPhone" class="label-medical">Patient Phone Number</label>
+                                    <input type="tel" id="patientPhone" class="input-medical"
+                                        placeholder="+91 98765 43210" pattern="[\+]?[0-9]{10,15}" required>
+                                    <p class="text-xs text-text-tertiary mt-1">📱 Required for OTP verification and
+                                        consent
+                                        link delivery</p>
+                                </div>
+
+                                <div>
+                                    <label for="procedure" class="label-medical">Procedure Type</label>
+                                    <div class="relative">
+                                        <input type="text" id="procedure" class="input-medical"
+                                            placeholder="Search procedures..." required>
+                                        <ul id="procedureDropdown"
+                                            class="absolute z-10 w-full bg-white border border-border rounded-lg mt-1 max-h-60 overflow-y-auto hidden shadow-lg">
+                                            <li data-value="Appendectomy">Appendectomy</li>
+                                            <li data-value="Cataract Surgery">Cataract Surgery</li>
+                                            <li data-value="Hernia Repair">Hernia Repair</li>
+                                            <li data-value="Hip Replacement">Hip Replacement</li>
+                                            <li data-value="Knee Replacement">Knee Replacement</li>
+                                            <li data-value="Bypass Surgery">Bypass Surgery</li>
+                                            <li data-value="Hysterectomy">Hysterectomy</li>
+                                            <li data-value="Prostatectomy">Prostatectomy</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="procedureDate" class="label-medical">Procedure Date</label>
+                                    <input type="date" id="procedureDate" class="input-medical" required>
+                                </div>
+
+                                <div>
+                                    <label for="hospitalName" class="label-medical">Hospital Name</label>
+                                    <input type="text" id="hospitalName" class="input-medical bg-surface"
+                                        value="City General Hospital" readonly>
+                                    <p class="text-xs text-text-tertiary mt-1">Auto-filled from your profile</p>
+                                </div>
+
+                                <div>
+                                    <label for="doctorName" class="label-medical">Doctor Name</label>
+                                    <input type="text" id="doctorName" class="input-medical bg-surface"
+                                        value="Dr. John Smith" readonly>
+                                    <p class="text-xs text-text-tertiary mt-1">Auto-filled from your profile</p>
+                                </div>
+
+                                <div>
+                                    <label for="additionalNotes" class="label-medical">Additional Notes
+                                        (Optional)</label>
+                                    <textarea id="additionalNotes" class="input-medical resize-none" rows="3"
+                                        placeholder="Any special instructions or notes..."></textarea>
+                                </div>
+
+                                <div class="bg-warning-50 border-2 border-warning-200 rounded-lg p-4">
+                                    <label class="flex items-start gap-3 cursor-pointer">
+                                        <input type="checkbox" id="emergencyMode"
+                                            class="mt-1 w-5 h-5 text-warning-600 border-warning-300 rounded focus:ring-warning-500">
+                                        <div class="flex-1">
+                                            <p class="font-semibold text-warning-900">⚠️ Emergency Mode</p>
+                                            <p class="text-sm text-warning-800 mt-1">Enable this for emergency
+                                                procedures
+                                                where immediate action is needed. Quiz requirement will be bypassed.</p>
+                                            <p id="emergencyBadge"
+                                                class="hidden text-xs font-bold text-warning-700 mt-2">🚨
+                                                Emergency Mode Enabled</p>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div class="flex gap-3">
+                                    <button type="button" id="generateConsentBtn"
+                                        class="btn-primary flex-1 flex items-center justify-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                        </svg>
+                                        <span id="generateBtnText">🤖 Generate AI Consent Form</span>
+                                    </button>
+                                    <button type="reset" class="btn-secondary">Clear Form</button>
+                                </div>
+                            </form>
                         </div>
+                    </section>
 
-                        <div class="bg-[#f9fafa] rounded-lg border-2 border-border p-6 mb-6">
+                    <!-- AI-Generated Consent Form Preview -->
+                    <section id="consentPreviewSection" class="hidden animate-fade-in xl:sticky xl:top-24">
+                        <div class="card-medical p-6">
 
-                            <div class="bg-white rounded-lg shadow-sm border border-border p-4 mb-6">
-                                <div class="flex items-start justify-between">
-                                    <div class="flex-1">
-                                        <h4 class="text-sm font-semibold text-text-secondary mb-2">Patient Information
-                                        </h4>
-                                        <p class="text-primary font-medium" id="previewPatientName">John Doe</p>
-                                        <p class="text-sm text-text-secondary" id="previewProcedureName">Appendectomy
-                                        </p>
+                            <div class="flex items-center justify-between mb-6 pb-4 border-b border-border">
+                                <div class="flex items-center gap-3">
+                                    <div class="p-3 bg-secondary-50 rounded-lg">
+                                        <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
                                     </div>
-                                    <div class="text-right">
-                                        <p class="text-xs text-text-tertiary">Date</p>
-                                        <p id="previewDate" class="text-sm font-semibold text-primary"></p>
+                                    <div>
+                                        <h3 class="text-xl font-bold text-primary">Preview</h3>
+                                        <div class="flex flex-col gap-1 mt-1">
+                                            <span id="previewConsentId"
+                                                class="text-xs font-mono text-text-secondary">CNS_...</span>
+                                            <span id="emergencyBadgePreview"
+                                                class="hidden px-2 py-0.5 bg-warning-100 text-warning-700 text-[10px] font-bold rounded w-fit">🚨
+                                                EMERGENCY</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="bg-white rounded-lg shadow-sm border border-border overflow-hidden">
-                                <div class="max-h-96 overflow-y-auto p-6 space-y-6">
-
-                                    <div>
-                                        <h4 class="font-bold text-primary mb-2">Informed Consent Statement</h4>
-                                        <p class="text-sm text-text-secondary">This consent form covers the procedure
-                                            discussed with your healthcare provider. Please read carefully and ask any
-                                            questions before signing.</p>
+                            <div class="bg-[#f9fafa] rounded-lg border-2 border-border p-4 mb-6">
+                                <div class="bg-white rounded-lg shadow-sm border border-border p-3 mb-4">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex-1">
+                                            <p class="text-xs font-semibold text-text-secondary mb-1">Patient</p>
+                                            <p class="text-primary font-medium text-sm" id="previewPatientName">John Doe
+                                            </p>
+                                            <p class="text-xs text-text-secondary truncate" id="previewProcedureName">
+                                                Appendectomy</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-[10px] text-text-tertiary">Date</p>
+                                            <p id="previewDate" class="text-xs font-semibold text-primary"></p>
+                                        </div>
                                     </div>
+                                </div>
 
-                                    <div>
-                                        <h4 class="font-bold text-primary mb-3">Procedure Steps</h4>
-                                        <ol id="previewStepsList"
-                                            class="space-y-2 text-sm text-text-secondary list-decimal list-inside">
-                                            <li id="quizRequirement">Patient takes comprehension quiz (must score ≥80%)
-                                            </li>
-                                            <li>Patient receives link via WhatsApp/Email</li>
-                                            <li>Patient clicks link → enters OTP for verification</li>
-                                            <li>Upon passing, patient can digitally sign consent</li>
-                                            <li>Signed consent stored on blockchain with proof hash</li>
-                                        </ol>
-                                    </div>
+                                <div class="bg-white rounded-lg shadow-sm border border-border overflow-hidden">
+                                    <div class="max-h-80 overflow-y-auto p-4 space-y-5">
+                                        <div>
+                                            <h4 class="text-sm font-bold text-primary mb-1">Informed Consent</h4>
+                                            <p class="text-xs text-text-secondary">Please read carefully before signing.
+                                            </p>
+                                        </div>
 
-                                    <div>
-                                        <h4 class="font-bold text-primary mb-3">Risks</h4>
-                                        <ul id="previewRisksList"
-                                            class="space-y-2 text-sm text-text-secondary list-disc list-inside">
-                                            <li>Infection at surgical site (rare)</li>
-                                            <li>Bleeding complications (uncommon)</li>
-                                            <li>Allergic reactions to anesthesia (rare)</li>
-                                        </ul>
-                                    </div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-primary mb-2">Procedure Steps</h4>
+                                            <ol id="previewStepsList"
+                                                class="space-y-2 text-xs text-text-secondary list-decimal list-inside">
+                                                <!-- ... -->
+                                            </ol>
+                                        </div>
 
-                                    <div>
-                                        <h4 class="font-bold text-primary mb-3">Alternative Treatments</h4>
-                                        <ul id="previewAlternativesList"
-                                            class="space-y-2 text-sm text-text-secondary list-disc list-inside">
-                                            <li>Conservative management with medication</li>
-                                            <li>Minimally invasive procedures</li>
-                                        </ul>
-                                    </div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-primary mb-2">Risks</h4>
+                                            <ul id="previewRisksList"
+                                                class="space-y-2 text-xs text-text-secondary list-disc list-inside">
+                                                <!-- ... -->
+                                            </ul>
+                                        </div>
 
-                                    <div>
-                                        <h4 class="font-bold text-primary mb-2">Recovery Period</h4>
-                                        <p id="previewRecoveryOverview" class="text-sm text-text-secondary mb-3">Typical
-                                            recovery is 4-6 weeks. Follow all post-operative instructions carefully.</p>
-                                        <div id="previewRecoveryTimeline"
-                                            class="space-y-3 pl-2 border-l-2 border-primary-100">
-                                            <!-- Timeline items will be injected here -->
-                                            <div class="relative pl-4">
-                                                <div
-                                                    class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-primary-100 border-2 border-primary">
-                                                </div>
-                                                <p class="text-xs font-bold text-primary mb-0.5">Week 1</p>
-                                                <p class="text-xs text-text-secondary">Rest and follow medication
-                                                    schedule.</p>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-primary mb-2">Alternatives</h4>
+                                            <ul id="previewAlternativesList"
+                                                class="space-y-2 text-xs text-text-secondary list-disc list-inside">
+                                                <!-- ... -->
+                                            </ul>
+                                        </div>
+
+                                        <div>
+                                            <h4 class="text-sm font-bold text-primary mb-2">Recovery</h4>
+                                            <p id="previewRecoveryOverview" class="text-xs text-text-secondary mb-2">...
+                                            </p>
+                                            <div id="previewRecoveryTimeline"
+                                                class="space-y-3 pl-2 border-l-2 border-primary-100">
+                                                <!-- ... -->
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
 
-                                    <div class="bg-surface-100 rounded-lg p-4 border-2 border-dashed border-border">
-                                        <p class="text-sm font-semibold text-primary mb-2">Digital Signature</p>
-                                        <p class="text-xs text-text-secondary">Patient will sign digitally on the next
-                                            screen. This signature is legally binding.</p>
+                            <div class="space-y-4">
+                                <!-- Links and Codes -->
+                                <div class="card-medical p-4 bg-primary-50 border-2 border-primary-100">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <h4 class="text-xs font-bold text-primary">🔗 Backend Link</h4>
                                     </div>
+                                    <div class="flex gap-2">
+                                        <input type="text" id="backendConsentLink"
+                                            class="input-medical text-xs py-2 h-9 flex-1" readonly>
+                                        <button id="copyBackendLinkBtn" class="btn-primary text-xs px-3 h-9"
+                                            type="button">Copy</button>
+                                    </div>
+                                </div>
 
+                                <div class="card-medical p-4 bg-secondary-50 border-2 border-secondary-100">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <h4 class="text-xs font-bold text-secondary">👤 Patient Link</h4>
+                                    </div>
+                                    <div class="flex gap-2 mb-2">
+                                        <input type="text" id="patientPortalLink"
+                                            class="input-medical text-xs py-2 h-9 flex-1" readonly>
+                                        <button id="copyPatientPortalBtn" class="btn-secondary text-xs px-3 h-9"
+                                            type="button">Copy</button>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <button id="whatsappShareBtn" class="btn-primary text-xs py-2 flex-1"
+                                            type="button">WhatsApp</button>
+                                        <button id="emailShareBtn" class="btn-secondary text-xs py-2 flex-1"
+                                            type="button">Email</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="space-y-4">
-
-                            <div class="card-medical p-5 bg-primary-50 border-2 border-primary-100">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                                    </svg>
-                                    <h4 class="font-bold text-primary">🔗 Backend Consent Link (For Testing)</h4>
-                                </div>
-                                <div class="flex gap-2">
-                                    <input type="text" id="backendConsentLink" class="input-medical flex-1" readonly>
-                                    <button id="copyBackendLinkBtn"
-                                        class="btn-primary whitespace-nowrap flex items-center gap-2" type="button">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                        </svg>
-                                        Copy
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="card-medical p-5 bg-secondary-50 border-2 border-secondary-100">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <svg class="w-5 h-5 text-secondary" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <h4 class="font-bold text-secondary">👤 Patient Portal Link</h4>
-                                </div>
-                                <div class="flex gap-2 mb-3">
-                                    <input type="text" id="patientPortalLink" class="input-medical flex-1" readonly>
-                                    <button id="copyPatientPortalBtn"
-                                        class="btn-secondary whitespace-nowrap flex items-center gap-2" type="button">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                        </svg>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="flex gap-3">
-                                    <button id="whatsappShareBtn"
-                                        class="btn-primary flex-1 flex items-center justify-center gap-2" type="button">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                            <path
-                                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.46 1.026l-.319.183-3.29-.824.843 3.037c-.788 1.553-1.203 3.348-1.203 5.21 0 5.487 4.468 9.955 9.955 9.955 1.348 0 2.63-.195 3.842-.57h.005c5.487 0 9.955-4.468 9.955-9.955 0-5.487-4.468-9.955-9.955-9.955z" />
-                                        </svg>
-                                        WhatsApp
-                                    </button>
-                                    <button id="emailShareBtn"
-                                        class="btn-secondary flex-1 flex items-center justify-center gap-2"
-                                        type="button">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                        </svg>
-                                        Email
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="card-medical p-5 bg-success-50 border-2 border-success-100">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <svg class="w-5 h-5 text-success-600" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                    </svg>
-                                    <h4 class="font-bold text-success-700">🔐 Patient OTP (One-Time Password)</h4>
-                                </div>
-                                <div class="bg-white rounded-lg p-4 border-2 border-success-200">
+                                <div class="card-medical p-4 bg-success-50 border-2 border-success-100">
                                     <div class="flex items-center justify-between mb-2">
-                                        <span class="text-sm font-medium text-success-700">Patient Verification
-                                            Code:</span>
+                                        <h4 class="text-xs font-bold text-success-700">🔐 Patient OTP</h4>
                                         <button id="copyOTPBtn"
-                                            class="text-xs px-3 py-1 bg-success-600 text-white rounded-lg hover:bg-success-700 transition-colors flex items-center gap-1"
-                                            type="button">
-                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                            </svg>
-                                            Copy
-                                        </button>
+                                            class="text-[10px] px-2 py-0.5 bg-success-600 text-white rounded hover:bg-success-700 transition-colors"
+                                            type="button">Copy</button>
                                     </div>
-                                    <div class="text-center">
+                                    <div class="text-center bg-white rounded border border-success-200 py-2">
                                         <p id="otpDisplay"
-                                            class="text-3xl font-bold text-success-700 font-mono tracking-widest">000000
+                                            class="text-xl font-bold text-success-700 font-mono tracking-widest">000000
                                         </p>
                                     </div>
                                 </div>
-                                <div class="mt-3 bg-success-100 border border-success-200 rounded-lg p-3">
-                                    <p class="text-sm text-success-800">
-                                        <span class="font-semibold">📞 Share this OTP with patient:</span>
-                                        Patient needs to enter this 6-digit code when accessing the consent form for
-                                        verification.
-                                    </p>
-                                    <p class="text-xs text-success-700 mt-2">
-                                        ⏱️ OTP is valid for 10 minutes • Will be verified before quiz/signing
-                                    </p>
-                                </div>
                             </div>
 
-                            <div class="card-medical p-5 bg-blue-50 border-2 border-blue-100">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                    </svg>
-                                    <h4 class="font-bold text-blue-700">⛓️ Blockchain Hash</h4>
-                                </div>
-                                <div class="bg-white rounded-lg p-4 border-2 border-blue-200">
-                                    <p id="blockchainHash" class="text-sm font-mono text-blue-700 break-all">
-                                        Generating...</p>
-                                    <input type="hidden" id="blockchainHashFull" name="blockchainHashFull">
-                                </div>
-                                <p class="text-xs text-blue-600 mt-2">✅ This hash is recorded on the blockchain (not the
-                                    full form)</p>
+                            <div class="mt-4">
+                                <button id="viewPatientModeBtn" class="btn-secondary w-full text-xs py-2" type="button">
+                                    Open in Patient View</button>
                             </div>
 
-                            <div class="bg-warning-50 border border-warning-200 rounded-lg p-4">
-                                <div class="flex gap-3">
-                                    <svg class="w-5 h-5 text-warning-600 flex-shrink-0 mt-0.5" fill="currentColor"
-                                        viewBox="0 0 20 20" aria-hidden="true">
-                                        <path fill-rule="evenodd"
-                                            d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <div>
-                                        <p class="text-sm font-semibold text-warning-900">Important Notice</p>
-                                        <p class="text-xs text-warning-800 mt-1">Only the hash of consent details is
-                                            stored on blockchain, NOT the full form. This ensures privacy while
-                                            maintaining verifiability.</p>
+                        </div>
+                    </section>
+
+                    <!-- My Patients Section -->
+                    <section id="my-patients-section" class="content-section hidden">
+                        <div class="card-medical p-6">
+                            <!-- Header with Stats -->
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                                <div class="bg-primary-50 rounded-lg p-4 border border-primary-100">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm text-text-secondary">Total Patients</p>
+                                            <p id="totalPatientsCount" class="text-2xl font-bold text-primary">0</p>
+                                        </div>
+                                        <svg class="w-8 h-8 text-primary-300" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="bg-warning-50 rounded-lg p-4 border border-warning-100">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm text-text-secondary">Pending</p>
+                                            <p id="pendingPatientsCount" class="text-2xl font-bold text-warning-700">0
+                                            </p>
+                                        </div>
+                                        <svg class="w-8 h-8 text-warning-300" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="bg-success-50 rounded-lg p-4 border border-success-100">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm text-text-secondary">Signed</p>
+                                            <p id="signedPatientsCount" class="text-2xl font-bold text-success-700">0
+                                            </p>
+                                        </div>
+                                        <svg class="w-8 h-8 text-success-300" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="bg-error-50 rounded-lg p-4 border border-error-100">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm text-text-secondary">Expired</p>
+                                            <p id="expiredPatientsCount" class="text-2xl font-bold text-error-700">0</p>
+                                        </div>
+                                        <svg class="w-8 h-8 text-error-300" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="mt-6 text-center">
-                            <button id="viewPatientModeBtn" class="btn-secondary inline-flex items-center gap-2"
-                                type="button">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    aria-hidden="true">
+                            <!-- Search & Filter -->
+                            <div class="flex flex-col md:flex-row gap-4 mb-6">
+                                <div class="flex-1">
+                                    <div class="relative">
+                                        <input type="text" id="patientSearch" class="input-medical pl-10"
+                                            placeholder="Search by name, procedure, or phone...">
+                                        <svg class="absolute left-3 top-3.5 w-5 h-5 text-text-tertiary" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 flex-wrap">
+                                    <button class="filter-btn active" data-filter="all" type="button">All</button>
+                                    <button class="filter-btn" data-filter="pending" type="button">Pending</button>
+                                    <button class="filter-btn" data-filter="signed" type="button">Signed</button>
+                                    <button class="filter-btn" data-filter="expired" type="button">Expired</button>
+                                </div>
+                                <button id="exportPatientsBtn" class="btn-secondary flex items-center gap-2"
+                                    type="button">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    Export CSV
+                                </button>
+                            </div>
+
+                            <!-- Patients Table -->
+                            <div id="patientsTableContainer" class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class="bg-surface border-b-2 border-border">
+                                        <tr>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Patient Name</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Phone</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Procedure</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Date</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Status</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                OTP</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="patientsTableBody" class="divide-y divide-border">
+                                        <!-- Populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Empty State -->
+                            <div id="patientsEmptyState" class="hidden text-center py-12">
+                                <svg class="w-16 h-16 mx-auto text-text-tertiary mb-4" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                 </svg>
-                                🧾 Open in Patient View
-                            </button>
+                                <p class="text-text-secondary text-lg mb-2">No patients yet</p>
+                                <p class="text-text-tertiary text-sm mb-4">Create your first consent form to get started
+                                </p>
+                                <button onclick="showSection('create-consent')"
+                                    class="btn-primary inline-flex items-center gap-2" type="button">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    Create Consent Form
+                                </button>
+                            </div>
                         </div>
+                    </section>
 
-                    </div>
-                </section>
-
-                <!-- My Patients Section -->
-                <section id="my-patients-section" class="content-section hidden">
-                    <div class="card-medical p-6">
-                        <!-- Header with Stats -->
+                    <!-- Consent History Section -->
+                    <section id="consent-history-section" class="content-section hidden">
+                        <!-- Statistics Cards -->
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                            <div class="bg-primary-50 rounded-lg p-4 border border-primary-100">
+                            <div class="card-medical p-4 bg-gradient-to-br from-blue-50 to-blue-100">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <p class="text-sm text-text-secondary">Total Patients</p>
-                                        <p id="totalPatientsCount" class="text-2xl font-bold text-primary">0</p>
+                                        <p class="text-sm text-blue-700">Total Consents</p>
+                                        <p id="totalConsentsCount" class="text-3xl font-bold text-blue-900">0</p>
                                     </div>
-                                    <svg class="w-8 h-8 text-primary-300" fill="none" stroke="currentColor"
+                                    <svg class="w-10 h-10 text-blue-300" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
                                 </div>
                             </div>
-                            <div class="bg-warning-50 rounded-lg p-4 border border-warning-100">
+                            <div class="card-medical p-4 bg-gradient-to-br from-green-50 to-green-100">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <p class="text-sm text-text-secondary">Pending</p>
-                                        <p id="pendingPatientsCount" class="text-2xl font-bold text-warning-700">0</p>
+                                        <p class="text-sm text-green-700">Signed This Month</p>
+                                        <p id="signedThisMonthCount" class="text-3xl font-bold text-green-900">0</p>
                                     </div>
-                                    <svg class="w-8 h-8 text-warning-300" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="bg-success-50 rounded-lg p-4 border border-success-100">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm text-text-secondary">Signed</p>
-                                        <p id="signedPatientsCount" class="text-2xl font-bold text-success-700">0</p>
-                                    </div>
-                                    <svg class="w-8 h-8 text-success-300" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg class="w-10 h-10 text-green-300" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                             d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                             clip-rule="evenodd" />
                                     </svg>
                                 </div>
                             </div>
-                            <div class="bg-error-50 rounded-lg p-4 border border-error-100">
+                            <div class="card-medical p-4 bg-gradient-to-br from-purple-50 to-purple-100">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <p class="text-sm text-text-secondary">Expired</p>
-                                        <p id="expiredPatientsCount" class="text-2xl font-bold text-error-700">0</p>
+                                        <p class="text-sm text-purple-700">Blockchain Records</p>
+                                        <p id="blockchainRecordsCount" class="text-3xl font-bold text-purple-900">0</p>
                                     </div>
-                                    <svg class="w-8 h-8 text-error-300" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Search & Filter -->
-                        <div class="flex flex-col md:flex-row gap-4 mb-6">
-                            <div class="flex-1">
-                                <div class="relative">
-                                    <input type="text" id="patientSearch" class="input-medical pl-10"
-                                        placeholder="Search by name, procedure, or phone...">
-                                    <svg class="absolute left-3 top-3.5 w-5 h-5 text-text-tertiary" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="flex gap-2 flex-wrap">
-                                <button class="filter-btn active" data-filter="all" type="button">All</button>
-                                <button class="filter-btn" data-filter="pending" type="button">Pending</button>
-                                <button class="filter-btn" data-filter="signed" type="button">Signed</button>
-                                <button class="filter-btn" data-filter="expired" type="button">Expired</button>
-                            </div>
-                            <button id="exportPatientsBtn" class="btn-secondary flex items-center gap-2" type="button">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                                Export CSV
-                            </button>
-                        </div>
-
-                        <!-- Patients Table -->
-                        <div id="patientsTableContainer" class="overflow-x-auto">
-                            <table class="w-full">
-                                <thead class="bg-surface border-b-2 border-border">
-                                    <tr>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Patient Name</th>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Phone</th>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Procedure</th>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Date</th>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Status</th>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            OTP</th>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="patientsTableBody" class="divide-y divide-border">
-                                    <!-- Populated by JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Empty State -->
-                        <div id="patientsEmptyState" class="hidden text-center py-12">
-                            <svg class="w-16 h-16 mx-auto text-text-tertiary mb-4" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                            </svg>
-                            <p class="text-text-secondary text-lg mb-2">No patients yet</p>
-                            <p class="text-text-tertiary text-sm mb-4">Create your first consent form to get started</p>
-                            <button onclick="showSection('create-consent')"
-                                class="btn-primary inline-flex items-center gap-2" type="button">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 4v16m8-8H4" />
-                                </svg>
-                                Create Consent Form
-                            </button>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Consent History Section -->
-                <section id="consent-history-section" class="content-section hidden">
-                    <!-- Statistics Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                        <div class="card-medical p-4 bg-gradient-to-br from-blue-50 to-blue-100">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm text-blue-700">Total Consents</p>
-                                    <p id="totalConsentsCount" class="text-3xl font-bold text-blue-900">0</p>
-                                </div>
-                                <svg class="w-10 h-10 text-blue-300" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="card-medical p-4 bg-gradient-to-br from-green-50 to-green-100">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm text-green-700">Signed This Month</p>
-                                    <p id="signedThisMonthCount" class="text-3xl font-bold text-green-900">0</p>
-                                </div>
-                                <svg class="w-10 h-10 text-green-300" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="card-medical p-4 bg-gradient-to-br from-purple-50 to-purple-100">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm text-purple-700">Blockchain Records</p>
-                                    <p id="blockchainRecordsCount" class="text-3xl font-bold text-purple-900">0</p>
-                                </div>
-                                <svg class="w-10 h-10 text-purple-300" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="card-medical p-4 bg-gradient-to-br from-orange-50 to-orange-100">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm text-orange-700">Emergency Mode</p>
-                                    <p id="emergencyModeCount" class="text-3xl font-bold text-orange-900">0</p>
-                                </div>
-                                <svg class="w-10 h-10 text-orange-300" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-medical p-6">
-                        <div class="flex items-center justify-between mb-6">
-                            <div>
-                                <h3 class="text-xl font-bold text-primary mb-1">Consent History</h3>
-                                <p class="text-sm text-text-secondary">All generated consent forms with blockchain
-                                    verification</p>
-                            </div>
-                            <div class="flex gap-2">
-                                <button id="refreshHistoryBtn" class="btn-secondary flex items-center gap-2"
-                                    type="button">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                    </svg>
-                                    Refresh
-                                </button>
-                                <button id="exportHistoryBtn" class="btn-secondary flex items-center gap-2"
-                                    type="button">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
-                                    Export JSON
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- History Timeline -->
-                        <div id="consentHistoryContainer" class="space-y-4">
-                            <!-- Populated by JavaScript -->
-                        </div>
-
-                        <!-- Empty State -->
-                        <div id="historyEmptyState" class="hidden text-center py-12">
-                            <svg class="w-16 h-16 mx-auto text-text-tertiary mb-4" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            <p class="text-text-secondary text-lg">No consent history available</p>
-                            <p class="text-text-tertiary text-sm mt-2">Generate consent forms to see them here</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Settings Section -->
-                <section id="settings-section" class="content-section hidden">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-                        <!-- Personal Profile -->
-                        <div class="card-medical p-6">
-                            <h3 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                                Personal Profile
-                            </h3>
-                            <form id="profileForm" class="space-y-4">
-                                <div>
-                                    <label for="profileFullName" class="label-medical">Full Name</label>
-                                    <input type="text" id="profileFullName" class="input-medical" required>
-                                </div>
-                                <div>
-                                    <label for="profileEmail" class="label-medical">Email Address</label>
-                                    <input type="email" id="profileEmail" class="input-medical" required>
-                                </div>
-                                <div>
-                                    <label for="profileHospital" class="label-medical">Hospital Name</label>
-                                    <input type="text" id="profileHospital" class="input-medical" required>
-                                </div>
-                                <div>
-                                    <label for="profileDepartment" class="label-medical">Department</label>
-                                    <input type="text" id="profileDepartment" class="input-medical">
-                                </div>
-                                <div>
-                                    <label for="profileLicense" class="label-medical">License Number</label>
-                                    <input type="text" id="profileLicense" class="input-medical">
-                                </div>
-                                <button type="submit" class="btn-primary w-full">Save Profile</button>
-                            </form>
-                        </div>
-
-                        <!-- Security Settings -->
-                        <div class="card-medical p-6">
-                            <h3 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                </svg>
-                                Security Settings
-                            </h3>
-                            <div class="space-y-4">
-                                <div class="p-4 bg-surface rounded-lg">
-                                    <p class="text-sm text-text-secondary mb-1">Last Login</p>
-                                    <p id="lastLoginTime" class="font-medium text-primary">Loading...</p>
-                                </div>
-                                <button id="changePasswordBtn" type="button"
-                                    class="w-full text-left p-4 border-2 border-border rounded-lg hover:border-secondary transition-colors flex items-center justify-between">
-                                    <div>
-                                        <p class="font-medium text-primary">Change Password</p>
-                                        <p class="text-sm text-text-secondary">Update your account password</p>
-                                    </div>
-                                    <svg class="w-5 h-5 text-text-tertiary" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </button>
-                                <button id="logoutAllBtn" type="button" class="w-full btn-secondary">
-                                    Logout from All Devices
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Blockchain Info -->
-                        <div class="card-medical p-6">
-                            <h3 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                </svg>
-                                Blockchain Settings
-                            </h3>
-                            <div class="space-y-4">
-                                <div class="p-4 bg-blue-50 rounded-lg border border-blue-100">
-                                    <p class="text-sm text-blue-700 mb-1">Smart Contract Address</p>
-                                    <p class="font-mono text-xs text-blue-900 break-all">
-                                        0x5FbDB2315678afecb367f032d93F642f64180aa3</p>
-                                </div>
-                                <div class="p-4 bg-green-50 rounded-lg border border-green-100">
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <p class="text-sm text-green-700 mb-1">Network Status</p>
-                                            <p id="blockchainStatus" class="font-medium text-green-900">Checking...</p>
-                                        </div>
-                                        <div id="blockchainStatusIcon"
-                                            class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                                    </div>
-                                </div>
-                                <div class="p-4 bg-purple-50 rounded-lg border border-purple-100">
-                                    <p class="text-sm text-purple-700 mb-1">Total Hashes Recorded</p>
-                                    <p id="totalHashesRecorded" class="text-2xl font-bold text-purple-900">0</p>
-                                </div>
-                                <button id="verifyAllBtn" type="button" class="w-full btn-secondary">
-                                    Verify All Records
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Data Management -->
-                        <div class="card-medical p-6">
-                            <h3 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-                                </svg>
-                                Data Management
-                            </h3>
-                            <div class="space-y-3">
-                                <button id="exportDataBtn" type="button"
-                                    class="w-full text-left p-4 border-2 border-border rounded-lg hover:border-primary transition-colors flex items-center justify-between">
-                                    <div>
-                                        <p class="font-medium text-primary">Export All Data</p>
-                                        <p class="text-sm text-text-secondary">Download all consent data as JSON</p>
-                                    </div>
-                                    <svg class="w-5 h-5 text-text-tertiary" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
-                                </button>
-                                <button id="clearStorageBtn" type="button"
-                                    class="w-full text-left p-4 border-2 border-error-200 rounded-lg hover:border-error hover:bg-error-50 transition-colors flex items-center justify-between">
-                                    <div>
-                                        <p class="font-medium text-error">Clear All Data</p>
-                                        <p class="text-sm text-error-600">Delete all localStorage data (cannot be
-                                            undone)</p>
-                                    </div>
-                                    <svg class="w-5 h-5 text-error" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-                </section>
-
-                <!-- Blockchain Transactions Section -->
-                <section id="blockchain-section" class="content-section hidden">
-                    <div class="card-medical p-6">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h2 class="text-2xl font-bold text-text-primary">Blockchain Transactions</h2>
-                                <p class="text-sm text-text-secondary">View all recorded consents and transactions on
-                                    the blockchain</p>
-                            </div>
-                        </div>
-
-                        <!-- Blockchain Stats -->
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                            <div
-                                class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm text-purple-700">Total Transactions</p>
-                                        <p id="totalBlockchainTx" class="text-2xl font-bold text-purple-900">0</p>
-                                    </div>
-                                    <svg class="w-8 h-8 text-purple-300" fill="none" stroke="currentColor"
+                                    <svg class="w-10 h-10 text-purple-300" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M13 10V3L4 14h7v7l9-11h-7z" />
                                     </svg>
                                 </div>
                             </div>
-                            <div
-                                class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-lg p-4 border border-indigo-200">
+                            <div class="card-medical p-4 bg-gradient-to-br from-orange-50 to-orange-100">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <p class="text-sm text-indigo-700">Confirmed</p>
-                                        <p id="confirmedTx" class="text-2xl font-bold text-indigo-900">0</p>
+                                        <p class="text-sm text-orange-700">Emergency Mode</p>
+                                        <p id="emergencyModeCount" class="text-3xl font-bold text-orange-900">0</p>
                                     </div>
-                                    <svg class="w-8 h-8 text-indigo-300" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div
-                                class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm text-blue-700">Total Gas Used</p>
-                                        <p id="totalGasUsed" class="text-2xl font-bold text-blue-900">0</p>
-                                    </div>
-                                    <svg class="w-8 h-8 text-blue-300" fill="none" stroke="currentColor"
+                                    <svg class="w-10 h-10 text-orange-300" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                     </svg>
                                 </div>
                             </div>
-                            <div
-                                class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
-                                <div class="flex items-center justify-between">
+                        </div>
+
+                        <div class="card-medical p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <div>
+                                    <h3 class="text-xl font-bold text-primary mb-1">Consent History</h3>
+                                    <p class="text-sm text-text-secondary">All generated consent forms with blockchain
+                                        verification</p>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button id="refreshHistoryBtn" class="btn-secondary flex items-center gap-2"
+                                        type="button">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                        </svg>
+                                        Refresh
+                                    </button>
+                                    <button id="exportHistoryBtn" class="btn-secondary flex items-center gap-2"
+                                        type="button">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                        Export JSON
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- History Timeline -->
+                            <div id="consentHistoryContainer" class="space-y-4">
+                                <!-- Populated by JavaScript -->
+                            </div>
+
+                            <!-- Empty State -->
+                            <div id="historyEmptyState" class="hidden text-center py-12">
+                                <svg class="w-16 h-16 mx-auto text-text-tertiary mb-4" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                <p class="text-text-secondary text-lg">No consent history available</p>
+                                <p class="text-text-tertiary text-sm mt-2">Generate consent forms to see them here</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Settings Section -->
+                    <section id="settings-section" class="content-section hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                            <!-- Personal Profile -->
+                            <div class="card-medical p-6">
+                                <h3 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                    Personal Profile
+                                </h3>
+                                <form id="profileForm" class="space-y-4">
                                     <div>
-                                        <p class="text-sm text-green-700">Network</p>
-                                        <p id="networkDisplay" class="text-2xl font-bold text-green-900">Localhost</p>
+                                        <label for="profileFullName" class="label-medical">Full Name</label>
+                                        <input type="text" id="profileFullName" class="input-medical" required>
                                     </div>
-                                    <svg class="w-8 h-8 text-green-300" fill="none" stroke="currentColor"
+                                    <div>
+                                        <label for="profileEmail" class="label-medical">Email Address</label>
+                                        <input type="email" id="profileEmail" class="input-medical" required>
+                                    </div>
+                                    <div>
+                                        <label for="profileHospital" class="label-medical">Hospital Name</label>
+                                        <input type="text" id="profileHospital" class="input-medical" required>
+                                    </div>
+                                    <div>
+                                        <label for="profileDepartment" class="label-medical">Department</label>
+                                        <input type="text" id="profileDepartment" class="input-medical">
+                                    </div>
+                                    <div>
+                                        <label for="profileLicense" class="label-medical">License Number</label>
+                                        <input type="text" id="profileLicense" class="input-medical">
+                                    </div>
+                                    <button type="submit" class="btn-primary w-full">Save Profile</button>
+                                </form>
+                            </div>
+
+                            <!-- Security Settings -->
+                            <div class="card-medical p-6">
+                                <h3 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                    Security Settings
+                                </h3>
+                                <div class="space-y-4">
+                                    <div class="p-4 bg-surface rounded-lg">
+                                        <p class="text-sm text-text-secondary mb-1">Last Login</p>
+                                        <p id="lastLoginTime" class="font-medium text-primary">Loading...</p>
+                                    </div>
+                                    <button id="changePasswordBtn" type="button"
+                                        class="w-full text-left p-4 border-2 border-border rounded-lg hover:border-secondary transition-colors flex items-center justify-between">
+                                        <div>
+                                            <p class="font-medium text-primary">Change Password</p>
+                                            <p class="text-sm text-text-secondary">Update your account password</p>
+                                        </div>
+                                        <svg class="w-5 h-5 text-text-tertiary" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </button>
+                                    <button id="logoutAllBtn" type="button" class="w-full btn-secondary">
+                                        Logout from All Devices
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Blockchain Info -->
+                            <div class="card-medical p-6">
+                                <h3 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                    Blockchain Settings
+                                </h3>
+                                <div class="space-y-4">
+                                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-100">
+                                        <p class="text-sm text-blue-700 mb-1">Smart Contract Address</p>
+                                        <p class="font-mono text-xs text-blue-900 break-all">
+                                            0x5FbDB2315678afecb367f032d93F642f64180aa3</p>
+                                    </div>
+                                    <div class="p-4 bg-green-50 rounded-lg border border-green-100">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="text-sm text-green-700 mb-1">Network Status</p>
+                                                <p id="blockchainStatus" class="font-medium text-green-900">Checking...
+                                                </p>
+                                            </div>
+                                            <div id="blockchainStatusIcon"
+                                                class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 bg-purple-50 rounded-lg border border-purple-100">
+                                        <p class="text-sm text-purple-700 mb-1">Total Hashes Recorded</p>
+                                        <p id="totalHashesRecorded" class="text-2xl font-bold text-purple-900">0</p>
+                                    </div>
+                                    <button id="verifyAllBtn" type="button" class="w-full btn-secondary">
+                                        Verify All Records
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Data Management -->
+                            <div class="card-medical p-6">
+                                <h3 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                                    </svg>
+                                    Data Management
+                                </h3>
+                                <div class="space-y-3">
+                                    <button id="exportDataBtn" type="button"
+                                        class="w-full text-left p-4 border-2 border-border rounded-lg hover:border-primary transition-colors flex items-center justify-between">
+                                        <div>
+                                            <p class="font-medium text-primary">Export All Data</p>
+                                            <p class="text-sm text-text-secondary">Download all consent data as JSON</p>
+                                        </div>
+                                        <svg class="w-5 h-5 text-text-tertiary" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                    </button>
+                                    <button id="clearStorageBtn" type="button"
+                                        class="w-full text-left p-4 border-2 border-error-200 rounded-lg hover:border-error hover:bg-error-50 transition-colors flex items-center justify-between">
+                                        <div>
+                                            <p class="font-medium text-error">Clear All Data</p>
+                                            <p class="text-sm text-error-600">Delete all localStorage data (cannot be
+                                                undone)</p>
+                                        </div>
+                                        <svg class="w-5 h-5 text-error" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- Blockchain Transactions Section -->
+                    <section id="blockchain-section" class="content-section hidden">
+                        <div class="card-medical p-6">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
                                     </svg>
                                 </div>
+                                <div>
+                                    <h2 class="text-2xl font-bold text-text-primary">Blockchain Transactions</h2>
+                                    <p class="text-sm text-text-secondary">View all recorded consents and transactions
+                                        on
+                                        the blockchain</p>
+                                </div>
+                            </div>
+
+                            <!-- Blockchain Stats -->
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                                <div
+                                    class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm text-purple-700">Total Transactions</p>
+                                            <p id="totalBlockchainTx" class="text-2xl font-bold text-purple-900">0</p>
+                                        </div>
+                                        <svg class="w-8 h-8 text-purple-300" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div
+                                    class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-lg p-4 border border-indigo-200">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm text-indigo-700">Confirmed</p>
+                                            <p id="confirmedTx" class="text-2xl font-bold text-indigo-900">0</p>
+                                        </div>
+                                        <svg class="w-8 h-8 text-indigo-300" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div
+                                    class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm text-blue-700">Total Gas Used</p>
+                                            <p id="totalGasUsed" class="text-2xl font-bold text-blue-900">0</p>
+                                        </div>
+                                        <svg class="w-8 h-8 text-blue-300" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div
+                                    class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm text-green-700">Network</p>
+                                            <p id="networkDisplay" class="text-2xl font-bold text-green-900">Localhost
+                                            </p>
+                                        </div>
+                                        <svg class="w-8 h-8 text-green-300" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Transactions Table -->
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class="bg-surface border-b-2 border-border">
+                                        <tr>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Consent ID</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Type</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Transaction Hash</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Block</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Gas Used</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Status</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Date</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
+                                                Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="blockchainTableBody" class="divide-y divide-border">
+                                        <!-- Populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Empty State -->
+                            <div id="blockchainEmptyState" class="hidden text-center py-12">
+                                <svg class="w-16 h-16 mx-auto text-text-tertiary mb-4" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                <p class="text-text-secondary text-lg mb-2">No blockchain transactions yet</p>
+                                <p class="text-text-tertiary text-sm">Create a consent form to record it on the
+                                    blockchain
+                                </p>
                             </div>
                         </div>
+                    </section>
 
-                        <!-- Transactions Table -->
-                        <div class="overflow-x-auto">
-                            <table class="w-full">
-                                <thead class="bg-surface border-b-2 border-border">
-                                    <tr>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Consent ID</th>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Type</th>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Transaction Hash</th>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Block</th>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Gas Used</th>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Status</th>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Date</th>
-                                        <th
-                                            class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                                            Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="blockchainTableBody" class="divide-y divide-border">
-                                    <!-- Populated by JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Empty State -->
-                        <div id="blockchainEmptyState" class="hidden text-center py-12">
-                            <svg class="w-16 h-16 mx-auto text-text-tertiary mb-4" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
-                            <p class="text-text-secondary text-lg mb-2">No blockchain transactions yet</p>
-                            <p class="text-text-tertiary text-sm">Create a consent form to record it on the blockchain
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
+                </div><!-- End Grid -->
             </div>
         </main>
 
@@ -1260,6 +1150,14 @@
                     item.classList.remove('active');
                 }
             });
+
+            // Handle the parent grid: only visible for "create-consent"
+            const mainGrid = document.querySelector('.grid.grid-cols-1.xl\\:grid-cols-2');
+            if (sectionId === 'create-consent') {
+                mainGrid.style.display = 'grid';
+            } else {
+                mainGrid.style.display = 'block';
+            }
 
             sections.forEach(section => {
                 if (section.id === 'consentPreviewSection') {
@@ -1519,13 +1417,17 @@
                     document.getElementById('backendConsentLink').value = `http://localhost:4000/api/consent/${consentId}`;
                     document.getElementById('patientPortalLink').value = `http://127.0.0.1:5502/patient_dashboard/patient.html?consentId=${consentId}&otp=${otp}`;
 
-                    // ✅ Save to localStorage for quick access
                     localStorage.setItem(`consent_${consentId}`, JSON.stringify(consentData));
 
                     consentPreviewSection.classList.remove('hidden');
-                    setTimeout(() => {
-                        consentPreviewSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 100);
+
+                    // Fixed: No scrolling to bottom since it's now on the right
+                    // But maybe scroll to the top of the preview if it's a long form
+                    if (window.innerWidth < 1280) { // On mobile/tablet where it's still stacked
+                        setTimeout(() => {
+                            consentPreviewSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 100);
+                    }
 
                     showAlert('success', `✅ AI consent form generated! OTP: ${otp}`);
 
