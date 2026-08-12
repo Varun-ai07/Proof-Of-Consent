@@ -2,6 +2,9 @@
 # Dependencies
 node_modules/
 package-lock.json
+venv/
+__pycache__/
+*.py[cod]
 
 # Environment files
 .env
@@ -36,3 +39,8 @@ build/
 
 # Hardhat
 blockchain/typechain-types/
+
+# Generated local state
+agentservice/cache/
+graphify-out/
+.mimocode/
