@@ -835,7 +835,6 @@ function getOtpParam() { return new URLSearchParams(location.search).get('otp');
 //  INIT
 // ═══════════════════════════════════════════════════════
 async function init() {
-    // ALWAYS hide loading splash first - ensures page is never stuck
     const hideLoading = () => { try { document.getElementById('loadingSplash').classList.add('hidden'); } catch(e) {} };
 
     try {
@@ -843,60 +842,42 @@ async function init() {
         currentConsentId = getConsentId();
         if (!currentConsentId) { showError('No consent ID.'); return; }
 
-        // Fetch consent data from API
         const otp = getOtpParam();
         const otpQ = otp ? `?otp=${encodeURIComponent(otp)}` : '';
-        const resp = await fw(`${CONFIG.API_BASE_URL}/consent/${currentConsentId}${otpQ}`);
-        if (!resp.ok) { hideLoading(); showError(resp.status===404?'Consent not found':'Failed to load consent'); return; }
-        consentData = await resp.json();
-        if (consentData.requiresOtp) { hideLoading(); showOtpAlert('Secure access required.'); return; }
 
-        // Emergency mode: redirect immediately
+        // Fetch consent data
+        const resp = await fw(`${CONFIG.API_BASE_URL}/consent/${currentConsentId}${otpQ}`);
+        if (!resp.ok) { hideLoading(); showError('Consent not found'); return; }
+        consentData = await resp.json();
+
+        // Emergency mode: skip everything
         if (consentData.emergencyMode) {
             window.location.href = `consent_sign.html?consentId=${currentConsentId}${otpQ}`;
             return;
         }
 
-        // Hide loading and render
+        // Hide loading, set headers, render
         hideLoading();
-        document.getElementById('headerPatientName').textContent = consentData.patientName||'Patient';
-        document.getElementById('headerProcedure').textContent = consentData.procedure||'Procedure';
+        document.getElementById('headerPatientName').textContent = consentData.patientName || 'Patient';
+        document.getElementById('headerProcedure').textContent = consentData.procedure || 'Procedure';
         document.getElementById('headerConsentId').textContent = currentConsentId;
-
-        renderAll(consentData, currentLanguage);
-
-        // EMERGENCY MODE: Skip explanation, go directly to signature
-        if (consentData.emergencyMode) {
-            const otp = getOtpParam();
-            const otpQuery = otp ? `&otp=${encodeURIComponent(otp)}` : '';
-            window.location.href = `consent_sign.html?consentId=${currentConsentId}${otpQuery}`;
-            return;
-        }
 
         renderAll(consentData, currentLanguage);
         initObservers();
         initVoice();
         initLangSelector();
         initAiChat();
-            document.getElementById('finalSection').classList.remove('hidden');
-            document.getElementById('scoreBar').innerHTML = `
-                <div class="flex items-center gap-3">
-                    <iconify-icon icon="solar:warning-bold" class="text-red-600" width="32"></iconify-icon>
-                    <div>
-                        <div class="font-bold text-red-700 font-manrope">EMERGENCY MODE</div>
-                        <div class="text-sm text-red-600 font-inter">Quiz bypassed — Proceed to sign immediately</div>
-                    </div>
-                </div>
-            `;
-            // Hide all quiz sections in emergency mode
-            document.querySelectorAll('.section-quiz').forEach(el => el.classList.add('hidden'));
-        }
+
         document.getElementById('proceedToSignature').addEventListener('click', () => {
             sessionStorage.setItem('currentConsentId', currentConsentId);
-            const otp = getOtpParam();
-            location.href = `consent_sign.html?consentId=${currentConsentId}${otp?`&otp=${encodeURIComponent(otp)}`:''}`;
+            location.href = `consent_sign.html?consentId=${currentConsentId}${otp ? `&otp=${otp}` : ''}`;
         });
-    } catch(err) { console.error(err); showError('Error: '+err.message); }
+
+    } catch(err) {
+        console.error('Init error:', err);
+        hideLoading();
+        showError('Error loading consent: ' + err.message);
+    }
 }
 
 function showError(msg) { const s=document.getElementById('loadingSplash'); s.innerHTML=`<div class="text-center"><iconify-icon icon="solar:close-circle-bold" class="text-red-600 mb-4" width="64"></iconify-icon><p class="text-red-600 font-inter mb-2 font-semibold">Error</p><p class="text-slate-600 font-inter mb-4">${esc(msg)}</p><button onclick="history.back()" class="mt-4 px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 font-inter font-semibold">Go Back</button></div>`; }
