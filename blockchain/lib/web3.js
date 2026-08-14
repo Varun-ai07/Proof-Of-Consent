@@ -1,125 +1,129 @@
 import { ethers } from "ethers";
-import ConsentRegistryABI from "../artifacts/contracts/ConsentRegistry.sol/ConsentRegistry.json" assert { type: "json" };
+
+// Inline ABI - avoids Vercel build issues with JSON imports
+const ConsentRegistryABI = [
+  {
+    "anonymous": false,
+    "inputs": [
+      {"indexed": true, "internalType": "bytes32", "name": "consentHash", "type": "bytes32"},
+      {"indexed": true, "internalType": "bytes32", "name": "consentIdHash", "type": "bytes32"},
+      {"indexed": true, "internalType": "address", "name": "doctorWallet", "type": "address"},
+      {"indexed": false, "internalType": "uint48", "name": "timestamp", "type": "uint48"},
+      {"indexed": false, "internalType": "bool", "name": "emergencyMode", "type": "bool"}
+    ],
+    "name": "ConsentRecorded",
+    "type": "event"
+  },
+  {
+    "inputs": [{"internalType": "bytes32", "name": "_consentIdHash", "type": "bytes32"}, {"internalType": "bytes32", "name": "_consentHash", "type": "bytes32"}, {"internalType": "address", "name": "_patientWallet", "type": "address"}, {"internalType": "bool", "name": "_emergencyMode", "type": "bool"}],
+    "name": "recordConsent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{"internalType": "bytes32", "name": "_consentHash", "type": "bytes32"}],
+    "name": "verifyConsent",
+    "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{"internalType": "bytes32", "name": "_consentHash", "type": "bytes32"}],
+    "name": "getConsentByHash",
+    "outputs": [
+      {"internalType": "bytes32", "name": "consentHash", "type": "bytes32"},
+      {"internalType": "address", "name": "doctorWallet", "type": "address"},
+      {"internalType": "address", "name": "patientWallet", "type": "address"},
+      {"internalType": "uint48", "name": "timestamp", "type": "uint48"},
+      {"internalType": "bool", "name": "emergencyMode", "type": "bool"}
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{"internalType": "bytes32", "name": "_consentIdHash", "type": "bytes32"}],
+    "name": "getConsentById",
+    "outputs": [
+      {"internalType": "bytes32", "name": "consentHash", "type": "bytes32"},
+      {"internalType": "address", "name": "doctorWallet", "type": "address"},
+      {"internalType": "address", "name": "patientWallet", "type": "address"},
+      {"internalType": "uint48", "name": "timestamp", "type": "uint48"},
+      {"internalType": "bool", "name": "emergencyMode", "type": "bool"}
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalConsents",
+    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
 
 let provider;
 let signer;
 let contract;
-// Contract address - must match blockchain/deployments/baseSepolia.json
-// Updated: 2026-08-14 deployed to Base Sepolia
 let contractAddress = "0x764bF8b277a2c08B7A5B309Bb6853c5576C6f168";
 
-/**
- * Initialize Web3 connection with MetaMask
- */
 export async function initWeb3() {
   if (!window.ethereum) {
     throw new Error("MetaMask not installed");
   }
-
   provider = new ethers.BrowserProvider(window.ethereum);
-  
-  // Request account access
   await window.ethereum.request({ method: "eth_requestAccounts" });
-  
   signer = await provider.getSigner();
-  contract = new ethers.Contract(contractAddress, ConsentRegistryABI.abi, signer);
-  
+  contract = new ethers.Contract(contractAddress, ConsentRegistryABI, signer);
   console.log("✅ Web3 connected");
-  return {
-    provider,
-    signer,
-    contract,
-    account: await signer.getAddress()
-  };
+  return { provider, signer, contract, account: await signer.getAddress() };
 }
 
-/**
- * Get connected account
- */
 export async function getAccount() {
   if (!signer) return null;
   return await signer.getAddress();
 }
 
-/**
- * Record consent hash on blockchain
- */
 export async function recordConsentOnBlockchain(consentId, consentHash, patientWallet, emergencyMode) {
-  if (!contract) {
-    throw new Error("Web3 not initialized");
-  }
-
-  try {
-    const hashBytes32 = consentHash.startsWith("0x") ? consentHash : "0x" + consentHash;
-    
-    const tx = await contract.recordConsent(
-      consentId,
-      hashBytes32,
-      patientWallet,
-      emergencyMode
-    );
-
-    console.log(`📝 Transaction submitted: ${tx.hash}`);
-    const receipt = await tx.wait();
-    console.log(`✅ Consent recorded on blockchain: Block ${receipt.blockNumber}`);
-
-    return {
-      transactionHash: receipt.hash,
-      blockNumber: receipt.blockNumber,
-      blockTimestamp: receipt.timestamp,
-      gasUsed: receipt.gasUsed.toString()
-    };
-  } catch (error) {
-    console.error("Blockchain error:", error);
-    throw error;
-  }
-}
-
-/**
- * Verify consent hash on blockchain
- */
-export async function verifyConsentOnBlockchain(consentHash) {
-  if (!contract) {
-    throw new Error("Web3 not initialized");
-  }
-
+  if (!contract) throw new Error("Web3 not initialized");
   const hashBytes32 = consentHash.startsWith("0x") ? consentHash : "0x" + consentHash;
-  const isVerified = await contract.verifyConsent(hashBytes32);
-  return isVerified;
+  const tx = await contract.recordConsent(consentId, hashBytes32, patientWallet, emergencyMode);
+  console.log(`📝 Transaction submitted: ${tx.hash}`);
+  const receipt = await tx.wait();
+  console.log(`✅ Consent recorded on blockchain: Block ${receipt.blockNumber}`);
+  return {
+    transactionHash: receipt.hash,
+    blockNumber: receipt.blockNumber,
+    blockTimestamp: receipt.timestamp,
+    gasUsed: receipt.gasUsed.toString()
+  };
 }
 
-/**
- * Get consent record from blockchain
- */
+export async function verifyConsentOnBlockchain(consentHash) {
+  if (!contract) throw new Error("Web3 not initialized");
+  const hashBytes32 = consentHash.startsWith("0x") ? consentHash : "0x" + consentHash;
+  return await contract.verifyConsent(hashBytes32);
+}
+
 export async function getConsentRecord(consentId) {
-  if (!contract) {
-    throw new Error("Web3 not initialized");
-  }
-
-  try {
-    const record = await contract.getConsentById(consentId);
-    return {
-      consentHash: record.consentHash,
-      doctorWallet: record.doctorWallet,
-      patientWallet: record.patientWallet,
-      timestamp: new Date(parseInt(record.timestamp) * 1000),
-      emergencyMode: record.emergencyMode,
-      verified: record.verified,
-      consentId: record.consentId
-    };
-  } catch (error) {
-    console.error("Error fetching consent record:", error);
-    throw error;
-  }
+  if (!contract) throw new Error("Web3 not initialized");
+  const record = await contract.getConsentById(consentId);
+  return {
+    consentHash: record.consentHash,
+    doctorWallet: record.doctorWallet,
+    patientWallet: record.patientWallet,
+    timestamp: new Date(parseInt(record.timestamp) * 1000),
+    emergencyMode: record.emergencyMode,
+    verified: record.verified,
+    consentId: record.consentId
+  };
 }
 
-/**
- * Update contract address (after deployment)
- */
 export function setContractAddress(newAddress) {
   contractAddress = newAddress;
   if (signer) {
-    contract = new ethers.Contract(contractAddress, ConsentRegistryABI.abi, signer);
+    contract = new ethers.Contract(contractAddress, ConsentRegistryABI, signer);
   }
 }
 
