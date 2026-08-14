@@ -1478,7 +1478,7 @@
                     }
 
                     document.getElementById('backendConsentLink').value = `${CONFIG.API_BASE_URL}/api/consent/${consentId}`;
-                    document.getElementById('patientPortalLink').value = `http://127.0.0.1:5502/patient_dashboard/patient.html?consentId=${consentId}&otp=${otp}`;
+                    document.getElementById('patientPortalLink').value = `/patient_dashboard/patient.html?consentId=${consentId}&otp=${otp}`;
 
                     localStorage.setItem(`consent_${consentId}`, JSON.stringify(consentData));
 
@@ -1883,7 +1883,7 @@
                             </div>
                         ` : ''}
                         <div class="flex gap-2 pt-4">
-                            <button onclick="window.open('http://127.0.0.1:5502/patient_dashboard/patient.html?consentId=${consentId}&otp=${consent.otp}', '_blank')" class="btn-primary flex-1">
+                            <button onclick="window.open('/patient_dashboard/patient.html?consentId=${consentId}&otp=${consent.otp}', '_blank')" class="btn-primary flex-1">
                                 Open Patient Portal
                             </button>
                             <button onclick="document.getElementById('patientDetailsModal').remove()" class="btn-secondary flex-1">
@@ -1909,7 +1909,7 @@
             consent.createdAt = new Date().toISOString();
             localStorage.setItem(`consent_${consentId}`, JSON.stringify(consent));
 
-            const link = `http://127.0.0.1:5502/patient_dashboard/patient.html?consentId=${consentId}&otp=${newOTP}`;
+            const link = `/patient_dashboard/patient.html?consentId=${consentId}&otp=${newOTP}`;
             navigator.clipboard.writeText(link);
             showAlert('success', `✅ New OTP generated: ${newOTP} | Link copied to clipboard!`);
             loadMyPatients();
