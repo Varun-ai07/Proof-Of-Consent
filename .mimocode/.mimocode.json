@@ -1,0 +1,11 @@
+{
+  "model": "anthropic/auto/best-free",
+  "provider": {
+    "anthropic": {
+      "options": {
+        "baseURL": "http://localhost:20128/v1",
+        "apiKey": "omniroute"
+      }
+    }
+  }
+}

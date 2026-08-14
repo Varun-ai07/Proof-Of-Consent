@@ -18,5 +18,17 @@
     "license": "TEST654321",
     "password": "$2b$10$7hn3O//ZGUGOsSzyoJPdke8XGad7D9R3/vFA9WGwU.eapFI1QOOdi",
     "createdAt": "2026-01-26T07:10:08.179Z"
+  },
+  {
+    "id": "DOC_1786714077404",
+    "username": "jpv.cosmic@gmail.com",
+    "email": "jpv.cosmic@gmail.com",
+    "name": "Joshna",
+    "fullName": "Joshna",
+    "hospital": "Coimbatore Medical College",
+    "department": "cardiology",
+    "license": "MED-15325",
+    "password": "$2b$10$FXkhTQPUJ6W7sb/OWBh.keWNuK3vdTA6JjiHzKyNO9tPlvHBx5pEe",
+    "createdAt": "2026-08-14T13:27:57.404Z"
   }
 ]
