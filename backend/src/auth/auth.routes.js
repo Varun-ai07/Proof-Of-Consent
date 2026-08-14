@@ -60,7 +60,7 @@ router.post('/register', async (req, res) => {
     };
 
     users.push(newUser);
-    saveUsers(users);
+    await saveUsers(users);
 
     res.status(201).json({ 
       success: true,
