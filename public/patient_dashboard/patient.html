@@ -856,6 +856,18 @@ async function init() {
             return;
         }
 
+        // Fetch media for this procedure
+        if (!consentData.media || (!consentData.media.videos?.length && !consentData.media.images?.length)) {
+            try {
+                const mediaResp = await fw(`${CONFIG.API_BASE_URL}/consent/media/${encodeURIComponent(consentData.procedure)}`);
+                if (mediaResp.ok) {
+                    const mediaData = await mediaResp.json();
+                    consentData.media = mediaData.media || { videos: [], images: [] };
+                    console.log('Media loaded:', consentData.media.videos?.length, 'videos,', consentData.media.images?.length, 'images');
+                }
+            } catch(e) { console.warn('Media fetch failed:', e); consentData.media = { videos: [], images: [] }; }
+        }
+
         // Hide loading, set headers, render
         hideLoading();
         document.getElementById('headerPatientName').textContent = consentData.patientName || 'Patient';
