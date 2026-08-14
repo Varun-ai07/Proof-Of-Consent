@@ -1,15 +1,19 @@
 {
   "version": 2,
-  "installCommand": "cd backend && npm install",
-  "buildCommand": "echo 'No build needed'",
-  "outputDirectory": "public",
-  "functions": {
-    "backend/src/server.js": {
-      "includeFiles": ["backend/**"],
-      "maxDuration": 30
+  "builds": [
+    {
+      "src": "backend/src/vercel.js",
+      "use": "@vercel/node"
     }
-  },
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api" }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/backend/src/vercel.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/backend/src/vercel.js"
+    }
   ]
 }
