@@ -69,10 +69,12 @@ function isMedicalImage(title, desc = '') {
 
 export async function searchImages(procedure, maxResults = 4) {
     const images = [];
+    // Use broader queries that return medical images
     const queries = [
-        `${procedure} surgery diagram medical`,
-        `${procedure} anatomy illustration`,
-        `${procedure} medical procedure chart`
+        `${procedure} anatomy`,
+        `surgery ${procedure}`,
+        `medical diagram ${procedure}`,
+        `surgical procedure illustration`
     ];
 
     for (const query of queries) {
@@ -107,12 +109,37 @@ export async function searchImages(procedure, maxResults = 4) {
     return images.slice(0, maxResults);
 }
 
+export async function searchWikimedia(procedure, maxResults = 3) {
+    const images = [];
+    try {
+        const url = `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(procedure + ' medical')}&srnamespace=6&srlimit=${maxResults}&format=json`;
+        const res = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT), headers: HEADERS });
+        const data = await res.json();
+        for (const item of (data.query?.search || [])) {
+            const title = item.title?.replace('File:', '') || '';
+            if (isMedicalImage(title)) {
+                images.push({
+                    title: title,
+                    url: `https://commons.wikimedia.org/wiki/${item.title?.replace(' ', '_')}`,
+                    thumbnail: '',
+                    source: 'Wikimedia Commons'
+                });
+            }
+        }
+    } catch (e) {
+        console.warn('Wikimedia error:', e.message);
+    }
+    return images.slice(0, maxResults);
+}
+
 export async function enrichMedia(procedure) {
     console.log(`🎨 Enriching media: ${procedure}`);
-    const [videos, images] = await Promise.all([
+    const [videos, openverse, wikimedia] = await Promise.all([
         searchYouTube(procedure, 3),
-        searchImages(procedure, 4)
+        searchImages(procedure, 4),
+        searchWikimedia(procedure, 3)
     ]);
-    console.log(`  ✅ Media: ${videos.length} videos, ${images.length} images`);
-    return { videos, images };
+    const allImages = [...openverse, ...wikimedia];
+    console.log(`  ✅ Media: ${videos.length} videos, ${allImages.length} images`);
+    return { videos, images: allImages.slice(0, 5) };
 }
