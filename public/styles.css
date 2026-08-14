@@ -176,11 +176,10 @@ h3 {
 .navbar {
     position: fixed;
     top: 1rem;
-    left: 0;
+    left: 12%;
     right: 0;
-    margin: 0 auto;
     max-width: 1200px;
-    width: calc(100% - 4rem);
+    width: 76%;
     z-index: 50;
     pointer-events: none;
     background: transparent;
