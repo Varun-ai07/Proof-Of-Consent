@@ -1,39 +1,12 @@
 // src/controllers/consent.controller.js
 import crypto from 'crypto';
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
 import { generateConsentExplanation, generatePatientConsentContent } from '../services/ai.service.js';
 import { recordConsentOnBlockchain } from '../services/blockchain.service.js';
 import { generateConsentViaAgent, checkAgentServiceHealth } from '../services/agent.service.js';
 import { generateConsentPDF } from '../services/pdf.service.js';
 import { saveSignedConsent, uploadConsentPDF } from '../services/supabase.service.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const DATA_DIR = path.join(__dirname, '../data');
-const CONSENT_DIR = path.join(__dirname, '../generated-consents');
-const DATA_PATH = path.join(DATA_DIR, 'consents.json');
-
-async function ensureDirs() {
-  await fs.mkdir(DATA_DIR, { recursive: true });
-  await fs.mkdir(CONSENT_DIR, { recursive: true });
-}
-
-async function loadConsents() {
-  try {
-    const raw = await fs.readFile(DATA_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
-}
-
-async function saveConsents(consents) {
-  await fs.writeFile(DATA_PATH, JSON.stringify(consents, null, 2));
-}
+import { loadConsents, saveConsents, ensureDirs, saveConsentHTML, savePDFLocally } from '../services/storage.service.js';
 
 function escapeHtml(str = '') {
   return String(str).replace(/[&<>"']/g, (c) => ({
@@ -397,7 +370,7 @@ export async function createConsent(req, res) {
 </html>
 `;
 
-    await fs.writeFile(path.join(CONSENT_DIR, `${consentId}.html`), html);
+    await saveConsentHTML(consentId, html);
 
     // ✅ Return FULL consent data including AI content
     res.json({
@@ -491,11 +464,8 @@ export async function signConsent(req, res) {
         status: 'signed'
       });
 
-      // Also save PDF locally as backup
-      const pdfDir = path.join(__dirname, '../generated-pdfs');
-      await fs.mkdir(pdfDir, { recursive: true });
-      await fs.writeFile(path.join(pdfDir, `${consentId}.pdf`), pdfBuffer);
-      console.log(`✅ PDF saved locally: ${consentId}.pdf`);
+      // Also save PDF locally as backup (skipped on Vercel)
+      await savePDFLocally(consentId, pdfBuffer);
 
     } catch (pdfErr) {
       console.warn('⚠️ PDF generation/upload failed (non-blocking):', pdfErr.message);

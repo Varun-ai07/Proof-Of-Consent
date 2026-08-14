@@ -1,31 +1,16 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import crypto from 'crypto';
 import { ethers } from 'ethers';
 import { recordConsentOnBlockchain, verifyConsentOnBlockchain, getAllConsentsFromBlockchain } from '../services/blockchain.service.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const DATA_DIR = path.join(__dirname, '../data');
-const BLOCKCHAIN_PATH = path.join(DATA_DIR, 'blockchain-records.json');
-
-async function ensureDir() {
-  await fs.mkdir(DATA_DIR, { recursive: true });
-}
+// In-memory storage for blockchain records (Supabase can be added later)
+let blockchainRecords = [];
 
 async function loadBlockchainRecords() {
-  try {
-    const data = await fs.readFile(BLOCKCHAIN_PATH, 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
+  return blockchainRecords;
 }
 
 async function saveBlockchainRecords(records) {
-  await fs.writeFile(BLOCKCHAIN_PATH, JSON.stringify(records, null, 2));
+  blockchainRecords = records;
 }
 
 /**
