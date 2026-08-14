@@ -380,7 +380,7 @@ export async function createConsent(req, res) {
       otp: finalOtp,
       status: consent.status,
       consentLink: `/consents/${consentId}.html`,
-      patientPortalLink: `http://localhost:5502/patient_dashboard/patient.html?consentId=${consentId}&otp=${finalOtp}`
+      patientPortalLink: `/patient_dashboard/patient.html?consentId=${consentId}&otp=${finalOtp}`
     });
 
   } catch (err) {
