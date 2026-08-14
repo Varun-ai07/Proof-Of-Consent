@@ -1,46 +1,46 @@
-// filepath: /home/rxnjith/test/.gitignore
 # Dependencies
 node_modules/
-package-lock.json
+.venv/
 venv/
-__pycache__/
-*.py[cod]
 
 # Environment files
 .env
 .env.local
 .env.*.local
 
-# Blockchain artifacts (can be regenerated)
-blockchain/cache/
-blockchain/artifacts/
-
-# Data files (local development only)
-backend/src/data/*.json
-backend/src/generated-consents/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
 # Logs
+logs/
 *.log
-npm-debug.log*
 
 # Build outputs
 dist/
 build/
 
+# Generated files
+backend/src/generated-pdfs/
+backend/src/data/
+backend/src/generated-consents/
+
+# Supabase
+.supabase/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
 # Hardhat
+blockchain/artifacts/
+blockchain/cache/
 blockchain/typechain-types/
 
-# Generated local state
-agentservice/cache/
+# Graphify
 graphify-out/
-.mimocode/

@@ -8,7 +8,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 async function main() {
   console.log("🚀 Deploying ConsentRegistry contract...");
 
-  // Get signer from Hardhat
+  // Get network info
+  const network = await hre.ethers.provider.getNetwork();
+  const networkName = hre.network.name;
+  console.log(`📡 Network: ${networkName} (chainId: ${network.chainId})`);
+
+  // Get signer
   const [deployer] = await hre.ethers.getSigners();
   console.log(`📍 Deploying with account: ${deployer.address}`);
 
@@ -30,25 +35,24 @@ async function main() {
     fs.mkdirSync(deploymentsDir, { recursive: true });
   }
 
-  // Save deployment info
+  // Save deployment info (network-specific filename)
   const deploymentInfo = {
     contractAddress,
     deployerAddress: deployer.address,
-    network: "localhost",
-    chainId: (await hre.ethers.provider.getNetwork()).chainId.toString(),
+    network: networkName,
+    chainId: network.chainId.toString(),
     timestamp: new Date().toISOString(),
     blockNumber: await hre.ethers.provider.getBlockNumber()
   };
 
-  const deploymentPath = path.join(deploymentsDir, "localhost.json");
+  const deploymentPath = path.join(deploymentsDir, `${networkName}.json`);
   fs.writeFileSync(
     deploymentPath,
     JSON.stringify(deploymentInfo, null, 2)
   );
 
-  console.log("📝 Deployment info saved to deployments/localhost.json");
-  console.log("\n🔗 Update this address in blockchain/lib/web3.js:");
-  console.log(`   const CONTRACT_ADDRESS = "${contractAddress}";`);
+  console.log(`📝 Deployment info saved to deployments/${networkName}.json`);
+  console.log(`\n🔗 Contract address: ${contractAddress}`);
 }
 
 main().catch((error) => {

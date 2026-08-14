@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +8,46 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .section-quiz { background: linear-gradient(135deg, #f0fdfa 0%, #ecfdf5 100%); border: 1px solid #d1fae5; border-radius: 12px; padding: 24px; margin-top: 24px; }
+        .section-quiz h4 { font-family: 'Manrope', sans-serif; font-weight: 600; color: #065f46; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .quiz-option { display: block; width: 100%; text-align: left; padding: 12px 16px; border: 2px solid #e2e8f0; border-radius: 8px; background: white; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; font-size: 14px; color: #334155; }
+        .quiz-option:hover { border-color: #14b8a6; background: #f0fdfa; }
+        .quiz-option.correct { border-color: #22c55e; background: #f0fdf4; color: #166534; }
+        .quiz-option.incorrect { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
+        .quiz-option.reveal-correct { border-color: #22c55e; background: #f0fdf4; color: #166534; }
+        .quiz-option:disabled { cursor: default; opacity: 0.9; }
+        .quiz-feedback { margin-top: 12px; padding: 12px; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 13px; display: none; }
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.correct-fb { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+        .quiz-feedback.incorrect-fb { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+        .voice-active { animation: pulse-voice 1s infinite; }
+        @keyframes pulse-voice { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .media-card img { width: 100%; height: 100%; object-fit: cover; }
+        .media-card .fallback-icon { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; background: #f1f5f9; }
+        .video-card iframe { width: 100%; aspect-ratio: 16/9; border: none; border-radius: 8px 8px 0 0; }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .motivational-banner { background: linear-gradient(135deg, #ecfeff 0%, #e0f2fe 100%); border: 1px solid #a5f3fc; border-radius: 12px; padding: 16px 20px; margin-top: 16px; display: flex; align-items: center; gap: 12px; }
+        .motivational-banner p { font-family: 'Inter', sans-serif; font-size: 14px; color: #0e7490; font-weight: 500; }
+        .score-bar { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 16px 24px; display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+        .score-ring { width: 56px; height: 56px; position: relative; }
+        .score-ring svg { transform: rotate(-90deg); }
+        .score-ring .score-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 16px; color: #065f46; }
+        .score-bar .score-label { font-family: 'Manrope', sans-serif; font-weight: 600; color: #1e293b; }
+        .score-bar .score-sub { font-family: 'Inter', sans-serif; font-size: 13px; color: #64748b; }
+        .review-popup { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; display: flex; align-items: center; justify-content: center; }
+        .review-popup.hidden { display: none !important; }
+        .review-popup .popup-card { background: white; border-radius: 16px; padding: 32px; max-w-lg w-full mx-4 max-h-[80vh] overflow-y-auto; }
+        .review-popup .popup-card h3 { font-family: 'Manrope', sans-serif; font-weight: 700; color: #065f46; margin-bottom: 16px; }
+        .review-item { padding: 16px; border: 1px solid #fecaca; border-radius: 8px; margin-bottom: 12px; background: #fef2f2; }
+        .review-item .q { font-weight: 600; color: #991b1b; margin-bottom: 8px; }
+        .review-item .correct-a { color: #166534; font-weight: 500; }
+    </style>
 </head>
-
 <body class="bg-slate-50 text-slate-900 selection:bg-teal-100 selection:text-teal-900 overflow-x-hidden">
 
-    <!-- Sticky Header Bar -->
+    <!-- Sticky Header -->
     <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <div class="flex items-center gap-2 text-sm font-inter">
@@ -35,21 +66,15 @@
                 <span class="font-mono font-semibold text-slate-900" id="headerConsentId">-</span>
             </div>
         </div>
-
-        <!-- Progress Bar -->
-        <div class="w-full h-1 bg-slate-100" role="progressbar" aria-label="Consent completion progress"
-            aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-            <div id="progressBar"
-                class="h-full bg-gradient-to-r from-teal-500 to-emerald-500 transition-all duration-300"
-                style="width: 0%"></div>
+        <div class="w-full h-1 bg-slate-100">
+            <div id="progressBar" class="h-full bg-gradient-to-r from-teal-500 to-emerald-500 transition-all duration-300" style="width: 0%"></div>
         </div>
     </header>
 
     <!-- Loading Splash -->
     <div id="loadingSplash" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
         <div class="text-center">
-            <div class="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-4">
-            </div>
+            <div class="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-4"></div>
             <p class="text-slate-600 font-inter" id="loadingText">Loading consent form...</p>
         </div>
     </div>
@@ -60,37 +85,33 @@
             <iconify-icon icon="solar:shield-warning-bold" class="text-red-500 mt-0.5" width="20"></iconify-icon>
             <div>
                 <p class="font-semibold">OTP verification required</p>
-                <p id="otpAlertText" class="text-sm mt-1 font-inter">Please open the secure link that includes your
-                    6-digit OTP to unlock this consent.</p>
+                <p id="otpAlertText" class="text-sm mt-1 font-inter">Please open the secure link with your 6-digit OTP.</p>
             </div>
         </div>
     </div>
 
-    <!-- Accessibility Controls -->
+    <!-- Language & AI Controls -->
     <div class="fixed top-24 right-6 z-40 flex flex-col gap-3">
-        <!-- Language Toggle -->
         <div class="bg-white rounded-lg shadow-lg border border-slate-200 p-3">
             <label class="text-xs text-slate-600 block mb-2 font-inter">Language</label>
-            <select id="languageSelect" name="languageSelect" title="Language selection"
-                class="text-sm border border-slate-200 rounded px-2 py-1 focus:ring-2 focus:ring-teal-500 focus:border-transparent font-inter">
+            <select id="languageSelect" class="text-sm border border-slate-200 rounded px-2 py-1 focus:ring-2 focus:ring-teal-500 font-inter">
                 <option value="en">English</option>
                 <option value="hi">Hindi</option>
                 <option value="ta">Tamil</option>
                 <option value="te">Telugu</option>
                 <option value="bn">Bengali</option>
+                <option value="mr">Marathi</option>
+                <option value="kn">Kannada</option>
+                <option value="ml">Malayalam</option>
             </select>
         </div>
-
-        <!-- AI Help Button -->
-        <button id="aiHelpBtn" type="button" aria-label="Open AI help" title="Open AI help"
-            class="bg-teal-600 text-white rounded-lg shadow-lg p-3 hover:bg-teal-700 transition-all hover:scale-105">
+        <button id="aiHelpBtn" class="bg-teal-600 text-white rounded-lg shadow-lg p-3 hover:bg-teal-700 transition-all hover:scale-105">
             <iconify-icon icon="solar:chat-round-dots-bold" width="24"></iconify-icon>
         </button>
     </div>
 
     <!-- AI Help Drawer -->
-    <div id="aiHelpDrawer"
-        class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl border-l border-slate-200 z-50 transform translate-x-full transition-transform duration-300">
+    <div id="aiHelpDrawer" class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl border-l border-slate-200 z-50 transform translate-x-full transition-transform duration-300">
         <div class="p-6 border-b border-slate-200 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center">
@@ -98,1000 +119,844 @@
                 </div>
                 <h3 class="font-semibold text-lg font-manrope">AI Assistant</h3>
             </div>
-            <button id="closeAiHelp" type="button" aria-label="Close AI help" title="Close AI help"
-                class="text-slate-400 hover:text-slate-600">
+            <button id="closeAiHelp" class="text-slate-400 hover:text-slate-600">
                 <iconify-icon icon="solar:close-circle-bold" width="24"></iconify-icon>
             </button>
         </div>
         <div class="p-6 h-[calc(100%-180px)] overflow-y-auto">
             <div class="space-y-4">
                 <div class="bg-teal-50 rounded-lg p-4">
-                    <p class="text-sm text-slate-700 font-inter" id="aiGreeting">👋 Hello! I'm here to help you
-                        understand your procedure better. Ask me anything about the consent process.</p>
+                    <p class="text-sm text-slate-700 font-inter" id="aiGreeting">Hello! I'm here to help you understand your procedure better. Ask me anything about the consent process.</p>
                 </div>
                 <div id="aiChatMessages" class="space-y-4"></div>
             </div>
         </div>
         <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-200 bg-white">
             <div class="flex gap-2">
-                <input type="text" id="aiQuestionInput" placeholder="Ask a question..."
-                    class="flex-1 px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-sm font-inter">
-                <button id="sendAiQuestion" type="button" aria-label="Send AI question" title="Send AI question"
-                    class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition-colors">
+                <input type="text" id="aiQuestionInput" placeholder="Ask a question..." class="flex-1 px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 text-sm font-inter">
+                <button id="sendAiQuestion" class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition-colors">
                     <iconify-icon icon="solar:plain-2-bold" width="20"></iconify-icon>
                 </button>
             </div>
         </div>
     </div>
 
+    <!-- Review Popup (shown when score < 80) -->
+    <div id="reviewPopup" class="review-popup hidden">
+        <div class="popup-card">
+            <div class="text-center mb-6">
+                <iconify-icon icon="solar:book-heart-bold" class="text-amber-500 mx-auto mb-3" width="48"></iconify-icon>
+                <h3 class="text-xl">Let's Review Together</h3>
+                <p class="text-slate-600 font-inter text-sm mt-2">You got some questions wrong. Let's go over them so you're fully prepared.</p>
+            </div>
+            <div id="reviewItems" class="space-y-3"></div>
+            <button id="closeReviewPopup" class="w-full mt-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-semibold font-inter">
+                Understood — Continue to Signature
+            </button>
+        </div>
+    </div>
+
     <div class="flex max-w-7xl mx-auto">
-        <!-- Left Sidebar Navigation -->
+        <!-- Sidebar Navigation -->
         <aside class="w-64 bg-white border-r border-slate-200 min-h-screen sticky top-20 self-start">
             <div class="p-6">
                 <h2 class="text-sm font-semibold text-slate-900 mb-4 font-manrope">Contents</h2>
-                <nav class="space-y-2">
-                    <a href="#overview" data-section="overview"
-                        class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
+                <nav class="space-y-2" id="sidebarNav">
+                    <a href="#overview" data-section="overview" class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
                         <span>Overview</span>
-                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden"
-                            width="16"></iconify-icon>
+                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden" width="16"></iconify-icon>
                     </a>
-                    <a href="#procedure-steps" data-section="procedure-steps"
-                        class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
+                    <a href="#procedure-steps" data-section="procedure-steps" class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
                         <span>Procedure Steps</span>
-                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden"
-                            width="16"></iconify-icon>
+                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden" width="16"></iconify-icon>
                     </a>
-                    <a href="#risks" data-section="risks"
-                        class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
+                    <a href="#risks" data-section="risks" class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
                         <span>Risks</span>
-                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden"
-                            width="16"></iconify-icon>
+                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden" width="16"></iconify-icon>
                     </a>
-                    <a href="#alternatives" data-section="alternatives"
-                        class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
+                    <a href="#alternatives" data-section="alternatives" class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
                         <span>Alternatives</span>
-                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden"
-                            width="16"></iconify-icon>
+                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden" width="16"></iconify-icon>
                     </a>
-                    <a href="#recovery" data-section="recovery"
-                        class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
+                    <a href="#recovery" data-section="recovery" class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
                         <span>Recovery</span>
-                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden"
-                            width="16"></iconify-icon>
-                    </a>
-                    <a href="#quiz" data-section="quiz"
-                        class="nav-item flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-teal-50 hover:text-teal-700 transition-colors font-inter text-slate-600">
-                        <span>Check Your Understanding</span>
-                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden"
-                            width="16"></iconify-icon>
+                        <iconify-icon icon="solar:check-circle-bold" class="check-icon text-teal-600 hidden" width="16"></iconify-icon>
                     </a>
                 </nav>
             </div>
         </aside>
 
-        <!-- Main Content Area -->
+        <!-- Main Content -->
         <main class="flex-1 p-8 pb-24">
-            <!-- Overview Section -->
+
+            <!-- Understanding Score Bar -->
+            <div class="score-bar" id="scoreBar">
+                <div class="score-ring">
+                    <svg width="56" height="56" viewBox="0 0 56 56">
+                        <circle cx="28" cy="28" r="24" fill="none" stroke="#e2e8f0" stroke-width="4"/>
+                        <circle id="scoreCircle" cx="28" cy="28" r="24" fill="none" stroke="#14b8a6" stroke-width="4" stroke-dasharray="150.8" stroke-dashoffset="150.8" stroke-linecap="round"/>
+                    </svg>
+                    <div class="score-text" id="scoreText">0%</div>
+                </div>
+                <div>
+                    <div class="score-label">Understanding Score</div>
+                    <div class="score-sub" id="scoreSub">Answer quizzes as you read to track your understanding</div>
+                </div>
+            </div>
+
+            <!-- Verification Badge -->
+            <div id="verificationBadge" class="hidden mb-6 p-4 rounded-xl border flex items-center gap-3">
+                <iconify-icon id="verificationIcon" icon="solar:shield-check-bold" width="24"></iconify-icon>
+                <div>
+                    <div id="verificationTitle" class="font-semibold font-manrope"></div>
+                    <div id="verificationDetail" class="text-sm font-inter"></div>
+                </div>
+            </div>
+
+            <!-- ═══════ OVERVIEW ═══════ -->
             <section id="overview" class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-2xl font-semibold text-slate-900 font-manrope">Overview</h3>
-                    <button
-                        class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter"
-                        id="overviewVoiceBtn">
+                    <button class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter" data-section-key="overview">
                         <iconify-icon icon="solar:volume-loud-bold" width="18"></iconify-icon>
-                        Listen
+                        <span class="voice-label">Listen</span>
                     </button>
                 </div>
                 <div class="space-y-4">
                     <p id="overviewText" class="text-slate-700 leading-relaxed font-inter">Loading...</p>
-
-                    <!-- Visual Placeholder -->
-                    <div
-                        class="bg-gradient-to-br from-teal-50 to-emerald-50 rounded-xl p-8 border border-teal-100 flex items-center justify-center min-h-[200px]">
-                        <div class="text-center">
-                            <iconify-icon icon="solar:medical-kit-bold" class="text-teal-600 mb-4"
-                                width="64"></iconify-icon>
-                            <p class="text-sm text-slate-600 font-inter">Visual: Procedure Diagram</p>
-                        </div>
-                    </div>
-
-                    <button
-                        class="simplify-btn text-sm text-teal-600 hover:text-teal-700 flex items-center gap-2 font-inter">
-                        <iconify-icon icon="solar:refresh-bold" width="16"></iconify-icon>
-                        Simplify this explanation
-                    </button>
+                    <div id="overviewMedia" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4"></div>
                 </div>
+                <div class="motivational-banner mt-6">
+                    <iconify-icon icon="solar:star-bold" class="text-cyan-600" width="24"></iconify-icon>
+                    <p id="overviewMotivation">Great start! Understanding your procedure is the first step to a smooth recovery.</p>
+                </div>
+                <div id="overviewQuiz" class="section-quiz mt-6"></div>
             </section>
 
-            <!-- Procedure Steps Section -->
-            <section id="procedure-steps"
-                class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
+            <!-- ═══════ PROCEDURE STEPS ═══════ -->
+            <section id="procedure-steps" class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-2xl font-semibold text-slate-900 font-manrope">Procedure Steps</h3>
-                    <button
-                        class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter"
-                        id="stepsVoiceBtn">
+                    <button class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter" data-section-key="steps">
                         <iconify-icon icon="solar:volume-loud-bold" width="18"></iconify-icon>
-                        Listen
+                        <span class="voice-label">Listen</span>
                     </button>
                 </div>
                 <div class="space-y-6">
-                    <div id="stepsContainer" class="space-y-6">
-                        <div class="text-slate-600 font-inter">Loading procedure steps...</div>
-                    </div>
-
-                    <!-- Visual Placeholder -->
-                    <div
-                        class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-8 border border-emerald-100 flex items-center justify-center min-h-[200px]">
-                        <div class="text-center">
-                            <iconify-icon icon="solar:clipboard-list-bold" class="text-emerald-600 mb-4"
-                                width="64"></iconify-icon>
-                            <p class="text-sm text-slate-600 font-inter">Visual: Step-by-Step Animation</p>
-                        </div>
-                    </div>
+                    <div id="stepsContainer" class="space-y-6"><div class="text-slate-600 font-inter">Loading procedure steps...</div></div>
+                    <div id="stepsMedia" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
+                <div class="motivational-banner mt-6">
+                    <iconify-icon icon="solar:heart-bold" class="text-cyan-600" width="24"></iconify-icon>
+                    <p>You're doing great! Your medical team has done this many times — you're in safe hands.</p>
+                </div>
+                <div id="stepsQuiz" class="section-quiz mt-6"></div>
             </section>
 
-            <!-- Risks Section -->
+            <!-- ═══════ RISKS ═══════ -->
             <section id="risks" class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-2xl font-semibold text-slate-900 font-manrope">Risks</h3>
-                    <button
-                        class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter"
-                        id="risksVoiceBtn">
+                    <button class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter" data-section-key="risks">
                         <iconify-icon icon="solar:volume-loud-bold" width="18"></iconify-icon>
-                        Listen
+                        <span class="voice-label">Listen</span>
                     </button>
                 </div>
                 <div class="space-y-4">
                     <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 flex gap-3">
-                        <iconify-icon icon="solar:info-circle-bold" class="text-amber-600 shrink-0"
-                            width="20"></iconify-icon>
-                        <p class="text-sm text-slate-700 font-inter">Most risks are rare but important to understand
-                            before proceeding.</p>
+                        <iconify-icon icon="solar:info-circle-bold" class="text-amber-600 shrink-0" width="20"></iconify-icon>
+                        <p class="text-sm text-slate-700 font-inter">Most risks are rare but important to understand before proceeding.</p>
                     </div>
-
-                    <div id="risksContainer" class="space-y-3">
-                        <div class="text-slate-600 font-inter">Loading risks information...</div>
-                    </div>
-
-                    <!-- Visual Placeholder -->
-                    <div
-                        class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-8 border border-amber-100 flex items-center justify-center min-h-[160px]">
-                        <div class="text-center">
-                            <iconify-icon icon="solar:danger-triangle-bold" class="text-amber-600 mb-4"
-                                width="48"></iconify-icon>
-                            <p class="text-sm text-slate-600 font-inter">Visual: Risk Level Indicators</p>
-                        </div>
-                    </div>
+                    <div id="risksContainer" class="space-y-3"><div class="text-slate-600 font-inter">Loading risks information...</div></div>
                 </div>
+                <div class="motivational-banner mt-6">
+                    <iconify-icon icon="solar:shield-check-bold" class="text-cyan-600" width="24"></iconify-icon>
+                    <p>Being aware of risks shows you're taking charge of your health. Your doctor will minimize these risks.</p>
+                </div>
+                <div id="risksQuiz" class="section-quiz mt-6"></div>
             </section>
 
-            <!-- Alternatives Section -->
-            <section id="alternatives"
-                class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
+            <!-- ═══════ ALTERNATIVES ═══════ -->
+            <section id="alternatives" class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-2xl font-semibold text-slate-900 font-manrope">Alternatives</h3>
-                    <button
-                        class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter"
-                        id="alternativesVoiceBtn">
+                    <button class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter" data-section-key="alternatives">
                         <iconify-icon icon="solar:volume-loud-bold" width="18"></iconify-icon>
-                        Listen
+                        <span class="voice-label">Listen</span>
                     </button>
                 </div>
                 <div class="space-y-4">
-                    <p class="text-slate-700 leading-relaxed font-inter">
-                        While the recommended approach is the most effective option, alternative treatments are
-                        available:
-                    </p>
-
-                    <div id="alternativesContainer" class="space-y-4">
-                        <div class="text-slate-600 font-inter">Loading alternatives...</div>
-                    </div>
-
+                    <p class="text-slate-700 leading-relaxed font-inter">While the recommended approach is the most effective, alternative treatments are available:</p>
+                    <div id="alternativesContainer" class="space-y-4"><div class="text-slate-600 font-inter">Loading alternatives...</div></div>
                     <div id="recommendationBanner" class="bg-teal-50 border border-teal-200 rounded-lg p-4 flex gap-3">
-                        <iconify-icon icon="solar:verified-check-bold" class="text-teal-600 shrink-0"
-                            width="20"></iconify-icon>
-                        <p class="text-sm text-slate-700 font-inter" id="recommendationText">Loading recommendation...
-                        </p>
+                        <iconify-icon icon="solar:verified-check-bold" class="text-teal-600 shrink-0" width="20"></iconify-icon>
+                        <p class="text-sm text-slate-700 font-inter" id="recommendationText">Loading recommendation...</p>
                     </div>
                 </div>
+                <div class="motivational-banner mt-6">
+                    <iconify-icon icon="solar:medal-star-bold" class="text-cyan-600" width="24"></iconify-icon>
+                    <p>You have options, and your doctor has chosen the best one for you. That's the power of informed consent.</p>
+                </div>
+                <div id="alternativesQuiz" class="section-quiz mt-6"></div>
             </section>
 
-            <!-- Recovery Section -->
+            <!-- ═══════ RECOVERY ═══════ -->
             <section id="recovery" class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-2xl font-semibold text-slate-900 font-manrope">Recovery</h3>
-                    <button
-                        class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter"
-                        id="recoveryVoiceBtn">
+                    <button class="voice-btn flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition-colors text-sm font-inter" data-section-key="recovery">
                         <iconify-icon icon="solar:volume-loud-bold" width="18"></iconify-icon>
-                        Listen
+                        <span class="voice-label">Listen</span>
                     </button>
                 </div>
                 <div class="space-y-6">
-                    <p id="recoverySummary" class="text-slate-700 leading-relaxed font-inter">Loading recovery
-                        information...</p>
-
-                    <!-- Recovery Timeline -->
+                    <p id="recoverySummary" class="text-slate-700 leading-relaxed font-inter">Loading recovery information...</p>
                     <div class="bg-white border border-slate-200 rounded-xl p-6">
                         <h4 class="font-semibold text-slate-900 mb-6 font-manrope">Recovery Timeline</h4>
-                        <div id="timelineContainer" class="space-y-6">
-                            <div class="text-slate-600 font-inter">Loading timeline...</div>
-                        </div>
+                        <div id="timelineContainer" class="space-y-6"><div class="text-slate-600 font-inter">Loading timeline...</div></div>
                     </div>
-
-                    <!-- Recovery Tips -->
                     <div class="grid md:grid-cols-2 gap-4">
                         <div class="bg-teal-50 border border-teal-100 rounded-lg p-4">
                             <h5 class="font-semibold text-slate-900 mb-3 flex items-center gap-2 font-manrope">
-                                <iconify-icon icon="solar:check-circle-bold" class="text-teal-600"
-                                    width="18"></iconify-icon>
-                                Do
+                                <iconify-icon icon="solar:check-circle-bold" class="text-teal-600" width="18"></iconify-icon> Do
                             </h5>
-                            <ul id="dosList" class="text-sm text-slate-700 space-y-2 font-inter">
-                                <li class="flex items-start gap-2">
-                                    <iconify-icon icon="solar:check-read-bold" class="text-teal-500 shrink-0 mt-0.5"
-                                        width="16"></iconify-icon>
-                                    <span>Loading...</span>
-                                </li>
-                            </ul>
+                            <ul id="dosList" class="text-sm text-slate-700 space-y-2 font-inter"></ul>
                         </div>
                         <div class="bg-red-50 border border-red-100 rounded-lg p-4">
                             <h5 class="font-semibold text-slate-900 mb-3 flex items-center gap-2 font-manrope">
-                                <iconify-icon icon="solar:close-circle-bold" class="text-red-600"
-                                    width="18"></iconify-icon>
-                                Don't
+                                <iconify-icon icon="solar:close-circle-bold" class="text-red-600" width="18"></iconify-icon> Don't
                             </h5>
-                            <ul id="dontsList" class="text-sm text-slate-700 space-y-2 font-inter">
-                                <li class="flex items-start gap-2">
-                                    <iconify-icon icon="solar:close-square-bold" class="text-red-500 shrink-0 mt-0.5"
-                                        width="16"></iconify-icon>
-                                    <span>Loading...</span>
-                                </li>
-                            </ul>
+                            <ul id="dontsList" class="text-sm text-slate-700 space-y-2 font-inter"></ul>
                         </div>
                     </div>
                 </div>
+                <div class="motivational-banner mt-6">
+                    <iconify-icon icon="solar:sunrise-bold" class="text-cyan-600" width="24"></iconify-icon>
+                    <p>Recovery is a journey, not a race. Every day you'll feel a little stronger. You've got this!</p>
+                </div>
+                <div id="recoveryQuiz" class="section-quiz mt-6"></div>
             </section>
 
-            <!-- Quiz Section -->
-            <section id="quiz" class="content-section mb-16 opacity-0 translate-y-4 transition-all duration-500">
-                <div class="mb-6">
-                    <h3 class="text-2xl font-semibold text-slate-900 mb-2 font-manrope">Check Your Understanding</h3>
-                    <p class="text-slate-600 font-inter">Please answer these questions to ensure you understand the
-                        procedure before signing consent.</p>
+            <!-- Final Section -->
+            <div id="finalSection" class="hidden text-center py-12">
+                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-8 max-w-lg mx-auto">
+                    <iconify-icon icon="solar:check-circle-bold" class="text-emerald-500 mx-auto mb-4" width="64"></iconify-icon>
+                    <h3 class="text-2xl font-bold text-emerald-900 mb-2 font-manrope">You're All Set!</h3>
+                    <p class="text-emerald-700 mb-6 font-inter">You've completed all sections and quizzes. You may now proceed to sign your consent.</p>
+                    <button id="proceedToSignature" class="px-8 py-4 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors shadow-lg font-semibold text-lg font-inter">
+                        Proceed to Digital Consent Form
+                    </button>
                 </div>
-
-                <div id="quizContainer" class="space-y-6">
-                    <div class="text-slate-600 font-inter">Loading quiz...</div>
-                </div>
-
-                <!-- Submit Button -->
-                <button id="submitQuiz"
-                    class="w-full py-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors shadow-lg font-semibold text-lg font-inter mt-6">
-                    Submit Answers
-                </button>
-
-                <!-- Success Message (Hidden Initially) -->
-                <div id="quizSuccess" class="hidden bg-emerald-50 border border-emerald-200 rounded-xl p-6 mt-6">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center shrink-0">
-                            <iconify-icon icon="solar:check-circle-bold" class="text-white" width="24"></iconify-icon>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-semibold text-emerald-900 mb-2 text-lg font-manrope">Great! You've
-                                understood everything.</h4>
-                            <p class="text-emerald-800 mb-4 font-inter">You may now sign your consent to proceed with
-                                the procedure.</p>
-                            <button id="proceedToSignature"
-                                class="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-semibold font-inter">
-                                Proceed to Digital Consent Form
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Error Message (Hidden Initially) -->
-                <div id="quizError" class="hidden bg-red-50 border border-red-200 rounded-xl p-6 mt-6">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center shrink-0">
-                            <iconify-icon icon="solar:close-circle-bold" class="text-white" width="24"></iconify-icon>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-semibold text-red-900 mb-2 text-lg font-manrope">Please review the
-                                information</h4>
-                            <p class="text-red-800 font-inter" id="errorMessage">Some answers are incorrect or
-                                incomplete. Please review the sections and try again.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
         </main>
     </div>
 
-    <script>
-        const CONFIG = {
-            API_BASE_URL: (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-                ? 'http://localhost:4000/api'
-                : '/api',
-            REQUEST_TIMEOUT: 15000
-        };
+<script>
+// ═══════════════════════════════════════════════════════
+//  CONFIG
+// ═══════════════════════════════════════════════════════
+const CONFIG = {
+    API_BASE_URL: (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+        ? 'http://localhost:4000/api' : `${window.location.origin}/api`,
+    REQUEST_TIMEOUT: 30000,
+    LANG_CACHE_KEY: 'poc_lang_cache'
+};
 
-        let consentData = null;
-        let currentConsentId = null;
-        const sections = document.querySelectorAll('.content-section');
-        const navItems = document.querySelectorAll('.nav-item');
-        const progressBar = document.getElementById('progressBar');
-        const completedSections = new Set();
-        let currentLanguage = 'en';
+const LANG_NAMES = { en:'English', hi:'Hindi', ta:'Tamil', te:'Telugu', bn:'Bengali', mr:'Marathi', kn:'Kannada', ml:'Malayalam' };
+const LANG_BCP47 = { en:'en-US', hi:'hi-IN', ta:'ta-IN', te:'te-IN', bn:'bn-IN', mr:'mr-IN', kn:'kn-IN', ml:'ml-IN' };
 
-        const otpAlert = document.getElementById('otpAlert');
-        const otpAlertText = document.getElementById('otpAlertText');
-        const submitQuizBtn = document.getElementById('submitQuiz');
-        const proceedBtn = document.getElementById('proceedToSignature');
-        const loadingText = document.getElementById('loadingText');
+const MOTIVATIONAL = {
+    overview: { en:'Great start! Understanding your procedure is the first step to a smooth recovery.', hi:'बहुत अच्छा! अपनी प्रक्रिया को समझना सही रिकवरी की पहली कदम है।', ta:'அருமை! உங்கள் நடவடிக்கையை புரிந்துகொள்வது சிறந்த மீட்புக்கான முதல் படியாகும்.', te:'చాలా బాగుంది! మీ ప్రక్రియను అర్థం చేసుకోవడం మెరుగైన కోలుకోవడానికి మొదటి అడుగు.', bn:'দারুণ! আপনার প্রক্রিয়া বোঝা স্মূথ রিকভারির প্রথম পদক্ষেপ।', mr:'खूप छान! तुमच्या प्रक्रिया समजून घेणे हे योग्य बरे होण्याची पहिली पायरी आहे.', kn:'ಅದ್ಭುತ! ನಿಮ್ಮ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು ಸ್ಮೂಥ್ ರಿಕವರಿಗೆ ಮೊದಲ ಹೆಜ್ಜೆ.', ml:'മികച്ചത്! നിങ്ങളുടെ നടപടിക്രമം മനസ്സിലാക്കുന്നത് മികച്ച വീണ്ടെടുപ്പിനുള്ള ആദ്യ പടിയാണ്.' },
+    steps: { en:'Your medical team has done this many times — you\'re in safe hands.', hi:'आपकी मेडिकल टीम ने यह कई बार किया है — आप सुरक्षित हाथों में हैं।', ta:'உங்கள் மருத்துவ குழு இதை பல முறை செய்துள்ளது — நீங்கள் பாதுகாப்பான கைகளில் உள்ளீர்கள்.', te:'మీ వైద్య బృందం దీనిని అనేక సార్లు చేసింది — మీరు సురక్షితమైన చేతుల్లో ఉన్నారు.', bn:'আপনার মেডিকেল টিম এটি অনেকবার করেছে — আপনি নিরাপদ হাতে আছেন।', mr:'तुमच्या वैद्यकीय टीमने हे अनेक वेळा केले आहे — तुम्ही सुरक्षित हातात आहात.', kn:'ನಿಮ್ಮ ವೈದ್ಯಕೀಯ ತಂಡ ಇದನ್ನು ಹಲವು ಬಾರಿ ಮಾಡಿದೆ — ನೀವು ಸುರಕ್ಷಿತ ಕೈಗಳಲ್ಲಿದ್ದೀರಿ.', ml:'നിങ്ങളുടെ മെഡിക്കൽ ടീം ��ത് പല തവണ ചെയ്തിട്ടുണ്ട് — നിങ്ങൾ സുരക്ഷിതമായ കൈകളിലാണ്.' },
+    risks: { en:'Being aware of risks shows you\'re taking charge of your health. Your doctor will minimize these risks.', hi:'जोखिमों से अवगत होना दिखाता है कि आप अपने स्वास्थ्य की जिम्मेदारी ले रहे हैं।', ta:'ஆபத்துகளை அறிந்திருப்பது உங்கள் ஆரோக்கியத்தின் பொறுப்பை ஏற்றுக்கொள்கிறீர்கள் என்பதைக் காட்டுகிறது.', te:'ప్రమాదాల గురించి తెలిసి ఉండటం మీ ఆరోగ్యానికి బాధ్యత వహిస్తున్నారని చూపిస్తుంది.', bn:'ঝুঁকি সম্পর্কে সচেতন থাকা দেখায় যে আপনি আপনার স্বাস্থ্যের দায়িত্ব নিচ্ছেন।', mr:'धोक्यांबद्दल सावध असणे दर्शवते की तुम्ही तुमच्या आरोग्याची जबाबदारी घेत आहात.', kn:'ಅಪಾಯಗಳ ಬಗ್ಗೆ ಜಾಗೃತರಾಗಿರುವುದು ನಿಮ್ಮ ಆರೋಗ್ಯದ ಜವಾಬ್ದಾರಿ ತೆಗೆದುಕೊಳ್ಳುತ್ತಿದ್ದೀರಿ ಎಂದು ತೋರಿಸುತ್ತದೆ.', ml:'അപകടങ്ങളെക്കുറിച്ച് അറിവുള്ളത് നിങ്ങൾ നിങ്ങളുടെ ആരോഗ്യത്തിന്റെ ഉത്തരവാദിത്തം ഏറ്റെടുക്കുന്നു എന്ന് കാണിക്കുന്നു.' },
+    alternatives: { en:'You have options, and your doctor has chosen the best one for you.', hi:'आपके पास विकल्प हैं, और आपके डॉक्टर ने आपके लिए सबसे अच्छा चुना है।', ta:'உங்களுக்கு விருப்பங்கள் உள்ளன, உங்கள் மருத்துவர் உங்களுக்கு சிறந்ததை தேர்ந்தெடுத்துள்ளார்.', te:'మీకు ఎంపికలు ఉన్నాయి, మీ వైద్యుడు మీ కోసం ఉత్తమమైనది ఎంచుకున్నారు.', bn:'আপনার কাছে বিকল্প আছে, এবং আপনার ডাক্তার আপনার জন্য সেরাটি বেছে নিয়েছেন।', mr:'तुमच्याकडे पर्याय आहेत, आणि तुमच्या डॉक्टरने तुमच्यासाठी सर्वोत्तम निवडले आहे.', kn:'ನಿಮಗೆ ಆಯ್ಕೆಗಳಿವೆ, ಮತ್ತು ನಿಮ್ಮ ವೈದ್ಯರು ನಿಮಗಾಗಿ ಅತ್ಯುತ್ತಮವಾದದನ್ನು ಆಯ್ಕೆ ಮಾಡಿದ್ದಾರೆ.', ml:'നിങ്ങൾക്ക് ഓപ്ഷനുകൾ ഉണ്ട്, നിങ്ങളുടെ ഡോക്ടർ നിങ്ങൾക്ക് ഏറ്റവും നല്ലത് തിരഞ്ഞെടുത്തിട്ടുണ്ട്.' },
+    recovery: { en:'Recovery is a journey. Every day you\'ll feel a little stronger. You\'ve got this!', hi:'रिकवरी एक यात्रा है। हर दिन आप थोड़ा मजबूत महसूस करेंगे।', ta:'மீட்பு ஒரு பயணம். ஒவ்வொரு நாளும் நீங்கள் சற்று வலுவாக உணருவீர்கள்.', te:'కోలుకోవడం ఒక ప్రయాణం. ప్రతి రోజు మీరు కొంచెం బలంగా భావిస్తారు.', bn:'পুনরুদ্ধার একটি যাত্রা। প্রতিদিন আপনি একটু শক্তিশালী বোধ করবেন।', mr:'बरे होणे हे प्रवास आहे. दररोज तुम्हाला थोडे जास्त मजबूत वाटेल.', kn:'ಚೇತರಿಕೆ ಒಂದು ಪ್ರಯಾಣ. ಪ್ರತಿದಿನ ನೀವು ಸ್ವಲ್ಪ ಬಲವಾಗಿ ಭಾಸಿಸುವಿರಿ.', ml:'വീണ്ടെടുപ്പ് ഒരു യാത്രയാണ്. ഓരോ ദിവസവും നിങ്ങൾ അൽപ്പം ശക്തരായി തോന്നും.' }
+};
 
-        function getConsentId() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('consentId') || sessionStorage.getItem('currentConsentId') || null;
-        }
+let consentData = null;
+let currentConsentId = null;
+let currentLanguage = 'en';
+const completedSections = new Set();
+const sections = document.querySelectorAll('.content-section');
+const navItems = document.querySelectorAll('.nav-item');
+const progressBar = document.getElementById('progressBar');
 
-        function getOtpParam() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('otp') || null;
-        }
+// ═══════════════════════════════════════════════════════
+//  SCORE TRACKING
+// ═══════════════════════════════════════════════════════
+const scoreState = { total: 0, correct: 0, answered: new Set(), expectedTotal: 0 };
 
-        async function fetchWithTimeout(url, options = {}, timeout = CONFIG.REQUEST_TIMEOUT) {
-            const controller = new AbortController();
-            const timer = setTimeout(() => controller.abort(), timeout);
+function updateScore() {
+    if (scoreState.expectedTotal <= 0) return;
+    const pct = Math.round((scoreState.correct / scoreState.expectedTotal) * 100);
+    document.getElementById('scoreText').textContent = pct + '%';
+    const circle = document.getElementById('scoreCircle');
+    const offset = 150.8 - (150.8 * pct / 100);
+    circle.style.strokeDashoffset = offset;
+    circle.style.stroke = pct >= 80 ? '#14b8a6' : pct >= 50 ? '#f59e0b' : '#ef4444';
+    document.getElementById('scoreSub').textContent = `${scoreState.correct}/${scoreState.expectedTotal} correct — ${pct >= 80 ? 'Excellent!' : 'Keep learning!'}`;
+}
+
+// ═══════════════════════════════════════════════════════
+//  LANGUAGE CACHE
+// ═══════════════════════════════════════════════════════
+function getLangCache() { try { return JSON.parse(localStorage.getItem(CONFIG.LANG_CACHE_KEY) || '{}'); } catch { return {}; } }
+function setLangCache(key, data) { const c = getLangCache(); c[key] = { data, ts: Date.now() }; localStorage.setItem(CONFIG.LANG_CACHE_KEY, JSON.stringify(c)); }
+
+async function translateContent(procedure, patientName, doctorName, lang) {
+    const ck = `${procedure}::${lang}`;
+    const cached = getLangCache()[ck];
+    if (cached && (Date.now() - cached.ts < 3600000)) { console.log('🌐 Cache HIT:', ck); return cached.data; }
+
+    console.log('🌐 Fetching translation:', ck);
+    try {
+        // If English, use existing consent data or generate fresh
+        if (lang === 'en') {
+            // Use existing consent data if available
+            if (consentData && consentData.overview) {
+                const content = {
+                    overview: consentData.overview || consentData.aiSummary || '',
+                    steps: consentData.steps || [],
+                    risks: consentData.risks || [],
+                    alternatives: consentData.alternatives || [],
+                    recovery: consentData.recovery || {},
+                    quiz: consentData.quiz || { questions: [] }
+                };
+                let media = consentData.media || { videos: [], images: [] };
+                const full = { ...content, media };
+                setLangCache(ck, full);
+                return full;
+            }
+            // Fallback: generate fresh content
+            const resp = await fw(`${CONFIG.API_BASE_URL}/ai/generate-content`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ procedure, patientName, doctorName, language: lang })
+            });
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            const result = await resp.json();
+            const content = result.success ? result.content : result;
+            let media = { videos: [], images: [] };
             try {
-                const response = await fetch(url, { ...options, signal: controller.signal });
-                clearTimeout(timer);
-                return response;
-            } catch (err) {
-                clearTimeout(timer);
-                if (err.name === 'AbortError') throw new Error('Request timed out. Please try again.');
-                throw err;
-            }
+                const mr = await fw(`${CONFIG.API_BASE_URL}/consent/media/${encodeURIComponent(procedure)}`);
+                if (mr.ok) { const md = await mr.json(); media = md.media || media; }
+            } catch {}
+            const full = { ...content, media };
+            setLangCache(ck, full);
+            return full;
         }
 
-        async function fetchAIContent(procedure, patientName, doctorName) {
-            console.log('🤖 Fetching AI-generated content from backend...');
+        // For other languages: use existing English consent data, then translate
+        let enContent = null;
 
-            const response = await fetchWithTimeout(`${CONFIG.API_BASE_URL}/ai/generate-content`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    procedure,
-                    patientName: patientName || 'Patient',
-                    doctorName: doctorName || 'Doctor',
-                    language: 'en'
-                })
+        // First try to get from existing consentData
+        if (consentData && (consentData.overview || consentData.aiSummary)) {
+            enContent = {
+                overview: consentData.overview || consentData.aiSummary || '',
+                aiSummary: consentData.aiSummary || consentData.overview || '',
+                steps: consentData.steps || [],
+                risks: consentData.risks || [],
+                alternatives: consentData.alternatives || [],
+                recovery: consentData.recovery || {},
+                quiz: consentData.quiz || { questions: [] }
+            };
+        }
+
+        // If not available, try cache
+        if (!enContent) {
+            const enCacheKey = `${procedure}::en`;
+            enContent = getLangCache()[enCacheKey]?.data;
+        }
+
+        // If still not available, fetch from backend
+        if (!enContent) {
+            const enResp = await fw(`${CONFIG.API_BASE_URL}/ai/generate-content`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ procedure, patientName, doctorName, language: 'en' })
             });
-
-            if (!response.ok) {
-                throw new Error('AI content generation failed');
-            }
-
-            const data = await response.json();
-
-            // ✅ FIX: The API returns { success: true, content: {...} }
-            // So we need to extract the content property
-            if (data.success && data.content) {
-                return data.content;
-            }
-
-            // If content is at root level (backwards compatibility)
-            return data;
+            if (!enResp.ok) throw new Error(`HTTP ${enResp.status}`);
+            const enResult = await enResp.json();
+            enContent = enResult.success ? enResult.content : enResult;
         }
 
-        async function initializeConsent() {
-            try {
-                currentConsentId = getConsentId();
-                if (!currentConsentId) {
-                    showLoadingError('No consent ID provided. Please start from the beginning.');
-                    return;
-                }
+        // Translate using backend translation service
+        const transResp = await fw(`${CONFIG.API_BASE_URL}/translation/translate`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ content: enContent, language: lang })
+        });
+        if (!transResp.ok) throw new Error(`Translation HTTP ${transResp.status}`);
+        const transResult = await transResp.json();
+        const content = transResult.success ? transResult.content : enContent;
 
-                loadingText.textContent = 'Loading consent data...';
+        let media = consentData?.media || { videos: [], images: [] };
+        const full = { ...content, media };
+        setLangCache(ck, full);
+        return full;
+    } catch (err) { console.error('Translation failed:', err); return null; }
+}
 
-                // Try localStorage first (same-origin data from dashboard)
-                const localData = localStorage.getItem(`consent_${currentConsentId}`);
-                if (localData) {
-                    consentData = JSON.parse(localData);
-                    console.log('✅ Loaded consent from localStorage');
-                } else {
-                    // Fallback to API
-                    console.log('⚠️ Not found in localStorage, trying API...');
-                    loadingText.textContent = 'Fetching from server...';
+// ═══════════════════════════════════════════════════════
+//  VOICE SYNTHESIS
+// ═══════════════════════════════════════════════════════
+let currentUtterance = null;
+function speakText(text, lang) {
+    if (!('speechSynthesis' in window) || !text) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = LANG_BCP47[lang] || 'en-US';
+    u.rate = 0.9;
+    const voices = speechSynthesis.getVoices();
+    const v = voices.find(v => v.lang.startsWith(lang));
+    if (v) u.voice = v;
+    currentUtterance = u;
+    u.onend = () => { currentUtterance = null; document.querySelectorAll('.voice-active').forEach(e => e.classList.remove('voice-active')); };
+    u.onerror = () => { currentUtterance = null; document.querySelectorAll('.voice-active').forEach(e => e.classList.remove('voice-active')); };
+    speechSynthesis.speak(u);
+}
+function stopSpeaking() { speechSynthesis.cancel(); currentUtterance = null; document.querySelectorAll('.voice-active').forEach(e => e.classList.remove('voice-active')); }
 
-                    const otp = getOtpParam();
-                    const otpQuery = otp ? `?otp=${encodeURIComponent(otp)}` : '';
-                    const response = await fetchWithTimeout(`${CONFIG.API_BASE_URL}/consent/${currentConsentId}${otpQuery}`);
+// ═══════════════════════════════════════════════════════
+//  QUIZ SYSTEM
+// ═══════════════════════════════════════════════════════
+function calcExpectedTotal(content) {
+    let n = 0;
+    if (content.overview || content.aiSummary) n++;
+    if (content.steps?.length >= 2) n++;
+    if (content.risks?.length >= 1) n++;
+    if (content.alternatives?.length >= 1) n++;
+    if (content.recovery?.do?.length >= 1) n++;
+    return n;
+}
 
-                    if (!response.ok) {
-                        throw new Error(response.status === 404 ? 'Consent not found' : 'Failed to load consent');
-                    }
+function genQuiz(sectionKey, content) {
+    let qs = [];
+    if (sectionKey === 'overview') {
+        const ov = content.overview || content.aiSummary || '';
+        if (ov) qs.push({ id:'ov1', q:`What is ${content.procedure || 'this procedure'} primarily done for?`,
+            opts:{ A: ov.substring(0,120).trim()+(ov.length>120?'...':''), B:'To treat unrelated conditions' },
+            correct:'A', explain:`The overview states: "${ov.substring(0,150)}..."` });
+    } else if (sectionKey === 'steps') {
+        const s = content.steps || [];
+        if (s.length >= 2) qs.push({ id:'st1', q:`What happens during: "${s[0].title}"?`,
+            opts:{ A: s[0].description.substring(0,100).trim()+'...', B:'The patient goes home immediately' },
+            correct:'A', explain:`Step "${s[0].title}" involves: ${s[0].description.substring(0,120)}` });
+    } else if (sectionKey === 'risks') {
+        const r = content.risks || [];
+        if (r.length >= 1) qs.push({ id:'rk1', q:`What is a potential risk mentioned?`,
+            opts:{ A:`${r[0].title} — ${r[0].likelihood||'uncommon'}`, B:'No risks are associated' },
+            correct:'A', explain:`${r[0].title}: ${r[0].description}` });
+    } else if (sectionKey === 'alternatives') {
+        const a = content.alternatives || [];
+        if (a.length >= 1) qs.push({ id:'al1', q:`An alternative to the recommended procedure is:`,
+            opts:{ A: a[0].title, B:'There are no alternatives' },
+            correct:'A', explain:`${a[0].title}: ${a[0].description}` });
+    } else if (sectionKey === 'recovery') {
+        const d = (content.recovery?.do || []);
+        if (d.length >= 1) qs.push({ id:'rc1', q:`After the procedure, you should:`,
+            opts:{ A: d[0], B:'Ignore all post-procedure instructions' },
+            correct:'A', explain:`Following post-procedure instructions is essential for proper recovery.` });
+    }
+    return qs;
+}
 
-                    const data = await response.json();
-                    consentData = data;
+function renderQuiz(containerId, questions, sectionKey) {
+    const c = document.getElementById(containerId);
+    if (!questions.length || !c) { if(c) c.innerHTML=''; return; }
+    c.innerHTML = `<h4><iconify-icon icon="solar:question-circle-bold" width="20"></iconify-icon> Quick Check</h4>` +
+        questions.map(q => `
+        <div class="mb-4" id="quiz_${q.id}">
+            <p class="text-sm font-medium text-slate-800 mb-3 font-inter">${esc(q.q)}</p>
+            <div class="flex flex-col gap-2">
+                ${Object.entries(q.opts).map(([k,v]) => `
+                    <button class="quiz-option" data-qid="${q.id}" data-key="${k}" data-correct="${q.correct}" data-explain="${esc(q.explain||'')}">
+                        <span class="font-semibold mr-2">${k}.</span> ${esc(v)}
+                    </button>`).join('')}
+            </div>
+            <div class="quiz-feedback" id="fb_${q.id}"></div>
+        </div>`).join('');
+    c.querySelectorAll('.quiz-option').forEach(b => b.addEventListener('click', onQuizAnswer));
+}
 
-                    // ✅ CHECK FOR RESTRICTED DATA (OTP Required)
-                    if (consentData.requiresOtp) {
-                        console.warn('🔒 Backend requires valid OTP to show sensitive data');
-                        document.getElementById('loadingSplash').classList.add('hidden');
-                        showOtpAlert('Secure access required. Please use the link provided by your doctor or enter the valid 6-digit OTP.');
-                        togglePageLock(true);
-                        return; // Stop initialization
-                    }
+function onQuizAnswer(e) {
+    const btn = e.currentTarget;
+    const qid = btn.dataset.qid, chosen = btn.dataset.key, correct = btn.dataset.correct;
+    const container = document.getElementById(`quiz_${qid}`);
+    const fb = document.getElementById(`fb_${qid}`);
+    const allBtns = container.querySelectorAll('.quiz-option');
 
-                    console.log('✅ Loaded consent from API');
-                }
+    allBtns.forEach(b => { b.disabled = true; b.classList.remove('correct','incorrect','reveal-correct'); });
 
-                // Check if AI content is missing - fetch from AI API
-                if (!consentData.steps || consentData.steps.length === 0) {
-                    console.log('⚠️ AI content missing, calling AI API...');
-                    loadingText.textContent = 'Generating AI explanation for your procedure...';
+    const qKey = `${qid}`;
+    if (!scoreState.answered.has(qKey)) {
+        scoreState.answered.add(qKey);
+        scoreState.total++;
+        if (chosen === correct) scoreState.correct++;
+    }
 
-                    try {
-                        const aiContent = await fetchAIContent(
-                            consentData.procedure,
-                            consentData.patientName,
-                            consentData.doctorName
-                        );
+    if (chosen === correct) {
+        btn.classList.add('correct');
+        fb.className = 'quiz-feedback show correct-fb';
+        fb.textContent = 'Correct! Well done.';
+    } else {
+        btn.classList.add('incorrect');
+        allBtns.forEach(b => { if (b.dataset.key === correct) b.classList.add('reveal-correct'); });
+        const correctBtn = container.querySelector(`[data-key="${correct}"]`);
+        const correctText = correctBtn ? correctBtn.textContent.trim().replace(/^[A-B]\.\s*/, '') : '';
+        fb.className = 'quiz-feedback show incorrect-fb';
+        fb.innerHTML = `<strong>Not quite.</strong> The correct answer is: <strong>${correct}. ${correctText}</strong><br><em>${esc(btn.dataset.explain || '')}</em>`;
+    }
+    updateScore();
+    checkAllAnswered();
+}
 
-                        // Merge AI content with existing consent data
-                        consentData = {
-                            ...consentData,
-                            aiSummary: aiContent.plainTextSummary || aiContent.overview,
-                            overview: aiContent.overview,
-                            steps: aiContent.steps,
-                            risks: aiContent.risks,
-                            alternatives: aiContent.alternatives,
-                            recovery: aiContent.recovery,
-                            quiz: aiContent.quiz
-                        };
+function checkAllAnswered() {
+    // Guards: never fire on load or with zero data
+    if (scoreState.expectedTotal <= 0) return;
+    if (scoreState.answered.size <= 0) return;
+    if (scoreState.answered.size < scoreState.expectedTotal) return;
+    // All quizzes answered — evaluate
+    const pct = Math.round((scoreState.correct / scoreState.expectedTotal) * 100);
+    if (pct < 80) showReviewPopup();
+    else document.getElementById('finalSection').classList.remove('hidden');
+}
 
-                        console.log('✅ AI content generated successfully');
+function showReviewPopup() {
+    const popup = document.getElementById('reviewPopup');
+    const items = document.getElementById('reviewItems');
+    const incorrectBtns = document.querySelectorAll('.quiz-option.incorrect');
+    items.innerHTML = '';
+    incorrectBtns.forEach(btn => {
+        const container = btn.closest('[id^="quiz_"]');
+        const qText = container.querySelector('p')?.textContent || '';
+        const correctKey = btn.dataset.correct;
+        const correctBtn = container.querySelector(`[data-key="${correctKey}"]`);
+        const correctText = correctBtn ? correctBtn.textContent.trim().replace(/^[A-B]\.\s*/, '') : '';
+        items.innerHTML += `<div class="review-item">
+            <p class="q">${esc(qText)}</p>
+            <p class="correct-a">Correct answer: ${correctKey}. ${esc(correctText)}</p>
+            <p class="text-xs text-slate-600 mt-1 font-inter">${esc(btn.dataset.explain || '')}</p>
+        </div>`;
+    });
+    popup.classList.remove('hidden');
+}
 
-                        // Save to localStorage for future visits
-                        localStorage.setItem(`consent_${currentConsentId}`, JSON.stringify(consentData));
+document.getElementById('closeReviewPopup').addEventListener('click', () => {
+    document.getElementById('reviewPopup').classList.add('hidden');
+    document.getElementById('finalSection').classList.remove('hidden');
+});
 
-                    } catch (aiErr) {
-                        console.error('❌ AI generation failed:', aiErr);
-                        showLoadingError('Failed to generate AI explanation. Please try again or contact support.');
-                        return;
-                    }
-                }
+// ═══════════════════════════════════════════════════════
+//  MEDIA RENDERING
+// ═══════════════════════════════════════════════════════
+function renderMedia(containerId, media, proc) {
+    const c = document.getElementById(containerId);
+    if (!c) return;
+    const vids = media?.videos || [], imgs = media?.images || [];
+    let h = '';
+    vids.slice(0,2).forEach(v => {
+        h += `<div class="video-card bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+            <iframe src="${esc(v.embed_url)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="${esc(v.title)}"></iframe>
+            <div class="p-3"><p class="text-xs font-semibold text-slate-800 line-clamp-2 font-manrope">${esc(v.title)}</p><p class="text-xs text-slate-500 font-inter">${esc(v.channel||'')}</p></div></div>`;
+    });
+    imgs.slice(0,4).forEach(img => {
+        const src = img.thumbnail || img.url;
+        h += `<div class="media-card bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm aspect-square">
+            <img src="${esc(src)}" alt="${esc(img.title)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="fallback-icon" style="display:none;"><div class="text-center p-4"><iconify-icon icon="solar:image-bold" class="text-slate-300" width="32"></iconify-icon><p class="text-xs text-slate-500 font-inter line-clamp-2">${esc(img.title)}</p></div></div></div>`;
+    });
+    if (!h) h = `<div class="col-span-full bg-gradient-to-br from-teal-50 to-emerald-50 rounded-xl p-8 border border-teal-100 flex items-center justify-center min-h-[200px]"><div class="text-center"><iconify-icon icon="solar:medical-kit-bold" class="text-teal-600 mb-4" width="64"></iconify-icon><p class="text-sm text-slate-600 font-inter">Visual: ${esc(proc)} Overview</p></div></div>`;
+    c.innerHTML = h;
+}
 
-                document.getElementById('loadingSplash').classList.add('hidden');
+// ═══════════════════════════════════════════════════════
+//  VERIFICATION BADGE
+// ═══════════════════════════════════════════════════════
+function renderVerificationBadge(content) {
+    const badge = document.getElementById('verificationBadge');
+    const icon = document.getElementById('verificationIcon');
+    const title = document.getElementById('verificationTitle');
+    const detail = document.getElementById('verificationDetail');
 
-                // Persist OTP for downstream signature step if present
-                if (consentData.otp) {
-                    sessionStorage.setItem(`consentOtp:${currentConsentId}`, consentData.otp);
-                }
+    const verification = content.verification || {};
+    const sources = content.researchSources || [];
+    const confidence = verification.source_confidence || 'unknown';
+    const flagged = verification.flagged_claims || 0;
+    const verified = verification.verified_claims || 0;
 
-                populateHeader();
-                await populateContent();
-                const otpOk = validateOtpRequirement();
-                togglePageLock(!otpOk);
+    if (confidence === 'unknown' && sources.length === 0) {
+        badge.classList.add('hidden');
+        return;
+    }
 
-                initSectionObserver();
-                initVoiceButtons();
-                initQuiz();
-                initAiChat();
-                initLanguageSelector();
+    badge.classList.remove('hidden');
 
-            } catch (err) {
-                console.error('Initialization error:', err);
-                showLoadingError('Error loading consent form: ' + err.message);
-            }
-        }
+    if (confidence === 'high' && flagged === 0) {
+        badge.className = 'mb-6 p-4 rounded-xl border flex items-center gap-3 bg-emerald-50 border-emerald-200';
+        icon.setAttribute('icon', 'solar:shield-check-bold');
+        icon.className = 'text-emerald-600';
+        title.textContent = 'Medically Verified';
+        title.className = 'font-semibold font-manrope text-emerald-800';
+        detail.textContent = `Content verified against ${sources.join(', ')} — ${verified} claims confirmed`;
+        detail.className = 'text-sm font-inter text-emerald-700';
+    } else if (confidence === 'medium' || flagged <= 2) {
+        badge.className = 'mb-6 p-4 rounded-xl border flex items-center gap-3 bg-amber-50 border-amber-200';
+        icon.setAttribute('icon', 'solar:info-circle-bold');
+        icon.className = 'text-amber-600';
+        title.textContent = 'Partially Verified';
+        title.className = 'font-semibold font-manrope text-amber-800';
+        detail.textContent = `${verified} claims verified, ${flagged} claims could not be fully verified. Sources: ${sources.join(', ') || 'limited'}`;
+        detail.className = 'text-sm font-inter text-amber-700';
+    } else {
+        badge.className = 'mb-6 p-4 rounded-xl border flex items-center gap-3 bg-red-50 border-red-200';
+        icon.setAttribute('icon', 'solar:warning-bold');
+        icon.className = 'text-red-600';
+        title.textContent = 'Limited Verification';
+        title.className = 'font-semibold font-manrope text-red-800';
+        detail.textContent = `${flagged} claims could not be verified against medical sources. Please consult your doctor.`;
+        detail.className = 'text-sm font-inter text-red-700';
+    }
+}
 
-        function showLoadingError(message) {
-            const splash = document.getElementById('loadingSplash');
-            splash.innerHTML = `
-                <div class="text-center">
-                    <iconify-icon icon="solar:close-circle-bold" class="text-red-600 mb-4" width="64"></iconify-icon>
-                    <p class="text-red-600 font-inter mb-2 font-semibold">Error</p>
-                    <p class="text-slate-600 font-inter mb-4">${message}</p>
-                    <button onclick="window.history.back()" class="mt-4 px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 font-inter font-semibold">
-                        Go Back
-                    </button>
-                </div>
-            `;
-        }
+//  CONTENT RENDERING
+// ═══════════════════════════════════════════════════════
+function renderAll(content, lang) {
+    if (!content) return;
+    // Reset score state for fresh render
+    scoreState.total = 0;
+    scoreState.correct = 0;
+    scoreState.answered = new Set();
+    scoreState.expectedTotal = calcExpectedTotal(content);
+    updateScore();
+    const proc = content.procedure || consentData?.procedure || 'procedure';
+    const mot = MOTIVATIONAL;
 
-        function togglePageLock(lock) {
-            const interactive = document.querySelectorAll('button, input, textarea, select');
-            interactive.forEach(el => { el.disabled = lock; });
-            if (lock) {
-                submitQuizBtn?.setAttribute('aria-disabled', 'true');
-                proceedBtn?.setAttribute('aria-disabled', 'true');
-            } else {
-                submitQuizBtn?.removeAttribute('aria-disabled');
-                proceedBtn?.removeAttribute('aria-disabled');
-            }
-        }
+    // Render verification badge
+    renderVerificationBadge(content);
 
-        function validateOtpRequirement() {
-            const expected = consentData?.otp || sessionStorage.getItem(`consentOtp:${currentConsentId}`) || null;
-            if (!expected) {
-                hideOtpAlert();
-                return true;
-            }
+    // Overview
+    document.getElementById('overviewText').textContent = content.overview || content.aiSummary || `This consent form covers ${proc}.`;
+    document.getElementById('overviewMotivation').textContent = mot.overview[lang] || mot.overview.en;
+    renderMedia('overviewMedia', content.media, proc);
+    const ovQuiz = genQuiz('overview', content);
+    if (ovQuiz.length) renderQuiz('overviewQuiz', ovQuiz, 'overview');
 
-            const provided = getOtpParam();
-            if (!provided) {
-                showOtpAlert('This consent requires a 6-digit OTP. Please use the secure link shared by your doctor that contains the OTP parameter.');
-                return false;
-            }
+    // Steps
+    if (content.steps?.length) {
+        document.getElementById('stepsContainer').innerHTML = content.steps.map((s,i) => `
+            <div class="flex gap-4 items-start">
+                <div class="w-10 h-10 bg-teal-600 text-white rounded-full flex items-center justify-center shrink-0 font-semibold text-sm">${i+1}</div>
+                <div class="flex-1 pb-4 border-b border-slate-100 last:border-0">
+                    <h4 class="font-semibold text-slate-900 mb-2 font-manrope">${esc(s.title)}</h4>
+                    <p class="text-slate-700 leading-relaxed font-inter">${esc(s.description)}</p>
+                </div></div>`).join('');
+        const stQuiz = genQuiz('steps', content);
+        if (stQuiz.length) renderQuiz('stepsQuiz', stQuiz, 'steps');
+    }
 
-            if (String(provided) !== String(expected)) {
-                showOtpAlert('Invalid OTP. Please double-check the 6-digit code sent by your doctor.');
-                return false;
-            }
+    // Risks
+    if (content.risks?.length) {
+        document.getElementById('risksContainer').innerHTML = content.risks.map(r => `
+            <div class="bg-white border border-slate-200 rounded-lg p-4 flex items-start gap-4">
+                <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center shrink-0">
+                    <iconify-icon icon="solar:shield-warning-bold" class="text-amber-600" width="20"></iconify-icon></div>
+                <div class="flex-1">
+                    <div class="flex items-center justify-between mb-1">
+                        <h4 class="font-semibold text-slate-900 font-manrope">${esc(r.title)}</h4>
+                        <span class="text-xs font-medium px-2 py-1 bg-amber-100 text-amber-700 rounded-full">${esc(r.likelihood||'Uncommon')}</span></div>
+                    <p class="text-sm text-slate-700 font-inter">${esc(r.description)}</p></div></div>`).join('');
+        const rkQuiz = genQuiz('risks', content);
+        if (rkQuiz.length) renderQuiz('risksQuiz', rkQuiz, 'risks');
+    }
 
-            hideOtpAlert();
-            return true;
-        }
+    // Alternatives
+    if (content.alternatives?.length) {
+        document.getElementById('alternativesContainer').innerHTML = content.alternatives.map(a => `
+            <div class="bg-white border border-slate-200 rounded-lg p-5">
+                <h4 class="font-semibold text-slate-900 mb-2 flex items-center gap-2 font-manrope">
+                    <iconify-icon icon="solar:medical-kit-bold" class="text-indigo-600" width="20"></iconify-icon>${esc(a.title)}</h4>
+                <p class="text-sm text-slate-700 mb-3 font-inter">${esc(a.description)}</p>
+                <div class="text-xs text-slate-500 font-inter flex items-center gap-1">
+                    <iconify-icon icon="solar:info-circle-linear" width="14"></iconify-icon>
+                    <span>Recommended when: ${esc(a.whenRecommended||'As clinically appropriate')}</span></div></div>`).join('');
+        document.getElementById('recommendationText').textContent = 'Based on your condition, the recommended approach is the safest and most effective option.';
+        const alQuiz = genQuiz('alternatives', content);
+        if (alQuiz.length) renderQuiz('alternativesQuiz', alQuiz, 'alternatives');
+    }
 
-        function showOtpAlert(message) {
-            otpAlertText.textContent = message;
-            otpAlert.classList.remove('hidden');
-        }
-
-        function hideOtpAlert() {
-            otpAlert.classList.add('hidden');
-        }
-
-        function populateHeader() {
-            document.getElementById('headerPatientName').textContent = consentData.patientName || 'Patient';
-            document.getElementById('headerProcedure').textContent = consentData.procedure || 'Procedure';
-            document.getElementById('headerConsentId').textContent = currentConsentId || '-';
-        }
-
-        async function populateContent() {
-            if (!consentData) return;
-
-            // Overview
-            const overviewText = consentData.aiSummary || consentData.overview || `This consent form is for ${consentData.procedure}. Please read all sections carefully before signing.`;
-            document.getElementById('overviewText').textContent = overviewText;
-            document.getElementById('overviewVoiceBtn').setAttribute('data-text', overviewText);
-
-            // Steps
-            if (consentData.steps?.length) {
-                const stepsHtml = consentData.steps.map((step, idx) => `
-                    <div class="flex gap-4 items-start">
-                        <div class="w-10 h-10 bg-teal-600 text-white rounded-full flex items-center justify-center shrink-0 font-semibold text-sm">${idx + 1}</div>
-                        <div class="flex-1 pb-4 border-b border-slate-100 last:border-0">
-                            <h4 class="font-semibold text-slate-900 mb-2 font-manrope">${escapeHtml(step.title)}</h4>
-                            <p class="text-slate-700 leading-relaxed font-inter">${escapeHtml(step.description)}</p>
-                        </div>
+    // Recovery
+    if (content.recovery) {
+        document.getElementById('recoverySummary').textContent = content.recovery.summary || `Recovery from ${proc} typically takes several weeks.`;
+        if (content.recovery.timeline?.length) {
+            const colors = ['bg-teal-600','bg-teal-500','bg-emerald-500','bg-emerald-400','bg-green-400'];
+            document.getElementById('timelineContainer').innerHTML = content.recovery.timeline.map((t,i) => `
+                <div class="flex gap-4">
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 ${colors[i%colors.length]} text-white rounded-full flex items-center justify-center font-semibold text-xs shadow-md">${esc(t.label)}</div>
+                        ${i<content.recovery.timeline.length-1?'<div class="w-0.5 h-full bg-gradient-to-b from-teal-300 to-transparent mt-2 min-h-[40px]"></div>':''}
                     </div>
-                `).join('');
-                document.getElementById('stepsContainer').innerHTML = stepsHtml;
+                    <div class="flex-1 pb-6">
+                        <h5 class="font-semibold text-slate-900 mb-1 font-manrope">${esc(t.label)}</h5>
+                        <p class="text-sm text-slate-700 font-inter leading-relaxed">${esc(t.description)}</p></div></div>`).join('');
+        }
+        if (content.recovery.do?.length) {
+            document.getElementById('dosList').innerHTML = content.recovery.do.map(d => `<li class="flex items-start gap-2"><iconify-icon icon="solar:check-read-bold" class="text-teal-500 shrink-0 mt-0.5" width="16"></iconify-icon><span>${esc(d)}</span></li>`).join('');
+        }
+        if (content.recovery.dont?.length) {
+            document.getElementById('dontsList').innerHTML = content.recovery.dont.map(d => `<li class="flex items-start gap-2"><iconify-icon icon="solar:close-square-bold" class="text-red-500 shrink-0 mt-0.5" width="16"></iconify-icon><span>${esc(d)}</span></li>`).join('');
+        }
+        const rcQuiz = genQuiz('recovery', content);
+        if (rcQuiz.length) renderQuiz('recoveryQuiz', rcQuiz, 'recovery');
+    }
 
-                const stepsText = consentData.steps.map(s => `${s.title}: ${s.description}`).join('. ');
-                document.getElementById('stepsVoiceBtn').setAttribute('data-text', stepsText);
-            }
+    // Voice texts
+    document.querySelectorAll('.voice-btn').forEach(btn => {
+        const key = btn.dataset.sectionKey;
+        btn.setAttribute('data-text', getSectionText(content, key));
+    });
+}
 
-            // Risks
-            if (consentData.risks?.length) {
-                const risksHtml = consentData.risks.map(risk => `
-                    <div class="bg-white border border-slate-200 rounded-lg p-4 flex items-start gap-4">
-                        <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center shrink-0">
-                            <iconify-icon icon="solar:shield-warning-bold" class="text-amber-600" width="20"></iconify-icon>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center justify-between mb-1">
-                                <h4 class="font-semibold text-slate-900 font-manrope">${escapeHtml(risk.title)}</h4>
-                                <span class="text-xs font-medium px-2 py-1 bg-amber-100 text-amber-700 rounded-full">${escapeHtml(risk.likelihood || 'Uncommon')}</span>
-                            </div>
-                            <p class="text-sm text-slate-700 font-inter">${escapeHtml(risk.description)}</p>
-                        </div>
-                    </div>
-                `).join('');
-                document.getElementById('risksContainer').innerHTML = risksHtml;
+function getSectionText(c, key) {
+    if (key==='overview') return c.aiSummary||c.overview||'';
+    if (key==='steps') return (c.steps||[]).map(s=>`${s.title}: ${s.description}`).join('. ');
+    if (key==='risks') return (c.risks||[]).map(r=>`${r.title}: ${r.description}`).join('. ');
+    if (key==='alternatives') return (c.alternatives||[]).map(a=>`${a.title}: ${a.description}`).join('. ');
+    if (key==='recovery') return `${c.recovery?.summary||''}. Do: ${(c.recovery?.do||[]).join(', ')}. Don't: ${(c.recovery?.dont||[]).join(', ')}`;
+    return '';
+}
 
-                const risksText = consentData.risks.map(r => `${r.title}: ${r.description}`).join('. ');
-                document.getElementById('risksVoiceBtn').setAttribute('data-text', risksText);
-            }
+// ═══════════════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════════════
+function esc(s='') { const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+async function fw(url, opts={}, t=CONFIG.REQUEST_TIMEOUT) { const c=new AbortController(); const tm=setTimeout(()=>c.abort(),t); try { const r=await fetch(url,{...opts,signal:c.signal}); clearTimeout(tm); return r; } catch(e) { clearTimeout(tm); throw e; } }
+function getConsentId() { return new URLSearchParams(location.search).get('consentId')||sessionStorage.getItem('currentConsentId'); }
+function getOtpParam() { return new URLSearchParams(location.search).get('otp'); }
 
-            // Alternatives
-            if (consentData.alternatives?.length) {
-                const altHtml = consentData.alternatives.map(alt => `
-                    <div class="bg-white border border-slate-200 rounded-lg p-5">
-                        <h4 class="font-semibold text-slate-900 mb-2 flex items-center gap-2 font-manrope">
-                            <iconify-icon icon="solar:medical-kit-bold" class="text-indigo-600" width="20"></iconify-icon>
-                            ${escapeHtml(alt.title)}
-                        </h4>
-                        <p class="text-sm text-slate-700 mb-3 font-inter">${escapeHtml(alt.description)}</p>
-                        <div class="text-xs text-slate-500 font-inter flex items-center gap-1">
-                            <iconify-icon icon="solar:info-circle-linear" width="14"></iconify-icon>
-                            <span>Recommended when: ${escapeHtml(alt.whenRecommended || 'As clinically appropriate')}</span>
-                        </div>
-                    </div>
-                `).join('');
-                document.getElementById('alternativesContainer').innerHTML = altHtml;
+// ═══════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════
+async function init() {
+    try {
+        // Ensure popup is hidden on load
+        document.getElementById('reviewPopup').classList.add('hidden');
+        currentConsentId = getConsentId();
+        if (!currentConsentId) { showError('No consent ID.'); return; }
+        if ('speechSynthesis' in window) { speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices(); speechSynthesis.getVoices(); }
 
-                const altText = consentData.alternatives.map(a => `${a.title}: ${a.description}`).join('. ');
-                document.getElementById('alternativesVoiceBtn').setAttribute('data-text', altText);
-            }
-
-            document.getElementById('recommendationText').textContent =
-                'Based on your condition, the recommended approach is the safest and most effective option.';
-
-            // Recovery
-            if (consentData.recovery) {
-                document.getElementById('recoverySummary').textContent =
-                    consentData.recovery.summary || `Recovery from ${consentData.procedure} typically takes several weeks. Follow all post-procedure instructions carefully.`;
-
-                // Timeline
-                if (consentData.recovery.timeline?.length) {
-                    const colorRamp = ['bg-teal-600', 'bg-teal-500', 'bg-emerald-500', 'bg-emerald-400', 'bg-green-400'];
-                    const timelineHtml = consentData.recovery.timeline.map((item, idx) => `
-                        <div class="flex gap-4">
-                            <div class="flex flex-col items-center">
-                                <div class="w-12 h-12 ${colorRamp[idx % colorRamp.length]} text-white rounded-full flex items-center justify-center font-semibold text-xs shadow-md">
-                                    ${escapeHtml(item.label)}
-                                </div>
-                                ${idx < consentData.recovery.timeline.length - 1 ? '<div class="w-0.5 h-full bg-gradient-to-b from-teal-300 to-transparent mt-2 min-h-[40px]"></div>' : ''}
-                            </div>
-                            <div class="flex-1 pb-6">
-                                <h5 class="font-semibold text-slate-900 mb-1 font-manrope">${escapeHtml(item.label)}</h5>
-                                <p class="text-sm text-slate-700 font-inter leading-relaxed">${escapeHtml(item.description)}</p>
-                            </div>
-                        </div>
-                    `).join('');
-                    document.getElementById('timelineContainer').innerHTML = timelineHtml;
-                }
-
-                // Do's
-                if (consentData.recovery.do?.length) {
-                    document.getElementById('dosList').innerHTML = consentData.recovery.do
-                        .map(item => `
-                            <li class="flex items-start gap-2">
-                                <iconify-icon icon="solar:check-read-bold" class="text-teal-500 shrink-0 mt-0.5" width="16"></iconify-icon>
-                                <span>${escapeHtml(item)}</span>
-                            </li>
-                        `).join('');
-                }
-
-                // Don'ts
-                if (consentData.recovery.dont?.length) {
-                    document.getElementById('dontsList').innerHTML = consentData.recovery.dont
-                        .map(item => `
-                            <li class="flex items-start gap-2">
-                                <iconify-icon icon="solar:close-square-bold" class="text-red-500 shrink-0 mt-0.5" width="16"></iconify-icon>
-                                <span>${escapeHtml(item)}</span>
-                            </li>
-                        `).join('');
-                }
-
-                const recoveryText = `${consentData.recovery.summary || ''}. Things to do: ${(consentData.recovery.do || []).join(', ')}. Things to avoid: ${(consentData.recovery.dont || []).join(', ')}`;
-                document.getElementById('recoveryVoiceBtn').setAttribute('data-text', recoveryText);
-            }
+        const local = localStorage.getItem(`consent_${currentConsentId}`);
+        if (local) { consentData = JSON.parse(local); }
+        else {
+            const otp = getOtpParam();
+            const otpQ = otp ? `?otp=${encodeURIComponent(otp)}` : '';
+            const resp = await fw(`${CONFIG.API_BASE_URL}/consent/${currentConsentId}${otpQ}`);
+            if (!resp.ok) throw new Error(resp.status===404?'Consent not found':'Failed');
+            consentData = await resp.json();
+            if (consentData.requiresOtp) { showOtpAlert('Secure access required.'); return; }
         }
 
-        function escapeHtml(str = '') {
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
+        if (!consentData.steps || consentData.steps.length === 0) {
+            document.getElementById('loadingText').textContent = 'Generating AI explanation...';
+            const content = await translateContent(consentData.procedure, consentData.patientName, consentData.doctorName, 'en');
+            if (content) { consentData = { ...consentData, ...content, media: content.media||consentData.media }; localStorage.setItem(`consent_${currentConsentId}`, JSON.stringify(consentData)); }
         }
 
-        function initSectionObserver() {
-            const sectionObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.remove('opacity-0', 'translate-y-4');
-                        entry.target.classList.add('opacity-100', 'translate-y-0');
+        document.getElementById('loadingSplash').classList.add('hidden');
+        document.getElementById('headerPatientName').textContent = consentData.patientName||'Patient';
+        document.getElementById('headerProcedure').textContent = consentData.procedure||'Procedure';
+        document.getElementById('headerConsentId').textContent = currentConsentId;
 
-                        const sectionId = entry.target.id;
-                        if (sectionId !== 'quiz') {
-                            completedSections.add(sectionId);
-                            markSectionComplete(sectionId);
-                            updateProgress();
-                        }
-
-                        updateActiveNav(sectionId);
-                    }
-                });
-            }, { threshold: 0.3 });
-
-            sections.forEach(section => sectionObserver.observe(section));
-        }
-
-        function markSectionComplete(sectionId) {
-            navItems.forEach(item => {
-                const section = item.getAttribute('data-section');
-                if (section === sectionId) {
-                    const checkIcon = item.querySelector('.check-icon');
-                    checkIcon.classList.remove('hidden');
-                }
-            });
-        }
-
-        function updateActiveNav(sectionId) {
-            navItems.forEach(item => {
-                if (item.getAttribute('data-section') === sectionId) {
-                    item.classList.add('bg-teal-50', 'text-teal-700');
-                } else {
-                    item.classList.remove('bg-teal-50', 'text-teal-700');
-                }
-            });
-        }
-
-        function updateProgress() {
-            const totalSections = 5;
-            const progress = (completedSections.size / totalSections) * 100;
-            progressBar.style.width = `${progress}%`;
-        }
-
-        function initVoiceButtons() {
-            const voiceButtons = document.querySelectorAll('.voice-btn');
-
-            voiceButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const text = btn.getAttribute('data-text');
-
-                    if (window.speechSynthesis.speaking) {
-                        window.speechSynthesis.cancel();
-                        btn.innerHTML = '<iconify-icon icon="solar:volume-loud-bold" width="18"></iconify-icon> Listen';
-                        return;
-                    }
-
-                    btn.innerHTML = '<iconify-icon icon="solar:stop-circle-bold" width="18"></iconify-icon> Stop';
-                    const utterance = new SpeechSynthesisUtterance(text);
-                    utterance.rate = 0.9;
-                    utterance.pitch = 1;
-                    utterance.onend = () => {
-                        btn.innerHTML = '<iconify-icon icon="solar:volume-loud-bold" width="18"></iconify-icon> Listen';
-                    };
-                    window.speechSynthesis.speak(utterance);
-                });
-            });
-
-            document.querySelectorAll('.simplify-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    alert('Simplified explanation feature would show a clearer, more concise version of this content.');
-                });
-            });
-        }
-
-        function initAiChat() {
-            const aiHelpBtn = document.getElementById('aiHelpBtn');
-            const aiHelpDrawer = document.getElementById('aiHelpDrawer');
-            const closeAiHelp = document.getElementById('closeAiHelp');
-            const sendAiQuestion = document.getElementById('sendAiQuestion');
-            const aiQuestionInput = document.getElementById('aiQuestionInput');
-            const aiChatMessages = document.getElementById('aiChatMessages');
-
-            aiHelpBtn.addEventListener('click', () => {
-                aiHelpDrawer.classList.remove('translate-x-full');
-            });
-
-            closeAiHelp.addEventListener('click', () => {
-                aiHelpDrawer.classList.add('translate-x-full');
-            });
-
-            aiQuestionInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') sendAiQuestion.click();
-            });
-
-            sendAiQuestion.addEventListener('click', async () => {
-                const question = aiQuestionInput.value.trim();
-                if (!question) return;
-
-                addAiMessage('user', question);
-                aiQuestionInput.value = '';
-
-                // Show typing indicator
-                const typingId = addAiMessage('ai', '<span class="animate-pulse">Thinking...</span>', true);
-
-                try {
-                    const response = await fetchWithTimeout(`${CONFIG.API_BASE_URL}/ai/ask`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            question,
-                            procedure: consentData.procedure,
-                            consentId: currentConsentId
-                        })
-                    });
-
-                    // Remove typing indicator
-                    document.getElementById(typingId)?.remove();
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        addAiMessage('ai', data.answer);
-                    } else {
-                        addAiMessage('ai', 'I could not process your question. Please try again or ask your doctor directly.');
-                    }
-                } catch (err) {
-                    console.error('AI error:', err);
-                    document.getElementById(typingId)?.remove();
-                    addAiMessage('ai', 'Sorry, I encountered an error. Please try again.');
-                }
-            });
-
-            function addAiMessage(type, message, isTyping = false) {
-                const msgId = 'msg_' + Date.now();
-                const messageDiv = document.createElement('div');
-                messageDiv.id = msgId;
-                messageDiv.className = type === 'user'
-                    ? 'bg-teal-100 rounded-lg p-3 ml-8'
-                    : 'bg-slate-100 rounded-lg p-3 mr-8';
-                messageDiv.innerHTML = `<p class="text-sm text-slate-700 font-inter">${isTyping ? message : escapeHtml(message)}</p>`;
-                aiChatMessages.appendChild(messageDiv);
-                aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
-                return msgId;
-            }
-        }
-
-        function initQuiz() {
-            // ✅ EMERGENCY MODE → Completely remove quiz from page
-            if (consentData.emergencyMode === true) {
-                console.log('🚨 EMERGENCY MODE – quiz section entirely removed');
-
-                // 1. Hide the entire quiz section
-                const quizSection = document.getElementById('quiz');
-                if (quizSection) quizSection.style.display = 'none';
-
-                // 2. Hide the quiz link in sidebar navigation
-                const quizNavLink = document.querySelector('a[data-section="quiz"]');
-                if (quizNavLink) quizNavLink.style.display = 'none';
-
-                // 3. Add a direct "Proceed to Sign" button after recovery section
-                const recoverySection = document.getElementById('recovery');
-                if (recoverySection) {
-                    const signBlock = document.createElement('section');
-                    signBlock.className = 'content-section mb-16 opacity-100 translate-y-0';
-                    signBlock.innerHTML = `
-                        <div class="bg-orange-50 border-2 border-orange-300 rounded-xl p-8 text-center">
-                            <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <iconify-icon icon="solar:siren-rounded-bold" class="text-white" width="32"></iconify-icon>
-                            </div>
-                            <h3 class="text-xl font-bold text-orange-900 mb-2 font-manrope">🚨 Emergency Procedure</h3>
-                            <p class="text-orange-800 mb-6 font-inter">This is an emergency consent. The comprehension quiz has been waived. You may proceed directly to sign.</p>
-                            <button id="emergencyProceedBtn" class="px-8 py-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-semibold text-lg font-inter shadow-lg">
-                                Proceed to Digital Consent Form →
-                            </button>
-                        </div>
-                    `;
-                    recoverySection.after(signBlock);
-
-                    document.getElementById('emergencyProceedBtn').addEventListener('click', () => {
-                        if (!validateOtpRequirement()) {
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                            return;
-                        }
-                        sessionStorage.setItem('currentConsentId', currentConsentId);
-                        const otp = getOtpParam();
-                        const otpQuery = otp ? `&otp=${encodeURIComponent(otp)}` : '';
-                        window.location.href = `consent_sign.html?consentId=${currentConsentId}${otpQuery}`;
-                    });
-                }
-
-                // 4. Mark quiz as done for progress tracking
-                completedSections.add('quiz');
-                updateProgress();
-
-                return; // nothing else to do
-            }
-
-            // ✅ NORMAL MODE - Show quiz as usual
-            // If quiz is missing or empty, show error (AI should provide it)
-            if (!consentData.quiz || !consentData.quiz.questions || consentData.quiz.questions.length === 0) {
-                document.getElementById('quizContainer').innerHTML = `
-                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 text-amber-800 font-inter">
-                        <p>Quiz questions could not be loaded. Please contact support.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            const quizHtml = consentData.quiz.questions.map((q, idx) => {
-                if (q.options && typeof q.options === 'object') {
-                    const optionsHtml = Object.entries(q.options)
-                        .map(([key, value]) => `
-                            <label class="quiz-option flex items-center gap-3 p-4 border border-slate-200 rounded-lg cursor-pointer hover:bg-teal-50 hover:border-teal-300 transition-all">
-                                <input type="radio" name="q${idx + 1}" value="${key}" class="w-5 h-5 text-teal-600 focus:ring-teal-500">
-                                <span class="font-inter text-slate-700">${escapeHtml(value)}</span>
-                            </label>
-                        `)
-                        .join('');
-                    return `
-                        <div class="quiz-question bg-white border border-slate-200 rounded-xl p-6 shadow-sm" data-question="${idx + 1}">
-                            <h4 class="font-semibold text-slate-900 mb-4 font-manrope text-lg">${idx + 1}. ${escapeHtml(q.question)}</h4>
-                            <div class="space-y-3">${optionsHtml}</div>
-                        </div>
-                    `;
-                } else {
-                    return `
-                        <div class="quiz-question bg-white border border-slate-200 rounded-xl p-6 shadow-sm" data-question="${idx + 1}">
-                            <h4 class="font-semibold text-slate-900 mb-4 font-manrope text-lg">${idx + 1}. ${escapeHtml(q.question)}</h4>
-                            <textarea id="q${idx + 1}Answer" rows="5" class="w-full p-4 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent resize-none font-inter" placeholder="Type your answer here..."></textarea>
-                            <p class="text-xs text-slate-500 mt-2 font-inter flex items-center gap-1">
-                                <iconify-icon icon="solar:info-circle-linear" width="14"></iconify-icon>
-                                Minimum ${q.minWords || 20} words required
-                            </p>
-                        </div>
-                    `;
-                }
-            }).join('');
-
-            document.getElementById('quizContainer').innerHTML = quizHtml;
-
-            submitQuizBtn.addEventListener('click', () => {
-                if (!validateOtpRequirement()) {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    return;
-                }
-                validateQuiz();
-            });
-        }
-
-        function validateQuiz() {
-            const questions = consentData.quiz.questions;
-            const errors = [];
-
-            questions.forEach((q, idx) => {
-                const qNum = idx + 1;
-                if (q.options) {
-                    const selected = document.querySelector(`input[name="q${qNum}"]:checked`);
-                    if (!selected) errors.push(`Please answer question ${qNum}`);
-                } else {
-                    const answer = document.getElementById(`q${qNum}Answer`)?.value.trim() || '';
-                    const minWords = q.minWords || 20;
-                    if (!answer || answer.split(/\s+/).length < minWords) {
-                        errors.push(`Question ${qNum}: Please provide at least ${minWords} words`);
-                    }
-                }
-            });
-
-            const quizSuccess = document.getElementById('quizSuccess');
-            const quizError = document.getElementById('quizError');
-            const errorMessage = document.getElementById('errorMessage');
-
-            if (errors.length > 0) {
-                quizError.classList.remove('hidden');
-                quizSuccess.classList.add('hidden');
-                errorMessage.innerHTML = errors.map(e => `<span class="block">• ${e}</span>`).join('');
-                window.scrollTo({ top: document.getElementById('quiz').offsetTop - 100, behavior: 'smooth' });
-            } else {
-                quizError.classList.add('hidden');
-                quizSuccess.classList.remove('hidden');
-                completedSections.add('quiz');
-                markSectionComplete('quiz');
-                updateProgress();
-                window.scrollTo({ top: quizSuccess.offsetTop - 100, behavior: 'smooth' });
-            }
-        }
-
-        function initLanguageSelector() {
-            document.getElementById('languageSelect').addEventListener('change', (e) => {
-                currentLanguage = e.target.value;
-                alert(`Language switching to ${e.target.options[e.target.selectedIndex].text} would be implemented here.`);
-            });
-        }
-
-        proceedBtn.addEventListener('click', () => {
-            if (!validateOtpRequirement()) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                return;
-            }
-            sessionStorage.setItem('currentConsentId', currentConsentId);
+        // EMERGENCY MODE: Skip explanation, go directly to signature
+        if (consentData.emergencyMode) {
             const otp = getOtpParam();
             const otpQuery = otp ? `&otp=${encodeURIComponent(otp)}` : '';
             window.location.href = `consent_sign.html?consentId=${currentConsentId}${otpQuery}`;
+            return;
+        }
+
+        renderAll(consentData, currentLanguage);
+        initObservers();
+        initVoice();
+        initLangSelector();
+        initAiChat();
+            document.getElementById('finalSection').classList.remove('hidden');
+            document.getElementById('scoreBar').innerHTML = `
+                <div class="flex items-center gap-3">
+                    <iconify-icon icon="solar:warning-bold" class="text-red-600" width="32"></iconify-icon>
+                    <div>
+                        <div class="font-bold text-red-700 font-manrope">EMERGENCY MODE</div>
+                        <div class="text-sm text-red-600 font-inter">Quiz bypassed — Proceed to sign immediately</div>
+                    </div>
+                </div>
+            `;
+            // Hide all quiz sections in emergency mode
+            document.querySelectorAll('.section-quiz').forEach(el => el.classList.add('hidden'));
+        }
+        document.getElementById('proceedToSignature').addEventListener('click', () => {
+            sessionStorage.setItem('currentConsentId', currentConsentId);
+            const otp = getOtpParam();
+            location.href = `consent_sign.html?consentId=${currentConsentId}${otp?`&otp=${encodeURIComponent(otp)}`:''}`;
         });
+    } catch(err) { console.error(err); showError('Error: '+err.message); }
+}
 
-        window.addEventListener('DOMContentLoaded', initializeConsent);
-    </script>
+function showError(msg) { const s=document.getElementById('loadingSplash'); s.innerHTML=`<div class="text-center"><iconify-icon icon="solar:close-circle-bold" class="text-red-600 mb-4" width="64"></iconify-icon><p class="text-red-600 font-inter mb-2 font-semibold">Error</p><p class="text-slate-600 font-inter mb-4">${esc(msg)}</p><button onclick="history.back()" class="mt-4 px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 font-inter font-semibold">Go Back</button></div>`; }
+function showOtpAlert(msg) { document.getElementById('otpAlertText').textContent=msg; document.getElementById('otpAlert').classList.remove('hidden'); document.getElementById('loadingSplash').classList.add('hidden'); }
+
+function initObservers() {
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting) { e.target.classList.remove('opacity-0','translate-y-4'); e.target.classList.add('opacity-100','translate-y-0'); completedSections.add(e.target.id); navItems.forEach(n => { if(n.dataset.section===e.target.id) n.querySelector('.check-icon')?.classList.remove('hidden'); }); progressBar.style.width=Math.round((completedSections.size/sections.length)*100)+'%'; } }); }, { threshold: 0.3 });
+    sections.forEach(s => obs.observe(s));
+}
+
+function initVoice() {
+    document.querySelectorAll('.voice-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const text = btn.getAttribute('data-text');
+            if (!text) return;
+            if (btn.classList.contains('voice-active')) { stopSpeaking(); btn.classList.remove('voice-active'); }
+            else { stopSpeaking(); btn.classList.add('voice-active'); speakText(text, currentLanguage); }
+        });
+    });
+}
+
+function initLangSelector() {
+    document.getElementById('languageSelect').addEventListener('change', async (e) => {
+        currentLanguage = e.target.value;
+        const splash = document.getElementById('loadingSplash');
+        splash.classList.remove('hidden');
+        splash.innerHTML = `<div class="text-center"><div class="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-4"></div><p class="text-slate-600 font-inter">Translating to ${LANG_NAMES[currentLanguage]}...</p></div>`;
+        const content = await translateContent(consentData.procedure, consentData.patientName, consentData.doctorName, currentLanguage);
+        if (content) { consentData = { ...consentData, ...content, media: content.media||consentData.media }; renderAll(consentData, currentLanguage); initVoice(); localStorage.setItem(`consent_${currentConsentId}`, JSON.stringify(consentData)); }
+        splash.classList.add('hidden');
+        splash.innerHTML = `<div class="text-center"><div class="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-4"></div><p class="text-slate-600 font-inter" id="loadingText">Loading consent form...</p></div>`;
+    });
+}
+
+function initAiChat() {
+    const drawer = document.getElementById('aiHelpDrawer');
+    document.getElementById('aiHelpBtn').addEventListener('click', () => drawer.classList.remove('translate-x-full'));
+    document.getElementById('closeAiHelp').addEventListener('click', () => drawer.classList.add('translate-x-full'));
+    document.getElementById('sendAiQuestion').addEventListener('click', sendAi);
+    document.getElementById('aiQuestionInput').addEventListener('keydown', e => { if(e.key==='Enter') sendAi(); });
+}
+
+async function sendAi() {
+    const input = document.getElementById('aiQuestionInput');
+    const q = input.value.trim();
+    if (!q) return;
+    input.value = '';
+    const chatBox = document.getElementById('aiChatMessages');
+    chatBox.innerHTML += `<div class="bg-blue-50 rounded-lg p-3 text-sm text-blue-800 font-inter">${esc(q)}</div>`;
+    try {
+        const resp = await fw(`${CONFIG.API_BASE_URL}/ai/ask`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: q, procedure: consentData.procedure, patientContext: consentData.patientName })
+        });
+        const data = await resp.json();
+        chatBox.innerHTML += `<div class="bg-teal-50 rounded-lg p-3 text-sm text-teal-800 font-inter">${esc(data.answer || 'I could not answer that.')}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    } catch { chatBox.innerHTML += `<div class="bg-red-50 rounded-lg p-3 text-sm text-red-700 font-inter">Sorry, I couldn't process that. Please try again.</div>`; }
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
 </body>
-
 </html>

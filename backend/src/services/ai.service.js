@@ -61,9 +61,13 @@ export async function generatePatientConsentContent({
     return buildFallbackContent(procedure || 'Medical Procedure', patientName, doctorName);
   }
 
-  console.log(`🤖 Generating AI content for: ${procedure}`);
+  console.log(`🤖 Generating AI content for: ${procedure} (language: ${language})`);
+
+  const langName = { en:'English', hi:'Hindi', ta:'Tamil', te:'Telugu', bn:'Bengali', mr:'Marathi', kn:'Kannada', ml:'Malayalam' }[language] || 'English';
+  const langInstruction = language !== 'en' ? `\n\n*** LANGUAGE REQUIREMENT: You MUST write ALL text content in ${langName} language. This means: overview, step titles, step descriptions, risk titles, risk descriptions, alternative titles, alternative descriptions, recovery summary, do items, dont items, quiz questions, and quiz options — ALL in ${langName}. The ONLY English allowed is the JSON field names (keys like "overview", "steps", "risks" etc). If you write any content value in English, the output is WRONG. ***` : '';
 
   const prompt = `You are an expert medical consent assistant. Create a detailed consent form for "${procedure}" for a patient named "${patientName}".
+  ${langInstruction}
   
   Output MUST be valid JSON only, without markdown formatting or code blocks. The JSON must match this structure:
   {
@@ -243,6 +247,7 @@ function buildQuizForProcedure(procedure) {
 
 /**
  * AI Chat - answer patient questions about their procedure
+ * Detects the language of the question and responds in the same language
  */
 export async function answerPatientQuestion({ question, procedure, patientContext }) {
   if (!question || typeof question !== 'string') {
@@ -252,9 +257,13 @@ export async function answerPatientQuestion({ question, procedure, patientContex
     throw new Error('Invalid procedure name');
   }
 
+  // Detect if question contains non-ASCII characters (likely non-English)
+  const hasNonAscii = /[^\u0000-\u007F]/.test(question);
+  const langHint = hasNonAscii ? '\n\nIMPORTANT: The patient asked in a non-English language. You MUST respond in the SAME language they used. Match their language exactly.' : '';
+
   const prompt = `You are a helpful medical consent assistant. Patient is preparing for "${procedure}".
 
-Rules: No medical advice, no diagnosis, be calm and factual, under 150 words, tell them to ask their doctor if unsure.
+Rules: No medical advice, no diagnosis, be calm and factual, under 150 words, tell them to ask their doctor if unsure.${langHint}
 
 Question: "${question}"
 

@@ -5,6 +5,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
 import { generateConsentExplanation, generatePatientConsentContent } from '../services/ai.service.js';
+import { recordConsentOnBlockchain } from '../services/blockchain.service.js';
+import { generateConsentViaAgent, checkAgentServiceHealth } from '../services/agent.service.js';
+import { generateConsentPDF } from '../services/pdf.service.js';
+import { saveSignedConsent, uploadConsentPDF } from '../services/supabase.service.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -54,11 +58,14 @@ export async function createConsent(req, res) {
       doctorId,
       doctorName = 'Your Doctor',
       language = 'en',
-      patientAge, // ✅ NEW: Age
-      hospitalName, // ✅ NEW: Hospital
-      procedureDate, // ✅ NEW: Date
-      otp,  // ✅ NEW: OTP from request
-      emergencyMode = false  // ✅ NEW: Emergency Mode flag
+      patientAge,
+      patientPhone,
+      patientEmail,
+      hospitalName,
+      procedureDate,
+      otp,
+      emergencyMode = false,
+      additionalNotes
     } = req.body;
 
     if (!patientName || !procedure || !doctorId) {
@@ -68,34 +75,74 @@ export async function createConsent(req, res) {
       });
     }
 
+    console.log('📝 Creating consent:', { patientName, patientPhone, patientEmail, additionalNotes });
+
     // ✅ Generate OTP if not provided (6-digit)
     const finalOtp = otp || String(Math.floor(100000 + Math.random() * 900000));
 
     await ensureDirs();
     const consentId = `CNS_${Date.now()}`;
 
-    // Generate structured content
+    // Generate structured content - try agent service first, fallback to local AI
     let content;
+    let media = { videos: [], images: [] };
+    let verification = null;
+    let researchSources = [];
     try {
-      content = await generatePatientConsentContent({
-        procedure,
-        patientName,
-        doctorName,
-        language
-      });
+      // Check if agent service is available
+      const agentHealth = await checkAgentServiceHealth();
+
+      if (agentHealth.healthy) {
+        console.log('🤖 Using agent service for rich consent generation...');
+        const agentResult = await generateConsentViaAgent({
+          procedure,
+          patient_name: patientName,
+          doctor_name: doctorName,
+          language
+        });
+
+        if (agentResult.success && agentResult.consent) {
+          content = agentResult.consent;
+          media = agentResult.media || { videos: [], images: [] };
+          verification = agentResult.source_verification || agentResult.consent?.verification || null;
+          researchSources = agentResult.sources || [];
+          console.log(`✅ Agent service provided content with ${media.videos?.length || 0} videos, ${media.images?.length || 0} images`);
+          if (verification) {
+            console.log(`   Verification: ${verification.source_confidence || 'unknown'} confidence, ${verification.flagged_claims || 0} flagged`);
+          }
+        } else if (agentResult.success && agentResult.content) {
+          content = agentResult.content;
+          media = agentResult.media || { videos: [], images: [] };
+          console.log('✅ Agent service provided rich content with research data');
+        } else {
+          throw new Error('Agent service returned incomplete content');
+        }
+      } else {
+        throw new Error('Agent service not available');
+      }
     } catch (err) {
-      console.warn('AI generation failed, using fallback:', err.message);
-      const legacy = await generateConsentExplanation(procedure);
-      content = {
-        overview: legacy,
-        steps: [],
-        risks: [],
-        alternatives: [],
-        recovery: { summary: '', timeline: [], do: [], dont: [] },
-        quiz: { questions: [] },
-        metadata: { procedure, patientName, doctorName },
-        plainTextSummary: legacy,
-      };
+      console.warn('Agent service unavailable, using local AI:', err.message);
+      try {
+        content = await generatePatientConsentContent({
+          procedure,
+          patientName,
+          doctorName,
+          language
+        });
+      } catch (aiErr) {
+        console.warn('AI generation failed, using fallback:', aiErr.message);
+        const legacy = await generateConsentExplanation(procedure);
+        content = {
+          overview: legacy,
+          steps: [],
+          risks: [],
+          alternatives: [],
+          recovery: { summary: '', timeline: [], do: [], dont: [] },
+          quiz: { questions: [] },
+          metadata: { procedure, patientName, doctorName },
+          plainTextSummary: legacy,
+        };
+      }
     }
 
     // ✅ Generate consent hash for blockchain (only hash, not full form)
@@ -116,7 +163,9 @@ export async function createConsent(req, res) {
     const consent = {
       consentId,
       patientName,
-      age: patientAge, // ✅ Store Age
+      age: patientAge,
+      patientPhone,
+      patientEmail,
       procedure,
       doctorId,
       doctorName,
@@ -129,45 +178,51 @@ export async function createConsent(req, res) {
       surgeon: doctorName,
       anesthesiologist: 'Dr. Anesthesia',
       otp: finalOtp,
-      emergencyMode: emergencyMode,  // ✅ Store Emergency Mode flag
-      consentHash: consentHash,  // ✅ HASH stored in DB
-      status: 'PENDING_PATIENT',
+      emergencyMode: emergencyMode,
+      additionalNotes: additionalNotes || '',
+      consentHash: consentHash,
+      status: emergencyMode ? 'EMERGENCY_PENDING' : 'PENDING_PATIENT',
       patientSigned: false,
       doctorVerified: false,
       blockchainTx: null,
       blockchainStatus: 'PENDING',
       createdAt: new Date().toISOString(),
-      aiSummary: content.plainTextSummary || '',
+      aiSummary: content.plainTextSummary || content.overview || '',
+      overview: content.overview || '',
       steps: content.steps || [],
       risks: content.risks || [],
       alternatives: content.alternatives || [],
       recovery: content.recovery || {},
-      quiz: content.quiz || { questions: [] }
+      quiz: content.quiz || { questions: [] },
+      media: media || { videos: [], images: [] },
+      // Hallucination control: verification status
+      verification: verification || {
+        source_confidence: 'unknown',
+        verified_claims: 0,
+        flagged_claims: 0,
+        hallucinated: [],
+        source_mismatches: []
+      },
+      researchSources: researchSources || [],
+      contentVerified: verification ? (verification.flagged_claims || 0) < 3 : false
     };
 
     const consents = await loadConsents();
     consents.push(consent);
     await saveConsents(consents);
 
-    // ✅ Record consent hash on blockchain via API call
+    // ✅ Record consent hash on blockchain via direct service call
     try {
-      const blockchainResponse = await fetch('http://localhost:4000/api/blockchain/record', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          consentId,
-          patientName,
-          procedure,
-          doctorName,
-          doctorName,
-          hospitalName,
-          timestamp: consent.createdAt
-        })
+      const blockchainResult = await recordConsentOnBlockchain({
+        consentId,
+        consentHash: consent.consentHash,
+        patientWallet: null, // Will be set when patient signs
+        emergencyMode: consent.emergencyMode
       });
 
-      if (blockchainResponse.ok) {
-        const blockchainData = await blockchainResponse.json();
+      if (blockchainResult.success) {
         consent.blockchainStatus = 'RECORDED';
+        consent.blockchainTx = blockchainResult.transactionHash;
         console.log(`✅ Consent hash recorded on blockchain: ${consentId}`);
       }
     } catch (err) {
@@ -408,11 +463,50 @@ export async function signConsent(req, res) {
 
     await saveConsents(consents);
 
+    // Generate PDF and save to Supabase
+    let pdfUrl = null;
+    let pdfPath = null;
+    try {
+      // Generate PDF
+      console.log(`📄 Generating PDF for ${consentId}...`);
+      const pdfBuffer = await generateConsentPDF(consent);
+
+      // Upload to Supabase Storage
+      const uploadResult = await uploadConsentPDF(consentId, pdfBuffer);
+      if (uploadResult.success) {
+        pdfUrl = uploadResult.url;
+        pdfPath = uploadResult.path;
+        console.log(`✅ PDF uploaded: ${pdfUrl}`);
+      }
+
+      // Save metadata to Supabase Database
+      await saveSignedConsent({
+        consentId,
+        doctorId: consent.doctorId,
+        patientName: consent.patientName,
+        procedure: consent.procedure,
+        signedAt: consent.patientSignedAt,
+        pdfUrl,
+        pdfPath,
+        status: 'signed'
+      });
+
+      // Also save PDF locally as backup
+      const pdfDir = path.join(__dirname, '../generated-pdfs');
+      await fs.mkdir(pdfDir, { recursive: true });
+      await fs.writeFile(path.join(pdfDir, `${consentId}.pdf`), pdfBuffer);
+      console.log(`✅ PDF saved locally: ${consentId}.pdf`);
+
+    } catch (pdfErr) {
+      console.warn('⚠️ PDF generation/upload failed (non-blocking):', pdfErr.message);
+    }
+
     res.json({
       success: true,
       message: 'Consent signed successfully',
       consentId,
-      status: consent.status
+      status: consent.status,
+      pdfUrl
     });
 
   } catch (err) {

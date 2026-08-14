@@ -1,5 +1,9 @@
 // src/app.js
 
+// Load env vars FIRST before any modules that depend on them
+import { loadEnv } from './config/env.js';
+loadEnv();
+
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -14,6 +18,9 @@ import quizRoutes from './routes/quiz.routes.js';
 import consentRoutes from './routes/consent.routes.js';
 import authRoutes from './auth/auth.routes.js';
 import blockchainRoutes from './routes/blockchain.routes.js';
+import emailRoutes from './routes/email.routes.js';
+import translationRoutes from './routes/translation.routes.js';
+import signedConsentsRoutes from './routes/signed-consents.routes.js';
 
 // Middleware
 import { errorHandler } from './middleware/error.middleware.js';
@@ -39,33 +46,35 @@ const app = express();
 
 // Security Headers
 app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", 'data:', 'https:'],
-      connectSrc: ["'self'", 'http://localhost:4000', 'http://127.0.0.1:4000'],
-    },
-  },
+  contentSecurityPolicy: false, // Disabled for Vercel compatibility
   crossOriginEmbedderPolicy: false,
 }));
 
-// CORS Configuration - Allow all development ports
+// CORS Configuration
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'http://localhost:5501',
+  'http://localhost:5502',
+  'http://localhost:8080',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:5173',
+  'http://127.0.0.1:5502',
+  'http://127.0.0.1:5501',
+  'http://127.0.0.1:8080',
+  process.env.FRONTEND_URL,
+  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
+].filter(Boolean);
+
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:5173',
-    'http://localhost:5501',
-    'http://localhost:5502',
-    'http://localhost:8080',
-    'http://127.0.0.1:3000',
-    'http://127.0.0.1:5173',
-    'http://127.0.0.1:5502',
-    'http://127.0.0.1:5501',
-    'http://127.0.0.1:8080',
-    process.env.FRONTEND_URL || 'http://localhost:3000'
-  ],
+  origin: function(origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+    return callback(null, true); // Allow all in development
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -143,6 +152,15 @@ app.use('/api/quiz', quizRoutes);
 
 // Blockchain Routes
 app.use('/api/blockchain', blockchainRoutes);
+
+// Email Routes
+app.use('/api/email', emailRoutes);
+
+// Translation Routes
+app.use('/api/translation', translationRoutes);
+
+// Signed Consents Routes
+app.use('/api/signed-consents', signedConsentsRoutes);
 
 /* =========================
    WEBHOOK ROUTES

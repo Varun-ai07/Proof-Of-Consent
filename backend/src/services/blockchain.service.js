@@ -1,16 +1,42 @@
 import { ethers } from 'ethers';
 import fs from 'fs/promises';
+import fsSync from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Hardhat RPC endpoint
-const RPC_URL = 'http://127.0.0.1:8545';
-const CONTRACT_ADDRESS = '0x5FbDB2315678afecb367f032d93F642f64180aa3';  // Update after redeploy!
+// ── Read config from env (never hardcode secrets) ──────────
+// Lazy-loaded so env vars are available after loadEnv() runs
+let _config = null;
+function getConfig() {
+    if (_config) return _config;
 
-// Deployer private key (Account #13 which has 10,000 ETH)
-const DEPLOYER_KEY = '0x47c99abed3324a2707c28affff1267e45918ec8c3f20b8aa892e8b065d2942dd';
+    const envContract = process.env.CONTRACT_ADDRESS;
+    const envRpc = process.env.RPC_URL;
+    const envKey = process.env.DEPLOYER_PRIVATE_KEY;
+
+    // Try reading deployment file for contract address fallback
+    let deploymentContract = null;
+    const deploymentsDir = path.join(__dirname, '../../blockchain/deployments');
+    for (const name of ['baseSepolia.json', 'localhost.json']) {
+        try {
+            const filePath = path.join(deploymentsDir, name);
+            if (fsSync.existsSync(filePath)) {
+                const deployment = JSON.parse(fsSync.readFileSync(filePath, 'utf-8'));
+                deploymentContract = deployment.contractAddress;
+                break;
+            }
+        } catch { /* ignore */ }
+    }
+
+    _config = {
+        rpcUrl: envRpc || 'https://sepolia.base.org',
+        contractAddress: envContract || deploymentContract || '0x764bF8b277a2c08B7A5B309Bb6853c5576C6f168',
+        deployerKey: envKey || null,
+    };
+    return _config;
+}
 
 // ✅ UPDATED ABI for optimized contract
 const CONTRACT_ABI = [
@@ -42,14 +68,24 @@ let signer;
  */
 export async function initializeBlockchain() {
     try {
-        provider = new ethers.JsonRpcProvider(RPC_URL);
-        signer = new ethers.Wallet(DEPLOYER_KEY, provider);
-        contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-        
+        const { rpcUrl, contractAddress, deployerKey } = getConfig();
+
+        provider = new ethers.JsonRpcProvider(rpcUrl);
+
+        if (deployerKey) {
+            signer = new ethers.Wallet(deployerKey, provider);
+        } else {
+            // Fall back to first account on Hardhat node
+            signer = await provider.getSigner(0);
+        }
+
+        contract = new ethers.Contract(contractAddress, CONTRACT_ABI, signer);
+
         console.log('✅ Blockchain service initialized');
-        console.log(`   Contract: ${CONTRACT_ADDRESS}`);
+        console.log(`   RPC: ${rpcUrl}`);
+        console.log(`   Contract: ${contractAddress}`);
         console.log(`   Signer: ${signer.address}`);
-        
+
         return true;
     } catch (error) {
         console.error('❌ Blockchain initialization failed:', error.message);
@@ -244,7 +280,7 @@ export async function checkBlockchainConnection() {
             blockNumber,
             signerAddress: signerAddr,
             signerBalance: ethers.formatEther(balance),
-            contractAddress: CONTRACT_ADDRESS
+            contractAddress: getConfig().contractAddress
         };
 
     } catch (error) {

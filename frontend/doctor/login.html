@@ -387,7 +387,9 @@
     <script>
         // Configuration
         const CONFIG = {
-            API_BASE_URL: "http://localhost:4000/api/auth",
+            API_BASE_URL: (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+                ? 'http://localhost:4000/api/auth'
+                : `${window.location.origin}/api/auth`,
             REDIRECT_DELAY: 1500,
             MAX_RETRY_ATTEMPTS: 3,
             REQUEST_TIMEOUT: 10000

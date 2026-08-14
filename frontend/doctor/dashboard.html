@@ -207,6 +207,13 @@
                                 </div>
 
                                 <div>
+                                    <label for="patientEmail" class="label-medical">Patient Email Address</label>
+                                    <input type="email" id="patientEmail" class="input-medical"
+                                        placeholder="patient@email.com">
+                                    <p class="text-xs text-text-tertiary mt-1">📧 For sending consent link via email</p>
+                                </div>
+
+                                <div>
                                     <label for="procedure" class="label-medical">Procedure Type</label>
                                     <div class="relative">
                                         <input type="text" id="procedure" class="input-medical"
@@ -257,12 +264,10 @@
                                             class="mt-1 w-5 h-5 text-warning-600 border-warning-300 rounded focus:ring-warning-500">
                                         <div class="flex-1">
                                             <p class="font-semibold text-warning-900">⚠️ Emergency Mode</p>
-                                            <p class="text-sm text-warning-800 mt-1">Enable this for emergency
-                                                procedures
-                                                where immediate action is needed. Quiz requirement will be bypassed.</p>
+                                            <p class="text-sm text-warning-800 mt-1">Enable for emergency procedures requiring immediate action. Bypasses quiz and marks consent as <strong>EMERGENCY_PENDING</strong>. After complications clear, resend consent for proper digital signature.</p>
                                             <p id="emergencyBadge"
                                                 class="hidden text-xs font-bold text-warning-700 mt-2">🚨
-                                                Emergency Mode Enabled</p>
+                                                Emergency Mode Enabled — Patient can sign immediately</p>
                                         </div>
                                     </label>
                                 </div>
@@ -306,6 +311,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <button id="editConsentBtn" class="btn-secondary text-xs px-3 py-2 flex items-center gap-1" type="button">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                    Edit
+                                </button>
                             </div>
 
                             <div class="bg-[#f9fafa] rounded-lg border-2 border-border p-4 mb-6">
@@ -420,6 +429,48 @@
                             <div class="mt-4">
                                 <button id="viewPatientModeBtn" class="btn-secondary w-full text-xs py-2" type="button">
                                     Open in Patient View</button>
+                            </div>
+
+                            <!-- Edit Consent Modal -->
+                            <div id="editConsentModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                                <div class="bg-white rounded-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto shadow-2xl">
+                                    <div class="p-6 border-b border-gray-200 flex items-center justify-between sticky top-0 bg-white">
+                                        <h3 class="text-lg font-bold text-gray-900">Edit Consent Content</h3>
+                                        <button id="closeEditModal" class="text-gray-400 hover:text-gray-600">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                        </button>
+                                    </div>
+                                    <div class="p-6 space-y-4">
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">Overview</label>
+                                            <textarea id="editOverview" class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-teal-500" rows="3"></textarea>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">Procedure Steps (one per line: Title | Description)</label>
+                                            <textarea id="editSteps" class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-teal-500" rows="5" placeholder="Preparation | Before the surgery, you'll need to stop taking certain medications..."></textarea>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">Risks (one per line: Title | Likelihood | Description)</label>
+                                            <textarea id="editRisks" class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-teal-500" rows="4" placeholder="Infection | 2-5% | Risk of infection at the incision site..."></textarea>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">Alternatives (one per line: Title | Description)</label>
+                                            <textarea id="editAlternatives" class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-teal-500" rows="3" placeholder="Medical Management | Medication-based approach..."></textarea>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">Recovery Summary</label>
+                                            <textarea id="editRecovery" class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-teal-500" rows="3"></textarea>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">Doctor's Additional Notes</label>
+                                            <textarea id="editNotes" class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-teal-500" rows="3" placeholder="Any special instructions for this patient..."></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="p-6 border-t border-gray-200 flex gap-3 sticky bottom-0 bg-white">
+                                        <button id="cancelEditBtn" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">Cancel</button>
+                                        <button id="saveEditBtn" class="flex-1 px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors">Save Changes</button>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -757,7 +808,7 @@
                                     <div class="p-4 bg-blue-50 rounded-lg border border-blue-100">
                                         <p class="text-sm text-blue-700 mb-1">Smart Contract Address</p>
                                         <p class="font-mono text-xs text-blue-900 break-all">
-                                            0x5FbDB2315678afecb367f032d93F642f64180aa3</p>
+                                            0x764bF8b277a2c08B7A5B309Bb6853c5576C6f168</p>
                                     </div>
                                     <div class="p-4 bg-green-50 rounded-lg border border-green-100">
                                         <div class="flex items-center justify-between">
@@ -1041,6 +1092,14 @@
     </style>
 
     <script>
+        // Configuration
+        const CONFIG = {
+            API_BASE_URL: (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+                ? 'http://localhost:4000'
+                : window.location.origin,
+            REQUEST_TIMEOUT: 15000
+        };
+
         function generateConsentHash(consentData) {
             const dataString = JSON.stringify({
                 patientName: consentData.patientName,
@@ -1273,25 +1332,29 @@
                 const patientName = document.getElementById('patientName').value;
                 const patientAge = document.getElementById('patientAge').value;
                 const patientPhone = document.getElementById('patientPhone').value;
+                const patientEmail = document.getElementById('patientEmail').value;
                 const procedure = document.getElementById('procedure').value;
                 const procedureDate = document.getElementById('procedureDate').value;
                 const emergencyMode = document.getElementById('emergencyMode').checked;
+                const additionalNotes = document.getElementById('additionalNotes').value;
 
                 generateBtnText.textContent = 'Generating with AI...';
                 generateConsentBtn.disabled = true;
 
                 try {
                     // ✅ Call backend API to create consent with REAL AI content
-                    const response = await fetch('http://localhost:4000/api/consent/create', {
+                    const response = await fetch(`${CONFIG.API_BASE_URL}/api/consent/create`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             patientName,
                             patientAge,
                             patientPhone,
+                            patientEmail,
                             procedure,
                             procedureDate,
                             emergencyMode,
+                            additionalNotes,
                             doctorId: 'DOC_001',
                             doctorName: document.getElementById('doctorName').value,
                             hospitalName: document.getElementById('hospitalName').value,
@@ -1414,7 +1477,7 @@
                         }
                     }
 
-                    document.getElementById('backendConsentLink').value = `http://localhost:4000/api/consent/${consentId}`;
+                    document.getElementById('backendConsentLink').value = `${CONFIG.API_BASE_URL}/api/consent/${consentId}`;
                     document.getElementById('patientPortalLink').value = `http://127.0.0.1:5502/patient_dashboard/patient.html?consentId=${consentId}&otp=${otp}`;
 
                     localStorage.setItem(`consent_${consentId}`, JSON.stringify(consentData));
@@ -1472,13 +1535,45 @@
             window.open(whatsappUrl, '_blank');
         });
 
-        document.getElementById('emailShareBtn')?.addEventListener('click', () => {
-            const link = document.getElementById('patientPortalLink').value;
-            const otp = document.getElementById('otpDisplay').textContent;
+        document.getElementById('emailShareBtn')?.addEventListener('click', async () => {
+            const consentId = document.getElementById('previewConsentId').textContent;
+            const patientEmail = document.getElementById('patientEmail').value;
             const patientName = document.getElementById('previewPatientName').textContent;
-            const subject = 'Medical Consent Form - Action Required';
-            const body = `Hello ${patientName},\n\nYour medical consent form is ready for review and signature.\n\nLink: ${link}\nOTP: ${otp}\n\nPlease complete the verification and quiz to proceed.\n\nThank you.`;
-            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            if (!patientEmail) {
+                showAlert('error', '❌ Please enter patient email address first.');
+                return;
+            }
+
+            const btn = document.getElementById('emailShareBtn');
+            const originalText = btn.textContent;
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(`${CONFIG.API_BASE_URL}/email/send-consent`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ consentId, email: patientEmail })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showAlert('success', `✅ Consent email sent to ${patientName} (${patientEmail})`);
+                    if (result.previewUrl) {
+                        console.log('📧 Email preview:', result.previewUrl);
+                    }
+                } else {
+                    showAlert('error', `❌ Failed to send email: ${result.error}`);
+                }
+            } catch (err) {
+                showAlert('error', '❌ Failed to send email. Please try again.');
+                console.error('Email error:', err);
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
         });
 
         document.getElementById('viewPatientModeBtn')?.addEventListener('click', () => {
@@ -1486,6 +1581,128 @@
             window.open(link, '_blank');
             showAlert('info', '🔍 Opening patient view in new tab...');
         });
+
+        // ═══════ EDIT CONSENT MODAL ═══════
+        let currentEditData = null;
+
+        document.getElementById('editConsentBtn')?.addEventListener('click', () => {
+            // Load current consent data into edit form
+            const consentId = document.getElementById('previewConsentId').textContent;
+            const stored = localStorage.getItem(`consent_${consentId}`);
+            if (!stored) { showAlert('error', 'No consent data found to edit.'); return; }
+
+            currentEditData = JSON.parse(stored);
+
+            // Populate edit form
+            document.getElementById('editOverview').value = currentEditData.overview || currentEditData.aiSummary || '';
+            document.getElementById('editSteps').value = (currentEditData.steps || []).map(s => `${s.title} | ${s.description}`).join('\n');
+            document.getElementById('editRisks').value = (currentEditData.risks || []).map(r => `${r.title} | ${r.likelihood || ''} | ${r.description}`).join('\n');
+            document.getElementById('editAlternatives').value = (currentEditData.alternatives || []).map(a => `${a.title} | ${a.description}`).join('\n');
+            document.getElementById('editRecovery').value = currentEditData.recovery?.summary || '';
+            document.getElementById('editNotes').value = currentEditData.additionalNotes || '';
+
+            document.getElementById('editConsentModal').classList.remove('hidden');
+        });
+
+        document.getElementById('closeEditModal')?.addEventListener('click', () => {
+            document.getElementById('editConsentModal').classList.add('hidden');
+        });
+
+        document.getElementById('cancelEditBtn')?.addEventListener('click', () => {
+            document.getElementById('editConsentModal').classList.add('hidden');
+        });
+
+        document.getElementById('saveEditBtn')?.addEventListener('click', () => {
+            if (!currentEditData) return;
+
+            // Parse edited content
+            currentEditData.overview = document.getElementById('editOverview').value;
+            currentEditData.aiSummary = document.getElementById('editOverview').value;
+
+            // Parse steps (Title | Description)
+            const stepsText = document.getElementById('editSteps').value.trim();
+            currentEditData.steps = stepsText ? stepsText.split('\n').filter(l => l.trim()).map(line => {
+                const [title, ...descParts] = line.split('|');
+                return { title: title.trim(), description: descParts.join('|').trim() };
+            }) : [];
+
+            // Parse risks (Title | Likelihood | Description)
+            const risksText = document.getElementById('editRisks').value.trim();
+            currentEditData.risks = risksText ? risksText.split('\n').filter(l => l.trim()).map(line => {
+                const [title, likelihood, ...descParts] = line.split('|');
+                return { title: title.trim(), likelihood: likelihood?.trim() || '', description: descParts.join('|').trim() };
+            }) : [];
+
+            // Parse alternatives (Title | Description)
+            const altsText = document.getElementById('editAlternatives').value.trim();
+            currentEditData.alternatives = altsText ? altsText.split('\n').filter(l => l.trim()).map(line => {
+                const [title, ...descParts] = line.split('|');
+                return { title: title.trim(), description: descParts.join('|').trim() };
+            }) : [];
+
+            // Recovery
+            if (!currentEditData.recovery || typeof currentEditData.recovery === 'string') {
+                currentEditData.recovery = {};
+            }
+            currentEditData.recovery.summary = document.getElementById('editRecovery').value;
+
+            // Additional notes
+            currentEditData.additionalNotes = document.getElementById('editNotes').value;
+
+            // Mark as doctor-edited
+            currentEditData.doctorEdited = true;
+            currentEditData.editedAt = new Date().toISOString();
+
+            // Save back to localStorage
+            const consentId = document.getElementById('previewConsentId').textContent;
+            localStorage.setItem(`consent_${consentId}`, JSON.stringify(currentEditData));
+
+            // Update preview
+            updatePreviewFromData(currentEditData);
+
+            document.getElementById('editConsentModal').classList.add('hidden');
+            showAlert('success', '✅ Consent updated successfully!');
+        });
+
+        function updatePreviewFromData(data) {
+            // Update overview
+            const overviewEl = document.querySelector('#consentPreviewSection .text-xs.text-text-secondary');
+            // Update steps
+            const stepsList = document.getElementById('previewStepsList');
+            if (stepsList && data.steps) {
+                stepsList.innerHTML = '';
+                data.steps.forEach(step => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<strong>${step.title}</strong>: ${step.description}`;
+                    stepsList.appendChild(li);
+                });
+            }
+            // Update risks
+            const risksList = document.getElementById('previewRisksList');
+            if (risksList && data.risks) {
+                risksList.innerHTML = '';
+                data.risks.forEach(risk => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<strong>${risk.title || 'Risk'}</strong>: ${risk.description} <span class="text-xs text-text-tertiary">(${risk.likelihood})</span>`;
+                    risksList.appendChild(li);
+                });
+            }
+            // Update alternatives
+            const altList = document.getElementById('previewAlternativesList');
+            if (altList && data.alternatives) {
+                altList.innerHTML = '';
+                data.alternatives.forEach(alt => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<strong>${alt.title}</strong>: ${alt.description}`;
+                    altList.appendChild(li);
+                });
+            }
+            // Update recovery
+            const recoveryOverview = document.getElementById('previewRecoveryOverview');
+            if (recoveryOverview && data.recovery) {
+                recoveryOverview.textContent = data.recovery.summary || '';
+            }
+        }
 
         // ==================== MY PATIENTS ====================
         function getConsentStatus(consent) {
@@ -1789,7 +2006,7 @@
             document.getElementById('emergencyModeCount').textContent = emergencyCount;
 
             try {
-                const response = await fetch('http://localhost:4000/api/blockchain/records');
+                const response = await fetch(`${CONFIG.API_BASE_URL}/api/blockchain/records`);
                 if (response.ok) {
                     const data = await response.json();
                     document.getElementById('blockchainRecordsCount').textContent = data.records?.length || 0;
@@ -1874,7 +2091,7 @@
 
         async function verifyBlockchainHash(consentId) {
             try {
-                const response = await fetch(`http://localhost:4000/api/blockchain/verify/${consentId}`);
+                const response = await fetch(`${CONFIG.API_BASE_URL}/api/blockchain/verify/${consentId}`);
                 if (response.ok) {
                     const data = await response.json();
                     if (data.verified) {
@@ -1947,7 +2164,7 @@
 
         async function checkBlockchainStatus() {
             try {
-                const response = await fetch('http://localhost:4000/api/blockchain/verify/test');
+                const response = await fetch(`${CONFIG.API_BASE_URL}/api/blockchain/verify/test`);
                 if (response.ok || response.status === 404) {
                     document.getElementById('blockchainStatus').textContent = 'Connected';
                     document.getElementById('blockchainStatusIcon').className = 'w-3 h-3 bg-green-500 rounded-full';

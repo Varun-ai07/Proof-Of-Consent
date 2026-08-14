@@ -4,7 +4,9 @@ import ConsentRegistryABI from "../artifacts/contracts/ConsentRegistry.sol/Conse
 let provider;
 let signer;
 let contract;
-let contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // ✅ Updated// Update after deployment
+// Contract address - must match blockchain/deployments/baseSepolia.json
+// Updated: 2026-08-14 deployed to Base Sepolia
+let contractAddress = "0x764bF8b277a2c08B7A5B309Bb6853c5576C6f168";
 
 /**
  * Initialize Web3 connection with MetaMask

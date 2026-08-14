@@ -1,0 +1,28 @@
+{
+  "name": "poc-proof-of-consent",
+  "version": "1.0.0",
+  "description": "Proof of Consent — Medical Consent Management System",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "cd backend && npm run dev",
+    "build": "echo 'Static frontend - no build needed'",
+    "start": "cd backend && node src/server.js",
+    "vercel-build": "cd backend && npm install"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.9.0",
+    "node-fetch": "^3.3.2",
+    "@supabase/supabase-js": "^2.39.0",
+    "nodemailer": "^6.9.7",
+    "pdfkit": "^0.13.0",
+    "translate": "^1.4.1"
+  }
+}

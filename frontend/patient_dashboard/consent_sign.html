@@ -283,7 +283,7 @@
     <script>
         const CONFIG = {
             API_BASE_URL: (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-                ? 'http://localhost:4000/api'
+                ? 'http://localhost:4000/api' : `${window.location.origin}/api`
                 : '/api',
             REQUEST_TIMEOUT: 10000
         };
@@ -376,6 +376,20 @@
                 const otpOk = validateOtpRequirement();
                 if (otpOk) {
                     elements.consentForm.classList.remove('hidden');
+                }
+
+                // Emergency mode: simplify the form
+                if (consentData.emergencyMode) {
+                    document.querySelector('.content-section h3').textContent = 'Emergency Consent — Confirm & Submit';
+                    document.getElementById('signatureCanvas').parentElement.classList.add('hidden');
+                    document.getElementById('clearSignature').classList.add('hidden');
+                    document.querySelector('label[for="signatureCanvas"]')?.classList.add('hidden');
+                    document.querySelector('.text-xs.text-slate-500')?.classList.add('hidden');
+                    // Show emergency banner
+                    const banner = document.createElement('div');
+                    banner.className = 'bg-red-50 border border-red-200 rounded-lg p-4 mb-4 flex items-center gap-3';
+                    banner.innerHTML = '<iconify-icon icon="solar:warning-bold" class="text-red-600" width="24"></iconify-icon><div><p class="font-semibold text-red-800">EMERGENCY MODE</p><p class="text-sm text-red-700">Type your name and submit — signature drawing skipped for speed.</p></div>';
+                    elements.consentForm.insertBefore(banner, elements.consentForm.firstChild);
                 }
 
             } catch (err) {
@@ -614,6 +628,7 @@
             const typedSig = elements.typedSignature.value.trim();
             const canvas = document.getElementById('signatureCanvas');
             const hasCanvasSignature = hasDrawnSignature(canvas);
+            const isEmergency = consentData?.emergencyMode;
 
             if (!allChecked) {
                 showError('Please check all declaration boxes to confirm your understanding.');
@@ -625,7 +640,8 @@
                 return;
             }
 
-            if (!typedSig && !hasCanvasSignature) {
+            // Skip signature validation in emergency mode
+            if (!isEmergency && !typedSig && !hasCanvasSignature) {
                 showError('Please provide a signature (draw or type).');
                 return;
             }
@@ -652,13 +668,35 @@
                 localStorage.setItem(`consent_${currentConsentId}`, JSON.stringify(signedConsent));
                 console.log('✅ Consent signed and stored locally');
 
+                // Save to backend (generates PDF + saves to Supabase)
+                console.log('📝 Saving to backend...');
+                const signResponse = await fetch(`${CONFIG.API_BASE_URL}/consent/sign`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        consentId: currentConsentId,
+                        patientSignature: signatureHash,
+                        timestamp: new Date().toISOString(),
+                        otp: getOtpParam()
+                    })
+                });
+
+                const signData = await signResponse.json();
+                if (!signResponse.ok || !signData.success) {
+                    console.warn('Backend sign failed:', signData.error);
+                } else {
+                    console.log('✅ Consent saved to backend!');
+                    if (signData.pdfUrl) {
+                        console.log('📄 PDF URL:', signData.pdfUrl);
+                        signedConsent.pdfUrl = signData.pdfUrl;
+                    }
+                }
+
                 // Record signature on blockchain
                 console.log('📝 Recording signature on blockchain...');
-                const blockchainResponse = await fetch('http://localhost:4000/api/blockchain/sign-consent', {
+                const blockchainResponse = await fetch(`${CONFIG.API_BASE_URL}/blockchain/sign-consent`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         consentId: currentConsentId,
                         signatureHash: signatureHash.replace('0x', ''),
@@ -670,12 +708,12 @@
                 const blockchainData = await blockchainResponse.json();
 
                 if (!blockchainResponse.ok || !blockchainData.success) {
-                    throw new Error(blockchainData.error || 'Failed to record signature on blockchain');
+                    console.warn('Blockchain recording failed:', blockchainData.error);
+                } else {
+                    console.log('✅ Signature recorded on blockchain!');
+                    console.log('   Transaction:', blockchainData.transactionHash);
+                    console.log('   Block:', blockchainData.blockNumber);
                 }
-
-                console.log('✅ Signature recorded on blockchain!');
-                console.log('   Transaction:', blockchainData.transactionHash);
-                console.log('   Block:', blockchainData.blockNumber);
 
                 // Store signature blockchain data in the consent
                 signedConsent.signatureBlockchainData = {
