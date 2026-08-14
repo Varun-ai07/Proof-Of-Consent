@@ -199,6 +199,18 @@ app.post('/webhooks/consent-signed', (req, res) => {
 ========================= */
 
 app.use((req, res) => {
+  // For Vercel: serve static files for non-API routes
+  if (!req.path.startsWith('/api/')) {
+    const publicPath = path.join(__dirname, '../../public');
+    const filePath = path.join(publicPath, req.path);
+    return res.sendFile(filePath, (err) => {
+      if (err) {
+        // File not found, serve index.html for SPA routing
+        res.sendFile(path.join(publicPath, 'index.html'));
+      }
+    });
+  }
+
   console.warn(`⚠️ 404 - Route not found: ${req.method} ${req.path}`);
   res.status(404).json({
     success: false,
