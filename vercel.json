@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "outputDirectory": "frontend",
+  "public": true,
   "builds": [
     {
       "src": "backend/src/server.js",
