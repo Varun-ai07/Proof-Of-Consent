@@ -855,10 +855,13 @@ async function init() {
 
         if (!consentData.steps || consentData.steps.length === 0) {
             document.getElementById('loadingText').textContent = 'Generating AI explanation...';
-            const content = await translateContent(consentData.procedure, consentData.patientName, consentData.doctorName, 'en');
-            if (content) { consentData = { ...consentData, ...content, media: content.media||consentData.media }; localStorage.setItem(`consent_${currentConsentId}`, JSON.stringify(consentData)); }
+            try {
+                const content = await translateContent(consentData.procedure, consentData.patientName, consentData.doctorName, 'en');
+                if (content) { consentData = { ...consentData, ...content, media: content.media||consentData.media }; localStorage.setItem(`consent_${currentConsentId}`, JSON.stringify(consentData)); }
+            } catch(e) { console.warn('Translate failed, using existing data:', e); }
         }
 
+        // Always hide loading and render
         document.getElementById('loadingSplash').classList.add('hidden');
         document.getElementById('headerPatientName').textContent = consentData.patientName||'Patient';
         document.getElementById('headerProcedure').textContent = consentData.procedure||'Procedure';
