@@ -63,11 +63,24 @@ export async function generatePatientConsentContent({
 
   console.log(`🤖 Generating AI content for: ${procedure} (language: ${language})`);
 
+  // Fetch research context for better content
+  let researchContext = '';
+  try {
+    const { researchProcedure } = await import('./research.service.js');
+    const research = await researchProcedure(procedure);
+    researchContext = research.context || '';
+  } catch (e) {
+    console.warn('Research failed, using fallback:', e.message);
+  }
+
   const langName = { en:'English', hi:'Hindi', ta:'Tamil', te:'Telugu', bn:'Bengali', mr:'Marathi', kn:'Kannada', ml:'Malayalam' }[language] || 'English';
   const langInstruction = language !== 'en' ? `\n\n*** LANGUAGE REQUIREMENT: You MUST write ALL text content in ${langName} language. This means: overview, step titles, step descriptions, risk titles, risk descriptions, alternative titles, alternative descriptions, recovery summary, do items, dont items, quiz questions, and quiz options — ALL in ${langName}. The ONLY English allowed is the JSON field names (keys like "overview", "steps", "risks" etc). If you write any content value in English, the output is WRONG. ***` : '';
 
   const prompt = `You are an expert medical consent assistant. Create a detailed consent form for "${procedure}" for a patient named "${patientName}".
   ${langInstruction}
+  
+  Research context (use ONLY these facts — do NOT invent information):
+  ${researchContext || 'General medical knowledge about ' + procedure}
   
   Output MUST be valid JSON only, without markdown formatting or code blocks. The JSON must match this structure:
   {
