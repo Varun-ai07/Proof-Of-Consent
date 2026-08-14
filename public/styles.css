@@ -179,8 +179,9 @@ h3 {
     left: 0;
     right: 0;
     margin: 0 auto;
+    margin-left: -2rem;
     max-width: 1440px;
-    width: 100%;
+    width: calc(100% + 4rem);
     z-index: 50;
     pointer-events: none;
     /* Let clicks pass through to child containers */
