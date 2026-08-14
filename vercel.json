@@ -1,4 +1,15 @@
 {
   "version": 2,
-  "outputDirectory": "public"
+  "installCommand": "cd backend && npm install",
+  "buildCommand": "echo 'No build needed'",
+  "outputDirectory": "public",
+  "functions": {
+    "backend/src/server.js": {
+      "includeFiles": ["backend/**"],
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api" }
+  ]
 }
