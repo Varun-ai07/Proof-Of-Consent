@@ -35,7 +35,7 @@ router.post('/register', async (req, res) => {
       });
     }
 
-    const users = readUsers();
+    const users = await loadUsers();
 
     if (users.find(u => u.email === userEmail || u.username === userEmail)) {
       return res.status(400).json({ 
@@ -97,7 +97,7 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    const users = readUsers();
+    const users = await loadUsers();
     const user = users.find(u => u.email === userIdentifier || u.username === userIdentifier);
 
     if (!user) {
