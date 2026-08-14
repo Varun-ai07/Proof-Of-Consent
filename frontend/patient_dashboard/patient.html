@@ -835,37 +835,35 @@ function getOtpParam() { return new URLSearchParams(location.search).get('otp');
 //  INIT
 // ═══════════════════════════════════════════════════════
 async function init() {
+    // ALWAYS hide loading splash first - ensures page is never stuck
+    const hideLoading = () => { try { document.getElementById('loadingSplash').classList.add('hidden'); } catch(e) {} };
+
     try {
-        // Ensure popup is hidden on load
         document.getElementById('reviewPopup').classList.add('hidden');
         currentConsentId = getConsentId();
         if (!currentConsentId) { showError('No consent ID.'); return; }
-        if ('speechSynthesis' in window) { speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices(); speechSynthesis.getVoices(); }
 
-        const local = localStorage.getItem(`consent_${currentConsentId}`);
-        if (local) { consentData = JSON.parse(local); }
-        else {
-            const otp = getOtpParam();
-            const otpQ = otp ? `?otp=${encodeURIComponent(otp)}` : '';
-            const resp = await fw(`${CONFIG.API_BASE_URL}/consent/${currentConsentId}${otpQ}`);
-            if (!resp.ok) throw new Error(resp.status===404?'Consent not found':'Failed');
-            consentData = await resp.json();
-            if (consentData.requiresOtp) { showOtpAlert('Secure access required.'); return; }
+        // Fetch consent data from API
+        const otp = getOtpParam();
+        const otpQ = otp ? `?otp=${encodeURIComponent(otp)}` : '';
+        const resp = await fw(`${CONFIG.API_BASE_URL}/consent/${currentConsentId}${otpQ}`);
+        if (!resp.ok) { hideLoading(); showError(resp.status===404?'Consent not found':'Failed to load consent'); return; }
+        consentData = await resp.json();
+        if (consentData.requiresOtp) { hideLoading(); showOtpAlert('Secure access required.'); return; }
+
+        // Emergency mode: redirect immediately
+        if (consentData.emergencyMode) {
+            window.location.href = `consent_sign.html?consentId=${currentConsentId}${otpQ}`;
+            return;
         }
 
-        if (!consentData.steps || consentData.steps.length === 0) {
-            document.getElementById('loadingText').textContent = 'Generating AI explanation...';
-            try {
-                const content = await translateContent(consentData.procedure, consentData.patientName, consentData.doctorName, 'en');
-                if (content) { consentData = { ...consentData, ...content, media: content.media||consentData.media }; localStorage.setItem(`consent_${currentConsentId}`, JSON.stringify(consentData)); }
-            } catch(e) { console.warn('Translate failed, using existing data:', e); }
-        }
-
-        // Always hide loading and render
-        document.getElementById('loadingSplash').classList.add('hidden');
+        // Hide loading and render
+        hideLoading();
         document.getElementById('headerPatientName').textContent = consentData.patientName||'Patient';
         document.getElementById('headerProcedure').textContent = consentData.procedure||'Procedure';
         document.getElementById('headerConsentId').textContent = currentConsentId;
+
+        renderAll(consentData, currentLanguage);
 
         // EMERGENCY MODE: Skip explanation, go directly to signature
         if (consentData.emergencyMode) {
