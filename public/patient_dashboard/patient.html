@@ -952,8 +952,10 @@ function initLangSelector() {
             if (enCached && enCached.data) {
                 enContent = enCached.data;
             } else {
-                // Fetch from API
-                const resp = await fw(`${CONFIG.API_BASE_URL}/consent/${currentConsentId}${getOtpParam() ? '?otp='+getOtpParam() : ''}`);
+                // Fetch from API with OTP
+                const otp = getOtpParam() || consentData?.otp || '';
+                const otpQ = otp ? `?otp=${encodeURIComponent(otp)}` : '';
+                const resp = await fw(`${CONFIG.API_BASE_URL}/consent/${currentConsentId}${otpQ}`);
                 if (resp.ok) {
                     enContent = await resp.json();
                     setLangCache(enCacheKey, { data: enContent, ts: Date.now() });
