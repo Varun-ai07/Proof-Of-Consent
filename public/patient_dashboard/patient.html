@@ -375,6 +375,7 @@ const MOTIVATIONAL = {
 };
 
 let consentData = null;
+let originalEnglish = null; // Always holds the English version
 let currentConsentId = null;
 let currentLanguage = 'en';
 const completedSections = new Set();
@@ -896,6 +897,9 @@ async function init() {
         document.getElementById('headerProcedure').textContent = consentData.procedure || 'Procedure';
         document.getElementById('headerConsentId').textContent = currentConsentId;
 
+        // Save original English content for translation
+        originalEnglish = JSON.parse(JSON.stringify(consentData));
+
         renderAll(consentData, currentLanguage);
         initObservers();
         initVoice();
@@ -943,41 +947,49 @@ function initLangSelector() {
         splash.innerHTML = `<div class="text-center"><div class="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-4"></div><p class="text-slate-600 font-inter">Translating to ${langName}...</p></div>`;
 
         try {
-            // Use already-loaded English content as base (NO API re-fetch)
-            const enBase = { ...consentData };
-
             if (currentLanguage === 'en') {
-                // Reset to English
-                consentData = enBase;
+                // Reset to original English
+                consentData = JSON.parse(JSON.stringify(originalEnglish));
             } else {
-                // Send the already-loaded content to translation API
-                const payload = {
-                    overview: enBase.overview || enBase.aiSummary || '',
-                    steps: enBase.steps || [],
-                    risks: enBase.risks || [],
-                    alternatives: enBase.alternatives || [],
-                    recovery: enBase.recovery || {},
-                    quiz: enBase.quiz || { questions: [] }
-                };
-                const transResp = await fw(`${CONFIG.API_BASE_URL}/translation/translate`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ content: payload, language: currentLanguage })
-                });
-                if (transResp.ok) {
-                    const transResult = await transResp.json();
-                    const tc = transResult.content || {};
-                    consentData = {
-                        ...enBase,
-                        overview: tc.overview || enBase.overview,
-                        aiSummary: tc.aiSummary || enBase.aiSummary,
-                        steps: tc.steps?.length ? tc.steps : enBase.steps,
-                        risks: tc.risks?.length ? tc.risks : enBase.risks,
-                        alternatives: tc.alternatives?.length ? tc.alternatives : enBase.alternatives,
-                        recovery: tc.recovery?.summary ? tc.recovery : enBase.recovery,
-                        quiz: tc.quiz?.questions?.length ? tc.quiz : enBase.quiz,
-                        media: enBase.media || {}
+                // Check cache first
+                const cacheKey = `${originalEnglish.procedure}_${currentLanguage}`;
+                const cached = getLangCache()[cacheKey];
+                if (cached && (Date.now() - cached.ts < 3600000)) {
+                    consentData = { ...originalEnglish, ...cached.data, media: originalEnglish.media || {} };
+                } else {
+                    // Translate from originalEnglish using backend
+                    const payload = {
+                        overview: originalEnglish.overview || originalEnglish.aiSummary || '',
+                        steps: (originalEnglish.steps || []).map(s => ({ title: s.title, description: s.description })),
+                        risks: (originalEnglish.risks || []).map(r => ({ title: r.title, description: r.description, likelihood: r.likelihood })),
+                        alternatives: (originalEnglish.alternatives || []).map(a => ({ title: a.title, description: a.description, whenRecommended: a.whenRecommended })),
+                        recovery: originalEnglish.recovery || {},
+                        quiz: originalEnglish.quiz || { questions: [] }
                     };
+
+                    const transResp = await fw(`${CONFIG.API_BASE_URL}/translation/translate`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ content: payload, language: currentLanguage })
+                    });
+
+                    if (transResp.ok) {
+                        const transResult = await transResp.json();
+                        const tc = transResult.content || {};
+                        consentData = {
+                            ...originalEnglish,
+                            overview: tc.overview || originalEnglish.overview,
+                            aiSummary: tc.aiSummary || originalEnglish.aiSummary,
+                            steps: tc.steps?.length ? tc.steps : originalEnglish.steps,
+                            risks: tc.risks?.length ? tc.risks : originalEnglish.risks,
+                            alternatives: tc.alternatives?.length ? tc.alternatives : originalEnglish.alternatives,
+                            recovery: tc.recovery?.summary ? tc.recovery : originalEnglish.recovery,
+                            quiz: tc.quiz?.questions?.length ? tc.quiz : originalEnglish.quiz,
+                            media: originalEnglish.media || {}
+                        };
+                        // Cache the translation
+                        setLangCache(cacheKey, { data: consentData, ts: Date.now() });
+                    }
                 }
             }
 
