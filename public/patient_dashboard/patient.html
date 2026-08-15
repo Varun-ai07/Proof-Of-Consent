@@ -965,10 +965,9 @@ function initLangSelector() {
             if (!enContent) { splash.classList.add('hidden'); return; }
 
             if (currentLanguage === 'en') {
-                // English: use original content
                 consentData = { ...enContent, media: enContent.media || consentData?.media || {} };
             } else {
-                // Other languages: translate
+                // Translate each section individually for reliability
                 const transResp = await fw(`${CONFIG.API_BASE_URL}/translation/translate`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -976,15 +975,24 @@ function initLangSelector() {
                 });
                 if (transResp.ok) {
                     const transResult = await transResp.json();
-                    consentData = { ...enContent, ...transResult.content, media: enContent.media || consentData?.media || {} };
+                    const tc = transResult.content || {};
+                    // Merge: use translated values, fallback to English
+                    consentData = {
+                        ...enContent,
+                        overview: tc.overview || enContent.overview,
+                        aiSummary: tc.aiSummary || enContent.aiSummary,
+                        steps: tc.steps?.length ? tc.steps : enContent.steps,
+                        risks: tc.risks?.length ? tc.risks : enContent.risks,
+                        alternatives: tc.alternatives?.length ? tc.alternatives : enContent.alternatives,
+                        recovery: tc.recovery?.summary ? tc.recovery : enContent.recovery,
+                        quiz: tc.quiz?.questions?.length ? tc.quiz : enContent.quiz,
+                        media: enContent.media || consentData?.media || {}
+                    };
                 }
             }
 
-            // Re-render with translated content
             renderAll(consentData, currentLanguage);
             initVoice();
-            localStorage.setItem(`consent_${currentConsentId}`, JSON.stringify(consentData));
-            console.log('✅ Translated to', langName);
 
         } catch(err) {
             console.error('Translation error:', err);
