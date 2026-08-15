@@ -502,15 +502,33 @@ let currentUtterance = null;
 function speakText(text, lang) {
     if (!('speechSynthesis' in window) || !text) return;
     speechSynthesis.cancel();
+
     const u = new SpeechSynthesisUtterance(text);
     u.lang = LANG_BCP47[lang] || 'en-US';
     u.rate = 0.9;
+    u.pitch = 1;
+
+    // Find best matching voice
     const voices = speechSynthesis.getVoices();
-    const v = voices.find(v => v.lang.startsWith(lang));
-    if (v) u.voice = v;
+    const bcpLang = LANG_BCP47[lang] || 'en-US';
+
+    // Try exact match first
+    let voice = voices.find(v => v.lang === bcpLang);
+    // Then try language prefix match
+    if (!voice) voice = voices.find(v => v.lang.startsWith(lang));
+    // Then try any voice with the language code
+    if (!voice) voice = voices.find(v => v.lang.toLowerCase().includes(lang));
+
+    if (voice) {
+        u.voice = voice;
+        console.log('🎤 Using voice:', voice.name, voice.lang);
+    } else {
+        console.log('🎤 No specific voice found for', lang, '- using default');
+    }
+
     currentUtterance = u;
     u.onend = () => { currentUtterance = null; document.querySelectorAll('.voice-active').forEach(e => e.classList.remove('voice-active')); };
-    u.onerror = () => { currentUtterance = null; document.querySelectorAll('.voice-active').forEach(e => e.classList.remove('voice-active')); };
+    u.onerror = (e) => { console.error('Speech error:', e); currentUtterance = null; document.querySelectorAll('.voice-active').forEach(e => e.classList.remove('voice-active')); };
     speechSynthesis.speak(u);
 }
 function stopSpeaking() { speechSynthesis.cancel(); currentUtterance = null; document.querySelectorAll('.voice-active').forEach(e => e.classList.remove('voice-active')); }
@@ -654,8 +672,11 @@ function renderMedia(containerId, media, proc) {
     const vids = media?.videos || [], imgs = media?.images || [];
     let h = '';
     vids.slice(0,2).forEach(v => {
+        const embedUrl = v.embed_url || v.url?.replace('watch?v=','embed/') || '';
         h += `<div class="video-card bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-            <iframe src="${esc(v.embed_url)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="${esc(v.title)}"></iframe>
+            <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+                <iframe src="${esc(embedUrl)}" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="${esc(v.title)}"></iframe>
+            </div>
             <div class="p-3"><p class="text-xs font-semibold text-slate-800 line-clamp-2 font-manrope">${esc(v.title)}</p><p class="text-xs text-slate-500 font-inter">${esc(v.channel||'')}</p></div></div>`;
     });
     imgs.slice(0,4).forEach(img => {
@@ -915,13 +936,59 @@ function initVoice() {
 function initLangSelector() {
     document.getElementById('languageSelect').addEventListener('change', async (e) => {
         currentLanguage = e.target.value;
+        const langName = LANG_NAMES[currentLanguage] || currentLanguage;
+        console.log('🌐 Language changed to:', langName);
+
+        // Show loading
         const splash = document.getElementById('loadingSplash');
         splash.classList.remove('hidden');
-        splash.innerHTML = `<div class="text-center"><div class="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-4"></div><p class="text-slate-600 font-inter">Translating to ${LANG_NAMES[currentLanguage]}...</p></div>`;
-        const content = await translateContent(consentData.procedure, consentData.patientName, consentData.doctorName, currentLanguage);
-        if (content) { consentData = { ...consentData, ...content, media: content.media||consentData.media }; renderAll(consentData, currentLanguage); initVoice(); localStorage.setItem(`consent_${currentConsentId}`, JSON.stringify(consentData)); }
+        splash.innerHTML = `<div class="text-center"><div class="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-4"></div><p class="text-slate-600 font-inter">Translating to ${langName}...</p></div>`;
+
+        try {
+            // Fetch English content first
+            let enContent = null;
+            const enCacheKey = `${consentData.procedure}::en`;
+            const enCached = getLangCache()[enCacheKey];
+            if (enCached && enCached.data) {
+                enContent = enCached.data;
+            } else {
+                // Fetch from API
+                const resp = await fw(`${CONFIG.API_BASE_URL}/consent/${currentConsentId}${getOtpParam() ? '?otp='+getOtpParam() : ''}`);
+                if (resp.ok) {
+                    enContent = await resp.json();
+                    setLangCache(enCacheKey, { data: enContent, ts: Date.now() });
+                }
+            }
+
+            if (!enContent) { splash.classList.add('hidden'); return; }
+
+            if (currentLanguage === 'en') {
+                // English: use original content
+                consentData = { ...enContent, media: enContent.media || consentData?.media || {} };
+            } else {
+                // Other languages: translate
+                const transResp = await fw(`${CONFIG.API_BASE_URL}/translation/translate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content: enContent, language: currentLanguage })
+                });
+                if (transResp.ok) {
+                    const transResult = await transResp.json();
+                    consentData = { ...enContent, ...transResult.content, media: enContent.media || consentData?.media || {} };
+                }
+            }
+
+            // Re-render with translated content
+            renderAll(consentData, currentLanguage);
+            initVoice();
+            localStorage.setItem(`consent_${currentConsentId}`, JSON.stringify(consentData));
+            console.log('✅ Translated to', langName);
+
+        } catch(err) {
+            console.error('Translation error:', err);
+        }
+
         splash.classList.add('hidden');
-        splash.innerHTML = `<div class="text-center"><div class="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-4"></div><p class="text-slate-600 font-inter" id="loadingText">Loading consent form...</p></div>`;
     });
 }
 
