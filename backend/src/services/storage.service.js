@@ -41,8 +41,18 @@ export async function loadConsents() {
                 .select('*')
                 .order('created_at', { ascending: false });
             if (!error && data) {
-                // Transform Supabase rows back to consent objects
-                return data.map(row => row.data || row);
+                // Transform Supabase rows - merge top-level with data JSONB
+                return data.map(row => {
+                    const d = row.data || {};
+                    return {
+                        ...d,
+                        consentId: row.consent_id || d.consentId,
+                        doctorId: row.doctor_id || d.doctorId,
+                        patientName: row.patient_name || d.patientName,
+                        procedure: row.procedure || d.procedure,
+                        status: row.status || d.status
+                    };
+                });
             }
         } catch (err) {
             console.warn('Supabase load failed, trying local:', err.message);
